@@ -8,3 +8,7 @@ test/
 build/test/
 todo.txt
 tsconfig.json
+docs/
+jest.config.js
+tslint.json
+typedoc.json
