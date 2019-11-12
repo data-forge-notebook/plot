@@ -13,7 +13,7 @@
         "clean-build": "npm run clean && npm run build",
         "build:watch": "tsc --watch",
         "clean-build:watch": "rm -rf build/* && tsc --watch",
-        "prepublishOnly": "npm run setup && npm test && npm run clean-build",
+        "prepublishOnly": "npm test && npm run clean-build",
         "l": "npm run lint",
         "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}'",
         "pretest": "npm run lint",
