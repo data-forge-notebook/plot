@@ -1,7 +1,7 @@
 import { IPlotAPI, PlotAPI } from "./plot-api";
 import { IPlotConfig, IAxisMap } from "./chart-def";
 import { isArray } from "util";
-import { isNumber, determineType } from "./utils";
+import { isNumber, determineType, isObject } from "./utils";
 import { ISerializedDataFrame } from "@data-forge/serialization";
 export * from "./chart-def";
 export { IPlotAPI } from "./plot-api";
@@ -52,6 +52,84 @@ function toObject(fields: string[], values: any[]): any {
 }
 
 //
+// Create an object from array.
+//
+function arrayToObject(arr: any[], keySelector: (item: any) => any, valueSelector: (item: any) => any): any {
+    return toObject(arr.map(keySelector), arr.map(valueSelector));
+}
+
+//
+// Defines a column in a set of column-based data arrays.
+//
+interface IColumn {
+    //
+    // Name of the column.
+    //
+    name: string;
+    
+    // 
+    // Data type of the column.
+    //
+    type: string | undefined;
+
+    //
+    // Array of data values for the column.
+    //
+    data: any[];
+}
+
+//
+// Zip up column-based arrays of data into a single array.
+//
+function zipArrays(columnDetails: IColumn[]): any[] {
+    const maxLength = Math.max(...columnDetails.map(({ data }) => data.length));
+    const zipped: any[] = [];
+    for (let i = 0; i < maxLength; ++i) {
+        const output: any = {};
+        for (const {name, data} of columnDetails) {
+            output[name] = data[i];
+        }
+        zipped.push(output);
+    }
+    return zipped;
+}
+
+//
+// Serialize column-based input data.
+//
+function serializeValueObject(input: any): ISerializedDataFrame {
+    const columnNames = Object.keys(input);
+    const columns = columnNames
+        .map(name => {
+            const data = input[name];
+            let type: string | undefined = undefined;
+            if (isArray(data) && data.length > 0) {
+                type = determineType(data[0]);
+            }
+
+            const column: IColumn = {
+                name,
+                type,
+                data,
+            };
+    
+            return column;
+        })
+        .filter(({ type }) => type);
+    const values = zipArrays(columns);
+    const serializedData: ISerializedDataFrame = {
+        columnOrder: columnNames,
+        columns: arrayToObject(columns, ({ name }) => name, ({ type }) => type),
+        index: {
+            type: "number",
+            values: values.map((_, index) => index),
+        },
+        values,
+    };
+    return serializedData;
+}
+
+//
 // Serialize an array of objects.
 //
 function serializeObjectArray(input: any[]): ISerializedDataFrame {
@@ -62,11 +140,29 @@ function serializeObjectArray(input: any[]): ISerializedDataFrame {
         columns: toObject(columnNames, columnTypes),
         index: {
             type: "number",
-            values: input.map((value: number, index: number) => index),
+            values: input.map((_, index) => index),
         },
         values: input,
     };
     return serializedData;
+}
+
+//
+// Serialize input data to the standard format according to its type.
+//
+function serializeInput(input: any[] | any): [ISerializedDataFrame, IPlotConfig] {
+    const isInputArray = isArray(input);
+    const isInputObject = !isInputArray && isObject(input);
+    const isValueArray = isInputArray && input.length > 0 && isNumber(input[0]);
+    if (isValueArray) {
+        return [serializeValueArray(input), seriesPlotDefaults];
+    }
+    else if (isInputObject) {
+        return [serializeValueObject(input), dataFramePlotDefaults];
+    }
+    else {
+        return [serializeObjectArray(input), dataFramePlotDefaults];
+    }
 }
 
 /**
@@ -101,8 +197,6 @@ function serializeObjectArray(input: any[]): ISerializedDataFrame {
  * </pre>
  */
 export function plot(input: any[] | any, plotDef?: IPlotConfig, axisMap?: IAxisMap): IPlotAPI {
-    const isInputArray = isArray(input);
-    const isValueArray = isInputArray && input.length > 0 && isNumber(input[0]);
-    const serializedData = isValueArray ? serializeValueArray(input) : serializeObjectArray(input);
-    return new PlotAPI(serializedData, plotDef || {}, axisMap || {}, isValueArray ? seriesPlotDefaults : dataFramePlotDefaults);
+    const [serializedData, plotDefaults] = serializeInput(input);
+    return new PlotAPI(serializedData, plotDef || {}, axisMap || {}, plotDefaults);
 }
