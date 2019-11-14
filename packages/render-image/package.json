@@ -1,6 +1,6 @@
 {
   "name": "@plot/render-image",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A plug in for plot: The simplest plotting API for JavaScript and TypeScript.",
   "main": "build/index.js",
   "types": "build/index.d.ts",
