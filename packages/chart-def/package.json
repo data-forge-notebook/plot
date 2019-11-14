@@ -1,0 +1,54 @@
+{
+  "name": "@plot/chart-def",
+  "version": "0.0.4",
+  "description": "A plug in for plot: The simplest plotting API for JavaScript and TypeScript.",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "scripts": {
+    "c": "npm run clean",
+    "clean": "rm -rf build/*",
+    "b": "npm run build",
+    "build": "tsc",
+    "cb": "npm run clean-build",
+    "clean-build": "npm run clean && npm run build",
+    "build:watch": "tsc --watch",
+    "clean-build:watch": "rm -rf build/* && tsc --watch",
+    "prepublishOnly": "npm test && npm run clean-build",
+    "l": "npm run lint",
+    "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}'",
+    "pretest": "npm run lint",
+    "t": "npm run test",
+    "test": "jest",
+    "tw": "npm run test:watch",
+    "test:watch": "jest --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/data-forge-notebook/plot.git"
+  },
+  "keywords": [
+    "javascript",
+    "typescript",
+    "plot",
+    "data",
+    "visualization",
+    "visualisation",
+    "analysis"
+  ],
+  "author": "ashley@codecapers.com.au",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/data-forge-notebook/plot/issues"
+  },
+  "homepage": "https://github.com/data-forge-notebook/plot#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/jest": "24.0.6",
+    "@types/node": "10.11.4",
+    "jest": "24.1.0",
+    "ts-jest": "23.10.5",
+    "ts-node": "7.0.1",
+    "tslint": "5.12.1",
+    "typescript": "3.1.1"
+  }
+}

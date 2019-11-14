@@ -1,6 +1,6 @@
 {
     "name": "plot",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "The simplest plotting API for JavaScript and TypeScript.",
     "main": "build/index.js",
     "types": "build/index.d.ts",
@@ -14,6 +14,7 @@
         "build:watch": "tsc --watch",
         "clean-build:watch": "rm -rf build/* && tsc --watch",
         "prepublishOnly": "npm test && npm run clean-build",
+        "publish": "lerna publish",
         "l": "npm run lint",
         "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}'",
         "pretest": "npm run lint",
@@ -27,7 +28,15 @@
         "type": "git",
         "url": "git+https://github.com/data-forge-notebook/plot.git"
     },
-    "keywords": [],
+    "keywords": [
+        "javascript",
+        "typescript",
+        "plot",
+        "data",
+        "visualization",
+        "visualisation",
+        "analysis"
+    ],
     "author": "ashley@codecapers.com.au",
     "license": "MIT",
     "bugs": {
@@ -47,6 +56,7 @@
         "@types/jest": "24.0.6",
         "@types/node": "10.11.4",
         "jest": "24.1.0",
+        "lerna": "^3.18.4",
         "ts-jest": "23.10.5",
         "ts-node": "7.0.1",
         "tslint": "5.12.1",
