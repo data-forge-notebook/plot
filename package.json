@@ -14,7 +14,7 @@
         "build:watch": "tsc --watch",
         "clean-build:watch": "rm -rf build/* && tsc --watch",
         "prepublishOnly": "npm test && npm run clean-build",
-        "publish": "lerna publish --no-push",
+        "publish": "lerna publish --no-push --no-git-tag-version",
         "p": "npm run publish",
         "l": "npm run lint",
         "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}'",
