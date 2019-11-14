@@ -12,4 +12,3 @@ docs/
 jest.config.js
 tslint.json
 typedoc.json
-packages/

@@ -1,28 +1,8 @@
 {
-    "name": "plot",
-    "version": "0.0.4",
     "description": "The simplest plotting API for JavaScript and TypeScript.",
-    "main": "build/index.js",
-    "types": "build/index.d.ts",
     "scripts": {
-        "c": "npm run clean",
-        "clean": "rm -rf build/*",
-        "b": "npm run build",
-        "build": "tsc",
-        "cb": "npm run clean-build",
-        "clean-build": "npm run clean && npm run build",
-        "build:watch": "tsc --watch",
-        "clean-build:watch": "rm -rf build/* && tsc --watch",
-        "prepublishOnly": "npm test && npm run clean-build",
         "publish": "lerna publish --no-push --no-git-tag-version",
         "p": "npm run publish",
-        "l": "npm run lint",
-        "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}'",
-        "pretest": "npm run lint",
-        "t": "npm run test",
-        "test": "jest",
-        "tw": "npm run test:watch",
-        "test:watch": "jest --watch",
         "api-docs": "typedoc --options typedoc.json --out docs/api ./src/index.ts ./src/plot-api.ts ./src/chart-def.ts"
     },
     "repository": {
@@ -44,15 +24,7 @@
         "url": "https://github.com/data-forge-notebook/plot/issues"
     },
     "homepage": "https://github.com/data-forge-notebook/plot#readme",
-    "dependencies": {
-        "@data-forge-plot/apex": "0.2.1",
-        "@data-forge-plot/chart-def": "^1.4.1",
-        "@data-forge/serialization": "^1.0.0",
-        "inflate-template": "^1.1.6",
-        "opn": "^5.5.0",
-        "resolve-cwd": "^3.0.0",
-        "typy": "3.0.1"
-    },
+    "dependencies": {},
     "devDependencies": {
         "@types/jest": "24.0.6",
         "@types/node": "10.11.4",
