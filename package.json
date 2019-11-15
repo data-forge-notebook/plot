@@ -3,7 +3,11 @@
     "scripts": {
         "publish": "lerna publish --no-push --no-git-tag-version",
         "p": "npm run publish",
-        "api-docs": "typedoc --options typedoc.json --out docs/api ./src/index.ts ./src/plot-api.ts ./src/chart-def.ts"
+        "api-docs": "typedoc --options typedoc.json --out docs/api ./src/index.ts ./src/plot-api.ts ./src/chart-def.ts",
+        "test": "lerna run test",
+        "t": "npm run test",
+        "build": "lerna run build",
+        "b": "npm run build"
     },
     "repository": {
         "type": "git",
