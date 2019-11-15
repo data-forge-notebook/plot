@@ -1,5 +1,5 @@
 
-import { AxisType, ChartType, IAxisLabelConfig, ILegendConfig, IDataLabels, IAxisTicksConfiguration } from "@data-forge-plot/chart-def";
+import { AxisType, ChartType, IAxisLabelConfig, ILegendConfig, IDataLabels, IAxisTicksConfiguration } from "@plotex/chart-def";
 
 /**
  * Configures an axis of the chart.

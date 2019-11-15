@@ -1,6 +1,6 @@
 import "jest";
 import { expandChartDef, expandAxisConfig, expandAxisMap, expandSeriesConfig, expandYSeriesConfig, expandYSeriesConfigArray } from "../expand-chart-def";
-import { ChartType, AxisType } from "@data-forge-plot/chart-def";
+import { ChartType, AxisType } from "@plotex/chart-def";
 
 describe("expand chart def", () => {
 

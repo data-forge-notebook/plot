@@ -34,3 +34,4 @@ export interface ISerializedData {
      */
     series: IDataSeriesMap;
 }
+

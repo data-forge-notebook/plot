@@ -2,7 +2,7 @@ import "jest";
 jest.mock("inflate-template");
 import { exportTemplate } from "inflate-template";
 import { PlotAPI } from "../plot-api";
-import { ChartType, HorizontalLabelPosition, VerticalLabelPosition, AxisType } from "@data-forge-plot/chart-def";
+import { ChartType, HorizontalLabelPosition, VerticalLabelPosition, AxisType } from "@plotex/chart-def";
 import { IAxisMap, IPlotConfig } from "../chart-def";
 
 describe("plot-api", () => {

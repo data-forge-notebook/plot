@@ -1,6 +1,6 @@
 import "jest";
 import { applyDefaults } from "../apply-defaults";
-import { ChartType } from "@data-forge-plot/chart-def";
+import { ChartType } from "@plotex/chart-def";
 
 describe("apply defaults", () => {
 

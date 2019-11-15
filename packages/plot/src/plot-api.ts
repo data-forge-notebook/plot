@@ -1,10 +1,10 @@
 const opn = require("opn");
 import * as path from "path";
-import { ISerializedDataFrame } from "@data-forge/serialization";
+import { ISerializedData } from "@plotex/serialization";
 import { exportTemplate, IExportOptions } from "inflate-template";
 import { IPlotConfig, IAxisMap } from "./chart-def";
 import { isObject, findChartTemplatePath } from "./utils";
-import { ChartType, IChartDef, AxisType, HorizontalLabelPosition, VerticalLabelPosition, IAxisConfig, IYAxisSeriesConfig, IAxisSeriesConfig, IXAxisConfig, IYAxisConfig } from "@data-forge-plot/chart-def";
+import { ChartType, IChartDef, AxisType, HorizontalLabelPosition, VerticalLabelPosition, IAxisConfig, IYAxisSeriesConfig, IAxisSeriesConfig, IXAxisConfig, IYAxisConfig } from "@plotex/chart-def";
 import { expandChartDef } from "./expand-chart-def";
 import { applyDefaults } from "./apply-defaults";
 
@@ -379,7 +379,7 @@ export class PlotAPI extends AbstractPlotAPI {
         return new PlotAPI(chartDef.data, chartDef.plotConfig, chartDef.axisMap);
     }
     
-    constructor(data: ISerializedDataFrame, plotConfig: IPlotConfig, axisMap: IAxisMap, plotDefaults?: IPlotConfig) {
+    constructor(data: ISerializedData, plotConfig: IPlotConfig, axisMap: IAxisMap, plotDefaults?: IPlotConfig) {
         if (!isObject(data)) {
             throw new Error("Expected 'data' parameter to PlotAPI constructor to be a serialized dataframe.");
         }

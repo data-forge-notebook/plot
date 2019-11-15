@@ -1,17 +1,15 @@
-import { IChartDef, ChartType, IYAxisSeriesConfig } from "@data-forge-plot/chart-def";
+import { IChartDef, ChartType, IYAxisSeriesConfig } from "@plotex/chart-def";
 import { expandYSeriesConfigArray, expandPlotConfig } from "./expand-chart-def";
 import { IPlotConfig } from "./chart-def";
-import { ISerializedDataFrame } from "@data-forge/serialization";
+import { ISerializedData } from "@plotex/serialization";
 
 //
 // Extract series from the chart definition's data.
 //
-function extractValues(data: ISerializedDataFrame, seriesConfigs: IYAxisSeriesConfig[]): any[] {
-    const values = seriesConfigs
-        .filter(axis => data && data.columns && data.columns[axis.series] === "number")
-        .map(axis => data.values && data.values.map(row => row[axis.series]) || []);
-    const flattened = [].concat.apply([], values); // Flatten array of arrays.
-    return flattened;
+function extractValues(data: ISerializedData, seriesConfigs: IYAxisSeriesConfig[]): any[] {
+    return seriesConfigs
+        .filter(axis => data && data.series && data.series[axis.series].type === "number")
+        .map(axis => data.series && data.series[axis.series] && data.series[axis.series].values || []);
 }
 
 function computeMin(values: number[]): number {
@@ -74,7 +72,7 @@ export function applyDefaults(inputChartDef: IChartDef, plotDefaults?: IPlotConf
 
     if (chartDef.axisMap.y.length === 0 &&
         chartDef.axisMap.y2.length === 0) {
-        chartDef.axisMap.y = expandYSeriesConfigArray(chartDef.data.columnOrder);
+        chartDef.axisMap.y = expandYSeriesConfigArray(Object.keys(chartDef.data.series));
     }
 
     if (!chartDef.plotConfig.y) {

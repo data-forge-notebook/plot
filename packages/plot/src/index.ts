@@ -2,10 +2,11 @@ import { IPlotAPI, PlotAPI } from "./plot-api";
 import { IPlotConfig, IAxisMap } from "./chart-def";
 import { isArray } from "util";
 import { isNumber, determineType, isObject } from "./utils";
-import { ISerializedDataFrame } from "@data-forge/serialization";
+import { ISerializedData, IDataSeries } from "@plotex/serialization";
+import { numberTypeAnnotation } from "@babel/types";
 export * from "./chart-def";
 export { IPlotAPI } from "./plot-api";
-export { ChartType, AxisType, HorizontalLabelPosition, VerticalLabelPosition } from "@data-forge-plot/chart-def";
+export { ChartType, AxisType, HorizontalLabelPosition, VerticalLabelPosition } from "@plotex/chart-def";
 
 const seriesPlotDefaults: IPlotConfig = {
     legend: {
@@ -22,17 +23,20 @@ const dataFramePlotDefaults: IPlotConfig = {
 //
 // Serialize an array of values.
 //
-function serializeValueArray(input: any[]): ISerializedDataFrame {
-    const serializedData: ISerializedDataFrame = {
-        columnOrder: [ "__value__" ],
-        columns: {
-            __value__: "number",
+function serializeValueArray(input: any[]): ISerializedData {
+    const serializedData: ISerializedData = {
+        series: {
+            __index__: {
+                type: "number",
+                values: input.map((_, index: number) => index),
+            },
+            __value__: {
+                type: input.length > 0 
+                    ? determineType(input[0])
+                    : "undefined",
+                values: input,
+            },
         },
-        index: {
-            type: "number",
-            values: input.map((value: number, index: number) => index),
-        },
-        values: input.map((value: number) => ({ __value__: value})),
     };
     return serializedData;
 } 
@@ -66,65 +70,37 @@ interface IColumn {
     // Name of the column.
     //
     name: string;
-    
-    // 
-    // Data type of the column.
-    //
-    type: string | undefined;
 
     //
-    // Array of data values for the column.
+    // The data series for the column.
     //
-    data: any[];
-}
-
-//
-// Zip up column-based arrays of data into a single array.
-//
-function zipArrays(columnDetails: IColumn[]): any[] {
-    const maxLength = Math.max(...columnDetails.map(({ data }) => data.length));
-    const zipped: any[] = [];
-    for (let i = 0; i < maxLength; ++i) {
-        const output: any = {};
-        for (const {name, data} of columnDetails) {
-            output[name] = data[i];
-        }
-        zipped.push(output);
-    }
-    return zipped;
+    series: IDataSeries;
 }
 
 //
 // Serialize column-based input data.
 //
-function serializeValueObject(input: any): ISerializedDataFrame {
+function serializeValueObject(input: any): ISerializedData {
     const columnNames = Object.keys(input);
     const columns = columnNames
+        .filter(name => {
+            const values = input[name];
+            return isArray(values) && values.length > 0; // Only want arrays with > 0 elements.
+        })
         .map(name => {
-            const data = input[name];
-            let type: string | undefined = undefined;
-            if (isArray(data) && data.length > 0) {
-                type = determineType(data[0]);
-            }
-
+            const values = input[name];
+            const type = determineType(values[0]);
             const column: IColumn = {
                 name,
-                type,
-                data,
+                series: {
+                    type,
+                    values,
+                },
             };
-    
             return column;
-        })
-        .filter(({ type }) => type);
-    const values = zipArrays(columns);
-    const serializedData: ISerializedDataFrame = {
-        columnOrder: columnNames,
-        columns: arrayToObject(columns, ({ name }) => name, ({ type }) => type),
-        index: {
-            type: "number",
-            values: values.map((_, index) => index),
-        },
-        values,
+        });
+    const serializedData: ISerializedData = {
+        series: arrayToObject(columns, column => column.name, column => column.series),
     };
     return serializedData;
 }
@@ -132,17 +108,31 @@ function serializeValueObject(input: any): ISerializedDataFrame {
 //
 // Serialize an array of objects.
 //
-function serializeObjectArray(input: any[]): ISerializedDataFrame {
-    const columnNames = input.length > 0 ? Object.keys(input[0]) : [];
-    const columnTypes = columnNames.map(columnName => determineType(input[0][columnName]));
-    const serializedData: ISerializedDataFrame = {
-        columnOrder: columnNames,
-        columns: toObject(columnNames, columnTypes),
-        index: {
-            type: "number",
-            values: input.map((_, index) => index),
-        },
-        values: input,
+function serializeObjectArray(input: any[]): ISerializedData {
+    if (input.length <=  0) {
+        return { series: {} }; // No data.
+    }
+
+    const columnNames = Object.keys(input[0]);
+    if (columnNames.length <= 0) {
+        return { series: {} }; // No data.
+    }
+
+    const columns = columnNames
+        .map(name => {
+            const values = input.map(obj => obj[name]);
+            const type = determineType(values[0]);
+            const column: IColumn = {
+                name,
+                series: {
+                    type,
+                    values,
+                },
+            };
+            return column;
+        });
+    const serializedData: ISerializedData = {
+        series: arrayToObject(columns, column => column.name, column => column.series),
     };
     return serializedData;
 }
@@ -150,7 +140,7 @@ function serializeObjectArray(input: any[]): ISerializedDataFrame {
 //
 // Serialize input data to the standard format according to its type.
 //
-function serializeInput(input: any[] | any): [ISerializedDataFrame, IPlotConfig] {
+function serializeInput(input: any[] | any): [ISerializedData, IPlotConfig] {
     const isInputArray = isArray(input);
     const isInputObject = !isInputArray && isObject(input);
     const isValueArray = isInputArray && input.length > 0 && isNumber(input[0]);

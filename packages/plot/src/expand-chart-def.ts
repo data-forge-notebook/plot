@@ -1,6 +1,6 @@
-import { IChartDef, IPlotConfig as IExpandedPlotConfig, IAxisMap as IExpandedAxisMap, IAxisConfig as IExpandedAxisConfig, IYAxisConfig as IExpandedYAxisConfig, IXAxisConfig as IExpandedXAxisConfig, IAxisSeriesConfig as IExpandedAxisSeriesConfig, IYAxisSeriesConfig as IExpandedYAxisSeriesConfig, ISeriesLabelConfig } from "@data-forge-plot/chart-def";
+import { IChartDef, IPlotConfig as IExpandedPlotConfig, IAxisMap as IExpandedAxisMap, IAxisConfig as IExpandedAxisConfig, IYAxisConfig as IExpandedYAxisConfig, IXAxisConfig as IExpandedXAxisConfig, IAxisSeriesConfig as IExpandedAxisSeriesConfig, IYAxisSeriesConfig as IExpandedYAxisSeriesConfig, ISeriesLabelConfig } from "@plotex/chart-def";
 import { IAxisMap, IPlotConfig, IAxisConfig, IYAxisConfig, IAxisSeriesConfig, IYAxisSeriesConfig } from "./chart-def";
-import { ISerializedDataFrame } from "@data-forge/serialization";
+import { ISerializedData } from "@plotex/serialization";
 import { isString } from "./utils";
 import { isObject, isArray } from "util";
 
@@ -120,10 +120,10 @@ export function expandPlotConfig(plotConfig: IPlotConfig): IExpandedPlotConfig {
     return expandedPlotConfig;
 }
 
-export function expandChartDef(data: ISerializedDataFrame, plotConfig: IPlotConfig, axisMap: IAxisMap): IChartDef {
+export function expandChartDef(data: ISerializedData, plotConfig: IPlotConfig, axisMap: IAxisMap): IChartDef {
     return {
         data,
         plotConfig: expandPlotConfig(plotConfig),
-        axisMap: expandAxisMap(axisMap, data.columnOrder),
+        axisMap: expandAxisMap(axisMap, Object.keys(data.series)),
     };
 }
