@@ -43,8 +43,8 @@
     },
     "homepage": "https://github.com/data-forge-notebook/plot#readme",
     "dependencies": {
-        "@data-forge-plot/apex": "0.2.1",
-        "@data-forge-plot/chart-def": "^1.4.1",
+        "@plotex/chart-def": "0.0.4",
+        "@plotex/serialization": "^0.0.4",
         "inflate-template": "^1.1.6",
         "opn": "^5.5.0",
         "resolve-cwd": "^3.0.0",
