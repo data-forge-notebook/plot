@@ -1,5 +1,5 @@
 {
-  "name": "@plot/render-apex",
+  "name": "@plotex/render-apex",
   "version": "0.0.5",
   "description": "A plug in for plot: The simplest plotting API for JavaScript and TypeScript.",
   "main": "build/index.js",
