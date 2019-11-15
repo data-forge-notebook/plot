@@ -26,10 +26,6 @@ const dataFramePlotDefaults: IPlotConfig = {
 function serializeValueArray(input: any[]): ISerializedData {
     const serializedData: ISerializedData = {
         series: {
-            __index__: {
-                type: "number",
-                values: input.map((_, index: number) => index),
-            },
             __value__: {
                 type: input.length > 0 
                     ? determineType(input[0])

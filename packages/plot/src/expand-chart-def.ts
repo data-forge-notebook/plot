@@ -124,6 +124,6 @@ export function expandChartDef(data: ISerializedData, plotConfig: IPlotConfig, a
     return {
         data,
         plotConfig: expandPlotConfig(plotConfig),
-        axisMap: expandAxisMap(axisMap, Object.keys(data.series)),
+        axisMap: expandAxisMap(axisMap, data.series && Object.keys(data.series) || []),
     };
 }

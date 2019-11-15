@@ -10,27 +10,12 @@ describe("value array   ", () => {
         const plotAPI = plot([10, 20, 30]);
         expect(plotAPI.serialize()).toEqual({
             data: {
-                columnOrder: [
-                    "__value__",
-                ],
-                columns: {
-                    __value__: "number",
-                },
-                index: {
-                    type: "number",
-                    values: [ 0, 1, 2 ],
-                },
-                values: [
-                    {
-                        __value__: 10,
+                series: {
+                    __value__: {
+                        type: "number",
+                        values: [ 10, 20, 30 ],
                     },
-                    {
-                        __value__: 20,
-                    },
-                    {
-                        __value__: 30,
-                    }
-                ]
+                },
             },
             plotConfig: {
                 chartType: "line",

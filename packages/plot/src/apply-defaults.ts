@@ -6,10 +6,12 @@ import { ISerializedData } from "@plotex/serialization";
 //
 // Extract series from the chart definition's data.
 //
-function extractValues(data: ISerializedData, seriesConfigs: IYAxisSeriesConfig[]): any[] {
-    return seriesConfigs
+function extractValues(data: ISerializedData, seriesConfigs: IYAxisSeriesConfig[]): number[] {
+    const values = seriesConfigs
         .filter(axis => data && data.series && data.series[axis.series].type === "number")
         .map(axis => data.series && data.series[axis.series] && data.series[axis.series].values || []);
+    const flattened = ([] as number[]).concat.apply([], values); // Flatten array of arrays.
+    return flattened;
 }
 
 function computeMin(values: number[]): number {
@@ -72,7 +74,7 @@ export function applyDefaults(inputChartDef: IChartDef, plotDefaults?: IPlotConf
 
     if (chartDef.axisMap.y.length === 0 &&
         chartDef.axisMap.y2.length === 0) {
-        chartDef.axisMap.y = expandYSeriesConfigArray(Object.keys(chartDef.data.series));
+        chartDef.axisMap.y = chartDef.data.series && expandYSeriesConfigArray(Object.keys(chartDef.data.series)) || [];
     }
 
     if (!chartDef.plotConfig.y) {

@@ -13,27 +13,12 @@ describe("data-forge-plot - dataframe fluent", () => {
 
         expect(plotAPI.serialize()).toEqual({
             data: {
-                columnOrder: [
-                    "A",
-                ],
-                columns: {
-                    A: "number",
+                series: {
+                    A: {
+                        type: "number",
+                        values: [10, 20, 30],
+                    },
                 },
-                index: {
-                    type: "number",
-                    values: [ 0, 1, 2 ],
-                },
-                values: [
-                    {
-                        A: 10,
-                    },
-                    {
-                        A: 20,
-                    },
-                    {
-                        A: 30,
-                    },
-                ],
             },
             plotConfig: {
                 chartType: "line",

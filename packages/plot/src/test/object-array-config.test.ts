@@ -10,27 +10,12 @@ describe("data-forge-plot - dataframe configuration", () => {
         const plotAPI = plot(data);
         expect(plotAPI.serialize()).toEqual({
             data: {
-                columnOrder: [
-                    "A",
-                ],  
-                columns: {
-                    A: "number",
+                series: {
+                    A: {
+                        type: "number",
+                        values: [10, 20, 30],
+                    },
                 },
-                index: {
-                    type: "number",
-                    values: [ 0, 1, 2 ],
-                },
-                values: [
-                    {
-                        A: 10,
-                    },
-                    {
-                        A: 20,
-                    },
-                    {
-                        A: 30,
-                    },
-                ],
             },
             plotConfig: {
                 chartType: "line",
@@ -63,32 +48,16 @@ describe("data-forge-plot - dataframe configuration", () => {
         const plotAPI = plot(data);
         expect(plotAPI.serialize()).toEqual({
             data: {
-                columnOrder: [
-                    "A",
-                    "B",
-                ],  
-                columns: {
-                    A: "number",
-                    B: "number",
+                series: {
+                    A: {
+                        type: "number",
+                        values: [10, 20, 30],
+                    },
+                    B: {
+                        type: "number",
+                        values: [1, 2, 3],
+                    },
                 },
-                index: {
-                    type: "number",
-                    values: [ 0, 1, 2 ],
-                },
-                values: [
-                    {
-                        A: 10,
-                        B: 1,
-                    },
-                    {
-                        A: 20,
-                        B: 2,
-                    },
-                    {
-                        A: 30,
-                        B: 3,
-                    },
-                ],
             },
             plotConfig: {
                 chartType: "line",
