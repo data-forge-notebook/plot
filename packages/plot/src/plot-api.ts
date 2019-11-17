@@ -261,7 +261,6 @@ export abstract class AbstractPlotAPI implements IPlotAPI {
         );
     }
 
-
     /**
      * Serialize the plot definition so that it can be converted to JSON.
      * The JSON definition of the chart can be used to instantiate the chart in a browser.

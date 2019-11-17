@@ -14,9 +14,6 @@
     "build:watch": "tsc --watch",
     "clean-build:watch": "rm -rf build/* && tsc --watch",
     "prepublishOnly": "npm test && npm run clean-build",
-    "l": "npm run lint",
-    "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}'",
-    "pretest": "npm run lint",
     "t": "npm run test",
     "test": "jest",
     "tw": "npm run test:watch",
@@ -47,7 +44,6 @@
     "jest": "24.1.0",
     "ts-jest": "23.10.5",
     "ts-node": "7.0.1",
-    "tslint": "5.12.1",
     "typescript": "3.1.1"
   },
   "gitHead": "942663bdcbba8d0fd161ede511ccc951a64241d6",
