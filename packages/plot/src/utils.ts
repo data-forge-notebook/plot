@@ -1,15 +1,4 @@
 const t = require("typy").default;
-import * as path from "path";
-
-const resolve = require('resolve-cwd');
-
-const DEFAULT_CHART_PACKAGE = "@data-forge-plot/apex";
-
-export async function findChartTemplatePath(): Promise<string> {
-    const defaultTemplatePath = resolve(`${DEFAULT_CHART_PACKAGE}/build/template/template.json`);
-    const chartTemplatesPath = path.dirname(defaultTemplatePath);
-    return chartTemplatesPath;
-}
 
 //
 // Helper function to map an array of objects.

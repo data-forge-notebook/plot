@@ -1,6 +1,4 @@
 import "jest";
-jest.mock("inflate-template");
-import { exportTemplate } from "inflate-template";
 import { PlotAPI } from "../plot-api";
 import { ChartType, HorizontalLabelPosition, VerticalLabelPosition, AxisType } from "@plotex/chart-def";
 import { IAxisMap, IPlotConfig } from "../chart-def";
@@ -416,13 +414,4 @@ describe("plot-api", () => {
         expect(serialized.plotConfig.y2!.label!.position).toBe(VerticalLabelPosition.OuterMiddle);
     });
 
-    it("can export web", async () => {
-        const data: any = {};
-        const plotConfig: IPlotConfig = { x: { label: { position: HorizontalLabelPosition.OuterRight }}};
-        const axisMap: IAxisMap = {};
-        const plot = new PlotAPI(data, plotConfig, axisMap);
-        const outputPath = "./output/test";
-        await plot.exportWeb(outputPath);
-        expect(exportTemplate).toHaveBeenCalled();
-    });
 });

@@ -1,39 +1,39 @@
 import "jest";
 import { applyDefaults } from "../apply-defaults";
 import { ChartType } from "@plotex/chart-def";
+import { ISerializedData } from "@plotex/serialization";
 
 describe("apply defaults", () => {
 
     it("chart type defaults to line 1", () => {
-        const inputChartDef: any = { data: { columnOrder: [], }, plotConfig: {} };
+        const inputChartDef: any = { data: {}, plotConfig: {} };
         const expanded = applyDefaults(inputChartDef);
         expect(expanded.plotConfig!.chartType!).toEqual(ChartType.Line);
     });
 
     it("chart type defaults to line 2", () => {
-        const inputChartDef: any = { data: { columnOrder: [], }, plotConfig: {} };
+        const inputChartDef: any = { data: {}, plotConfig: {} };
         const expanded = applyDefaults(inputChartDef);
         expect(expanded.plotConfig!.chartType!).toEqual(ChartType.Line);
     });
 
     it("width defaults to 800", () => {
-        const inputChartDef: any = { data: { columnOrder: [], }, plotConfig: {} };
+        const inputChartDef: any = { data: {}, plotConfig: {} };
         const expanded = applyDefaults(inputChartDef);
         expect(expanded.plotConfig!.width).toEqual(800);
     });
 
     it("height defaults to 600", () => {
-        const inputChartDef: any = { data: { columnOrder: [], }, plotConfig: {} };
+        const inputChartDef: any = { data: {}, plotConfig: {} };
         const expanded = applyDefaults(inputChartDef);
         expect(expanded.plotConfig!.height).toEqual(600);
     });
 
-    it("y axis defaults to all columns when no y axis series is specified 1", () => {
+    it("y axis defaults to all columns when no y axis series is specified", () => {
 
-        const data: any = { columnOrder: ["a", "b", "c"] };
         const plotConfig: any = {};
         const axisMap: any = {};
-        const inputChartDef: any = { data, plotConfig, axisMap };
+        const inputChartDef: any = { data: testData, plotConfig, axisMap };
         const expanded = applyDefaults(inputChartDef);
         expect(expanded.axisMap.y).toEqual([
             {
@@ -41,105 +41,47 @@ describe("apply defaults", () => {
             },
             {
                 series: "b",
-            },
-            {
-                series: "c",
-            },
-        ]);
-        expect(expanded.axisMap.y2).toEqual([]);
-    });
-
-    it("y axis defaults to all columns when no y axis series is specified 2", () => {
-
-        const data: any = { columnOrder: ["a", "b", "c"] };
-        const plotConfig: any = {};
-        const axisMap: any = { y: [], y2: [] };
-        const inputChartDef: any = { data, plotConfig, axisMap };
-        const expanded = applyDefaults(inputChartDef);
-        expect(expanded.axisMap.y).toEqual([
-            {
-                series: "a",
-            },
-            {
-                series: "b",
-            },
-            {
-                series: "c",
             },
         ]);
         expect(expanded.axisMap.y2).toEqual([]);
     });
 
     it("can set plot defaults 1", () => {
-        const inputChartDef: any = { data: { columnOrder: [], } };
+        const inputChartDef: any = { data: {} };
         const expanded = applyDefaults(inputChartDef, { chartType: ChartType.Bubble });
         expect(expanded.plotConfig!.chartType!).toEqual(ChartType.Bubble);
     });
 
     it("can set plot defaults 2", () => {
-        const inputChartDef: any = { data: { columnOrder: [], }, plotConfig: {} };
+        const inputChartDef: any = { data: {}, plotConfig: {} };
         const expanded = applyDefaults(inputChartDef, { chartType: ChartType.Bubble });
         expect(expanded.plotConfig!.chartType!).toEqual(ChartType.Bubble);
     });
 
     const testData = {
-        columnOrder: ["a", "b"],
-        columns: {
-            a: "number",
-            b: "number",
+        series: {
+            a: {
+                type: "number",
+                values: [ 10, 20, 30 ],
+            },
+            b: {
+                type: "number",
+                values: [ 100, 200, 300 ],
+            },
         },
-        index: {
-            type: "number",
-            values: [2, 3, 4],
-        },
-        values: [
-            {
-                a: 10,
-                b: 100,
-            },
-            {
-                a: 20,
-                b: 200,
-            },
-            {
-                a: 30,
-                b: 300,
-            },
-        ],
     };
 
     const testDataWithBadValues = {
-        columnOrder: ["a", "b"],
-        columns: {
-            a: "number",
-            b: "number",
+        series: {
+            a: {
+                type: "number",
+                values: [10, null, 20, 5 / 0, 30 ],
+            },
+            b: {
+                type: "number",
+                values: [100, undefined, 200, Math.sqrt(-2), 300 ],
+            },
         },
-        index: {
-            type: "number",
-            values: [2, 3, 4, 5, 6],
-        },
-        values: [
-            {
-                a: 10,
-                b: 100,
-            },
-            {
-                a: null,
-                b: undefined,
-            },
-            {
-                a: 20,
-                b: 200,
-            },
-            {
-                a: 5 / 0,
-                b: Math.sqrt(-2),
-            },
-            {
-                a: 30,
-                b: 300,
-            },
-        ],
     };
 
     it("y min can be passed through", () => {
@@ -413,29 +355,16 @@ describe("apply defaults", () => {
     it("min/max not computed for non number data", () => {
 
         const data = {
-            columnOrder: ["a", "b"],
-            columns: {
-                a: "string",
-                b: "string",
+            series: {
+                a: {
+                    type: "string",
+                    values: [ "10", "20", "30" ],
+                },
+                b: {
+                    type: "string",
+                    values: [ "100", "200", "300" ],
+                },
             },
-            index: {
-                type: "number",
-                values: [2, 3, 4],
-            },
-            values: [
-                {
-                    a: "10",
-                    b: "100",
-                },
-                {
-                    a: "20",
-                    b: "200",
-                },
-                {
-                    a: "30",
-                    b: "300",
-                },
-            ],
         };
     
         const inputChartDef: any = {
@@ -467,27 +396,13 @@ describe("apply defaults", () => {
 
     it("computed min and max are rounded", () => {
 
-        const testData = {
-            columnOrder: [ "a" ],
-            columns: {
-                a: "number",
-                b: "number",
-            },
-            index: {
-                type: "number",
-                values: [2, 3, 4],
-            },
-            values: [
-                {
-                    a: 10.123456,
+        const testData: ISerializedData = {
+            series: {
+                a: {
+                    type: "number",
+                    values: [ 10.123456, 20, 30.01234567 ],
                 },
-                {
-                    a: 20,
-                },
-                {
-                    a: 30.01234567,
-                },
-            ],
+            }
         };
     
         const inputChartDef: any = {
@@ -502,9 +417,6 @@ describe("apply defaults", () => {
                 y: [
                     {
                         series: "a",
-                    },
-                    {
-                        series: "b",
                     },
                 ],
             },

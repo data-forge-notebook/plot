@@ -45,9 +45,6 @@
     "dependencies": {
         "@plotex/chart-def": "^0.0.4",
         "@plotex/serialization": "0.0.4",
-        "inflate-template": "^1.1.6",
-        "opn": "^5.5.0",
-        "resolve-cwd": "^3.0.0",
         "typy": "3.0.1"
     },
     "devDependencies": {

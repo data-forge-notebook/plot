@@ -1,51 +1,9 @@
-const opn = require("opn");
-import * as path from "path";
 import { ISerializedData } from "@plotex/serialization";
-import { exportTemplate, IExportOptions } from "inflate-template";
 import { IPlotConfig, IAxisMap } from "./chart-def";
-import { isObject, findChartTemplatePath } from "./utils";
+import { isObject } from "./utils";
 import { ChartType, IChartDef, AxisType, HorizontalLabelPosition, VerticalLabelPosition, IAxisConfig, IYAxisSeriesConfig, IAxisSeriesConfig, IXAxisConfig, IYAxisConfig } from "@plotex/chart-def";
 import { expandChartDef } from "./expand-chart-def";
 import { applyDefaults } from "./apply-defaults";
-
-/**
- * Options for exporting web projects for interactive charts.
- */
-export interface IWebExportOptions {
-    /**
-     * Open the exported web visualization in the browser after exporting it.
-     * Default: false
-     */
-    openBrowser?: boolean;
-
-    /**
-     * Set to true to overwrite existing output.
-     * Default: false
-     */
-    overwrite?: boolean;
-
-    /**
-     * Name of the template used to render the image.
-     */
-    template?: string;
-
-    /**
-     * Set to true to show the chart definition after expansion and also after formatting.
-     */
-    showChartDef?: boolean;
-}
-
-/**
- * Options for exporting Node.js projects for interactive charts.
- */
-export interface INodejsExportOptions {
-
-    /**
-     * Set to true to overwrite existing output.
-     * Default: false
-     */
-    overwrite?: boolean;
-}
 
 /**
  * Fluent API for configuring the plot.
@@ -83,11 +41,6 @@ export interface IPlotAPI {
      * Configure the y axis.
      */
     y2(): IYAxisConfigAPI;
-
-    /**
-     * Export an interactive web visualization of the chart.
-     */
-    exportWeb(outputFolderPath: string, exportOptions?: IWebExportOptions): Promise<void>;
 
     /**
      * Serialize the plot definition so that it can be converted to JSON.
@@ -308,46 +261,6 @@ export abstract class AbstractPlotAPI implements IPlotAPI {
         );
     }
 
-    /**
-     * Export an interactive web visualization of the chart.
-     */
-    async exportWeb(outputFolderPath: string, exportOptions?: IWebExportOptions): Promise<void> {
-
-        const chartDef = this.serialize();
-        if (exportOptions && exportOptions.showChartDef) {
-            console.log("Expanded chart definition:");
-            console.log(JSON.stringify(chartDef, null, 4));
-        }
-
-        const templatePath = exportOptions && exportOptions.template || await findChartTemplatePath();
-        const overwrite = exportOptions && !!exportOptions.overwrite || false;
-
-        const exportTemplateOptions: IExportOptions = {
-            overwrite,
-            inMemoryFiles: [
-                {
-                    file: "chart-def.json",
-                    content: JSON.stringify(
-                        { 
-                            chartDef, 
-                            options: {
-                                makeStatic: false,
-                                showChartDef: exportOptions && exportOptions.showChartDef || false,
-                            },
-                        }, 
-                        null, 
-                        4
-                    ),
-            },
-            ],
-        };
-
-        await exportTemplate(templatePath, { chartDef }, outputFolderPath, exportTemplateOptions);
-
-        if (exportOptions && exportOptions.openBrowser) {
-            opn("file://" + path.resolve(path.join(outputFolderPath, "index.html")));
-        }
-    }
 
     /**
      * Serialize the plot definition so that it can be converted to JSON.
