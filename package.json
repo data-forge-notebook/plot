@@ -1,7 +1,7 @@
 {
     "description": "The simplest plotting API for JavaScript and TypeScript.",
     "scripts": {
-        "publish": "lerna publish --no-push --no-git-tag-version",
+        "publish": "cp README.md packages/plot && lerna publish --no-push --no-git-tag-version",
         "p": "npm run publish",
         "api-docs": "typedoc --options typedoc.json --out docs/api ./src/index.ts ./src/plot-api.ts ./src/chart-def.ts",
         "test": "lerna run test",
