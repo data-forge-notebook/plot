@@ -3,7 +3,6 @@ import { IPlotConfig, IAxisMap } from "./chart-def";
 import { isArray } from "util";
 import { isNumber, determineType, isObject } from "./utils";
 import { ISerializedData, IDataSeries } from "@plotex/serialization";
-import { numberTypeAnnotation } from "@babel/types";
 export * from "./chart-def";
 export { IPlotAPI } from "./plot-api";
 export { ChartType, AxisType, HorizontalLabelPosition, VerticalLabelPosition } from "@plotex/chart-def";

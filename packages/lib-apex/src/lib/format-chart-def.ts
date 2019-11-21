@@ -1,4 +1,4 @@
-import { IChartDef, IAxisConfig, IYAxisConfig, ChartType, IAxisMap, IAxisSeriesConfig, IYAxisSeriesConfig } from "@plotex/chart-def";
+import { IChartDef, IYAxisConfig, IAxisSeriesConfig, IYAxisSeriesConfig } from "@plotex/chart-def";
 import { ApexOptions } from "apexcharts";
 import { ISerializedData } from "@plotex/serialization";
 import * as dayjs from "dayjs";
@@ -54,7 +54,7 @@ function extractYAxisConfiguration(seriesConfigs: IYAxisSeriesConfig[], axisConf
         const dataType = data && data.series && data.series[columnName] && data.series[columnName].type;
         if (formatString) {
             if (dataType === "date") {
-                yAxisConfig.labels!.formatter = value => dayjs(value).format(formatString); //todo: this code should be part of serialization.
+                yAxisConfig.labels!.formatter = value => dayjs(value).format(formatString);
             }
             else if (dataType === "number") {
                 yAxisConfig.labels!.formatter = value => numeral(value).format(formatString);
@@ -103,10 +103,13 @@ function extractYAxisConfiguration(seriesConfigs: IYAxisSeriesConfig[], axisConf
 // Determine the Apex type to use for the x axis.
 //
 function determineXAxisType(inputChartDef: IChartDef): string {
-    const dataType = inputChartDef.axisMap.x 
+    const dataType = inputChartDef
+        && inputChartDef.axisMap
+        && inputChartDef.axisMap.x 
         && inputChartDef.axisMap.x.series 
         && inputChartDef.data.series[inputChartDef.axisMap.x.series].type
         || "number";
+
     if (dataType === "date") {
         return "datetime";
     }
@@ -123,24 +126,20 @@ function determineXAxisType(inputChartDef: IChartDef): string {
  */
 export function formatChartDef(inputChartDef: IChartDef): ApexOptions {
 
-    //todo: use the serialization library to deserialize the chart def here!
-
     const xaxisType = determineXAxisType(inputChartDef);
     const xaxis: ApexXAxis = {
         type: xaxisType as any, // The type in Apex is wrong. "categories" instead of "category".
         title: {
             style: {
-
             },
         },
         labels: {
             style: {
-
             },
         },
     };
 
-    const xAxisFormatString = inputChartDef.plotConfig.x && inputChartDef.plotConfig.x.format;
+    const xAxisFormatString = inputChartDef && inputChartDef.plotConfig && inputChartDef.plotConfig.x && inputChartDef.plotConfig.x.format;
     if (xAxisFormatString) {
         if (xaxisType === "datetime") {
             xaxis.labels!.formatter = value => dayjs(value).format(xAxisFormatString);
@@ -155,7 +154,7 @@ export function formatChartDef(inputChartDef: IChartDef): ApexOptions {
         }
     }
 
-    if (inputChartDef.plotConfig.x) {
+    if (inputChartDef && inputChartDef.plotConfig && inputChartDef.plotConfig.x) {
         if (inputChartDef.plotConfig.x.label) {
             if (inputChartDef.plotConfig.x.label.text) {
                 xaxis.title!.text = inputChartDef.plotConfig.x.label.text;
@@ -196,7 +195,7 @@ export function formatChartDef(inputChartDef: IChartDef): ApexOptions {
         style: {},
     };
 
-    if (inputChartDef.plotConfig && inputChartDef.plotConfig.dataLabels) {
+    if (inputChartDef && inputChartDef.plotConfig && inputChartDef.plotConfig.dataLabels) {
         dataLabels.enabled = true;
 
         if (inputChartDef.plotConfig.dataLabels.font) {
@@ -216,7 +215,7 @@ export function formatChartDef(inputChartDef: IChartDef): ApexOptions {
             : true,
     };
 
-    if (inputChartDef.plotConfig && inputChartDef.plotConfig.legend) {
+    if (inputChartDef && inputChartDef.plotConfig && inputChartDef.plotConfig.legend) {
         if (inputChartDef.plotConfig.legend.font) {
             if (inputChartDef.plotConfig.legend.font.size) {
                 legend.fontSize = inputChartDef.plotConfig.legend.font.size;
