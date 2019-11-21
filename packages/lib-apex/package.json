@@ -49,8 +49,8 @@
   },
   "gitHead": "b71e50385c17dfa91884ec8fb0cf09f31459ff8b",
   "dependencies": {
-    "@plotex/chart-def": "0.0.4",
-    "@plotex/serialization": "0.0.4",
+    "@plotex/chart-def": "0.0.6",
+    "@plotex/serialization": "0.0.6",
     "apexcharts": "^3.10.1",
     "dayjs": "^1.8.13",
     "numeral": "^2.0.6"
