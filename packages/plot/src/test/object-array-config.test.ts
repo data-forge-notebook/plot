@@ -42,7 +42,7 @@ describe("data-forge-plot - dataframe configuration", () => {
         });
     });
 
-    it.only("plot object with no configuration", ()  => {
+    it("plot object with no configuration", ()  => {
 
         const data = { A: [10, 20, 30], B: [1, 2, 3] };
         const plotAPI = plot(data);
