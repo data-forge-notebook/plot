@@ -5,6 +5,15 @@ import { ISerializedData } from "@plotex/serialization";
 
 describe("format chart def", () => {
 
+    const dataWithNoIndex: ISerializedData = {
+        series: {
+            a: {
+                type: "number",
+                values: [ 10, 20, 30 ],
+            },
+        },
+    };
+
     const oneColumnTestData: ISerializedData = {
         series: {
             x: {
@@ -104,6 +113,40 @@ describe("format chart def", () => {
         const apexChartDef = formatChartDef(makeChartDef({ width, height }));
         expect(apexChartDef.chart!.width).toBe(width);
         expect(apexChartDef.chart!.height).toBe(height);
+    });
+
+    it.only("0-based index is generated when no data series is supplied for the x axis", () => {
+        const chartDef = {
+            data: dataWithNoIndex,
+            axisMap: {
+                y: [
+                    {
+                        series: "a",
+                    },
+                ],
+            },
+        };
+
+        const apexChartDef = formatChartDef(makeChartDef(chartDef));
+        expect(apexChartDef.series).toEqual([
+            {
+                name: "a",
+                data: [
+                    {
+                        x: 0,
+                        y: 10,
+                    }, 
+                    {
+                        x: 1,
+                        y: 20, 
+                    },
+                    {
+                        x: 2,
+                        y: 30,
+                    },
+                ],
+            },
+        ]);
     });
     
     it("can plot single series with default index", () => {

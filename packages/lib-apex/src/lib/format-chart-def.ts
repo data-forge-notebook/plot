@@ -5,14 +5,14 @@ import * as dayjs from "dayjs";
 import * as numeral from "numeral";
 
 //
-// Build a series for Apex cahrts.
+// Build a series for Apex charts.
 //
-function buildApexSeries(columnName: string, data: ISerializedData, xAxisValues: any[]) {
+function buildApexSeries(columnName: string, data: ISerializedData, xAxisValues: any[] | undefined) {
     if (!columnName || !data || !data.series || !data.series[columnName] || !data.series[columnName].values) {
         return [];
     }
     return data.series[columnName].values
-        .map((yValue, index) => ({ x: xAxisValues[index], y: yValue }));
+        .map((yValue, index) => ({ x: xAxisValues && xAxisValues[index] || index, y: yValue }));
 }
 
 //
