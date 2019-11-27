@@ -115,7 +115,7 @@ describe("format chart def", () => {
         expect(apexChartDef.chart!.height).toBe(height);
     });
 
-    it.only("0-based index is generated when no data series is supplied for the x axis", () => {
+    it("0-based index is generated when no data series is supplied for the x axis", () => {
         const chartDef = {
             data: dataWithNoIndex,
             axisMap: {
