@@ -91,7 +91,7 @@ export function expandYSeriesConfigArray(series?: string | string[] | IYAxisSeri
     throw new Error(`Unexpected type for series: ${series}.`);
 }
 
-export function expandAxisMap(axisMap: IAxisMap, columns: string[]): IExpandedAxisMap {
+export function expandAxisMap(axisMap: IAxisMap): IExpandedAxisMap {
     const expandedAxisMap = Object.assign({}, axisMap) as IExpandedAxisMap;
     if (axisMap.x) {
         expandedAxisMap.x = expandSeriesConfig(axisMap.x);
@@ -124,6 +124,6 @@ export function expandChartDef(data: ISerializedData, plotConfig: IPlotConfig, a
     return {
         data,
         plotConfig: expandPlotConfig(plotConfig),
-        axisMap: expandAxisMap(axisMap, data.series && Object.keys(data.series) || []),
+        axisMap: expandAxisMap(axisMap),
     };
 }
