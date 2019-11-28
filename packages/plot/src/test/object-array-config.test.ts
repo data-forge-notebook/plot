@@ -2,7 +2,7 @@ import "jest";
 import "../index";
 import { plot } from "../index";
 
-describe("data-forge-plot - dataframe configuration", () => {
+describe("object array configuration", () => {
 
     it("plot object array with no configuration", ()  => {
 

@@ -2,11 +2,10 @@ import "jest";
 import "../index";
 import { plot } from "../index";
 
-describe("value array   ", () => {
+describe("value array", () => {
 
     it("plot value array with no configuration", ()  => {
 
-        //fio: const series = new Series({ index: [1, 2, 3], values: [10, 20, 30] });
         const plotAPI = plot([10, 20, 30]);
         expect(plotAPI.serialize()).toEqual({
             data: {

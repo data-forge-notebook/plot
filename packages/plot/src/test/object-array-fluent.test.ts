@@ -2,7 +2,7 @@ import "jest";
 import "../index";
 import { plot } from "../index";
 
-describe("data-forge-plot - dataframe fluent", () => {
+describe("object array fluent", () => {
 
     it("can explicity set y axis", ()  => {
 
