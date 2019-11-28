@@ -6,14 +6,13 @@ describe("object array configuration", () => {
 
     it("plot object array with no configuration", ()  => {
 
-        const data = [{ A: 10 }, { A: 20 }, { A: 30 }];
-        const plotAPI = plot(data);
+        const plotAPI = plot([{ A: 10 }, { A: 20 }, { A: 30 }]);
         expect(plotAPI.serialize()).toEqual({
             data: {
                 series: {
                     A: {
                         type: "number",
-                        values: [10, 20, 30],
+                        values: [ 10, 20, 30 ],
                     },
                 },
             },
