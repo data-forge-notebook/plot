@@ -10,7 +10,7 @@ describe("value array", () => {
         expect(plotAPI.serialize()).toEqual({
             data: {
                 series: {
-                    __value__: {
+                    y: {
                         type: "number",
                         values: [ 10, 20, 30 ],
                     },
@@ -33,7 +33,7 @@ describe("value array", () => {
             axisMap: {
                 y: [
                     {
-                        series: "__value__"
+                        series: "y"
                     }
                 ],
                 y2: []

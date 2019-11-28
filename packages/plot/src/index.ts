@@ -25,7 +25,7 @@ const dataFramePlotDefaults: IPlotConfig = {
 function serializeValueArray(input: any[]): ISerializedData {
     const serializedData: ISerializedData = {
         series: {
-            __value__: {
+            y: {
                 type: input.length > 0 
                     ? determineType(input[0])
                     : "undefined",
