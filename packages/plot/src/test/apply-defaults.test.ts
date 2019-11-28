@@ -427,4 +427,66 @@ describe("apply defaults", () => {
         expect(chartDef.plotConfig.y!.max).toBe(30.02);
     });
 
+    it("x series defaults the x axis", () => {
+
+        const testData: ISerializedData = {
+            series: {
+                x: {
+                    type: "number",
+                    values: [ 1, 2 ],
+                },
+            },
+        };
+    
+        const inputChartDef: any = {
+            data: testData,
+            plotConfig: {},
+            axisMap: {},
+        };
+
+        const chartDef = applyDefaults(inputChartDef);
+        expect(chartDef.axisMap.x!.series).toBe("x");
+    });
+
+    it("y series defaults the y axis", () => {
+
+        const testData: ISerializedData = {
+            series: {
+                y: {
+                    type: "number",
+                    values: [ 1, 2 ],
+                },
+            },
+        };
+    
+        const inputChartDef: any = {
+            data: testData,
+            plotConfig: {},
+            axisMap: {},
+        };
+
+        const chartDef = applyDefaults(inputChartDef);
+        expect(chartDef.axisMap.y[0].series).toBe("y");
+    });
+
+    it("y2 series defaults the y2 axis", () => {
+
+        const testData: ISerializedData = {
+            series: {
+                y2: {
+                    type: "number",
+                    values: [ 1, 2 ],
+                },
+            },
+        };
+    
+        const inputChartDef: any = {
+            data: testData,
+            plotConfig: {},
+            axisMap: {},
+        };
+
+        const chartDef = applyDefaults(inputChartDef);
+        expect(chartDef.axisMap.y2[0].series).toBe("y2");
+    });
 });

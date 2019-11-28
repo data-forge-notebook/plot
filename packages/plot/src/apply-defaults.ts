@@ -86,6 +86,41 @@ export function applyDefaults(inputChartDef: IChartDef, plotDefaults?: IPlotConf
         }
     }
 
+    if ((chartDef.axisMap.x === undefined || 
+        chartDef.axisMap.x.series === undefined) && 
+        chartDef.data.series !== undefined && 
+        chartDef.data.series.x !== undefined) {
+        // Default the x axis to the series named x.
+        if (!chartDef.axisMap.x) {
+            chartDef.axisMap.x = { series: "x" };
+        }
+        else {
+            chartDef.axisMap.x.series = "x";
+        }
+    }
+
+    if (chartDef.axisMap.y.length === 0 && 
+        chartDef.data.series !== undefined && 
+        chartDef.data.series.y !== undefined) {
+        // Default the y axis to the series named y.
+        chartDef.axisMap.y = [ 
+            {
+                series: "y",
+            },
+        ];
+    }
+
+    if (chartDef.axisMap.y2.length === 0 && 
+        chartDef.data.series !== undefined && 
+        chartDef.data.series.y2 !== undefined) {
+        // Default the y2 axis to the series named y2.
+        chartDef.axisMap.y2 = [ 
+            {
+                series: "y2",
+            },
+        ];
+    }
+
     if (chartDef.axisMap.y.length === 0 &&
         chartDef.axisMap.y2.length === 0) {
         chartDef.axisMap.y = chartDef.data && chartDef.data.series && expandYSeriesConfigArray(Object.keys(chartDef.data.series)) || [];
