@@ -98,7 +98,7 @@ describe("expand chart def", () => {
     });
 
     it("can expand empty axis map", () => {
-        const expanded = expandAxisMap({}, []);
+        const expanded = expandAxisMap({});
         expect(expanded).toEqual({
             y: [],
             y2: [],
@@ -106,7 +106,7 @@ describe("expand chart def", () => {
     });
 
     it("can expand empty axis map 2", () => {
-        const expanded = expandAxisMap({ y: [], y2: [] }, []);
+        const expanded = expandAxisMap({ y: [], y2: [] });
         expect(expanded).toEqual({
             y: [],
             y2: [],
@@ -114,7 +114,7 @@ describe("expand chart def", () => {
     });
 
     it("can expand axis map with strings", () => {
-        const expanded = expandAxisMap({ x: "my x", y: "my y1", y2: "my y2" }, []);
+        const expanded = expandAxisMap({ x: "my x", y: "my y1", y2: "my y2" });
         expect(expanded).toEqual({
             x: {
                 series: "my x",
