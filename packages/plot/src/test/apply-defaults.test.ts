@@ -489,4 +489,31 @@ describe("apply defaults", () => {
         const chartDef = applyDefaults(inputChartDef);
         expect(chartDef.axisMap.y2[0].series).toBe("y2");
     });
+
+    it("x series defaults the x axis even with other series", () => {
+
+        const testData: ISerializedData = {
+            series: {
+                x: {
+                    type: "number",
+                    values: [ 1, 2 ],
+                },
+                a: {
+                    type: "number",
+                    values: [ 10, 20 ],
+                },
+            },
+        };
+    
+        const inputChartDef: any = {
+            data: testData,
+            plotConfig: {},
+            axisMap: {},
+        };
+
+        const chartDef = applyDefaults(inputChartDef);
+        expect(chartDef.axisMap.x!.series).toBe("x");
+        expect(chartDef.axisMap.y.length).toBe(1);
+        expect(chartDef.axisMap.y[0].series).toBe("a");
+    });
 });

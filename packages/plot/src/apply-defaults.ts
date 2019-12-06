@@ -86,10 +86,11 @@ export function applyDefaults(inputChartDef: IChartDef, plotDefaults?: IPlotConf
         }
     }
 
+    const remainingSeries = chartDef && chartDef.data && chartDef.data.series && Object.assign({}, chartDef.data.series) || {};
+
     if ((chartDef.axisMap.x === undefined || 
         chartDef.axisMap.x.series === undefined) && 
-        chartDef.data.series !== undefined && 
-        chartDef.data.series.x !== undefined) {
+        remainingSeries.x !== undefined) {
         // Default the x axis to the series named x.
         if (!chartDef.axisMap.x) {
             chartDef.axisMap.x = { series: "x" };
@@ -97,11 +98,12 @@ export function applyDefaults(inputChartDef: IChartDef, plotDefaults?: IPlotConf
         else {
             chartDef.axisMap.x.series = "x";
         }
+
+        delete remainingSeries.x;
     }
 
     if (chartDef.axisMap.y.length === 0 && 
-        chartDef.data.series !== undefined && 
-        chartDef.data.series.y !== undefined) {
+        remainingSeries.y !== undefined) {
         // Default the y axis to the series named y.
         chartDef.axisMap.y = [ 
             {
@@ -111,8 +113,7 @@ export function applyDefaults(inputChartDef: IChartDef, plotDefaults?: IPlotConf
     }
 
     if (chartDef.axisMap.y2.length === 0 && 
-        chartDef.data.series !== undefined && 
-        chartDef.data.series.y2 !== undefined) {
+        remainingSeries.y2 !== undefined) {
         // Default the y2 axis to the series named y2.
         chartDef.axisMap.y2 = [ 
             {
@@ -123,7 +124,7 @@ export function applyDefaults(inputChartDef: IChartDef, plotDefaults?: IPlotConf
 
     if (chartDef.axisMap.y.length === 0 &&
         chartDef.axisMap.y2.length === 0) {
-        chartDef.axisMap.y = chartDef.data && chartDef.data.series && expandYSeriesConfigArray(Object.keys(chartDef.data.series)) || [];
+        chartDef.axisMap.y = chartDef.data && chartDef.data.series && expandYSeriesConfigArray(Object.keys(remainingSeries)) || [];
     }
 
     if (!chartDef.plotConfig.y) {
@@ -135,7 +136,7 @@ export function applyDefaults(inputChartDef: IChartDef, plotDefaults?: IPlotConf
     if (chartDef.plotConfig.y.min === undefined) {
         y1Values = extractValues(chartDef.data, chartDef.axisMap.y);
 
-        if (y1Values.length > 0) {        
+        if (y1Values.length > 0) {
             chartDef.plotConfig.y.min = computeMin(y1Values);
         }
     }
@@ -145,7 +146,7 @@ export function applyDefaults(inputChartDef: IChartDef, plotDefaults?: IPlotConf
             y1Values = extractValues(chartDef.data, chartDef.axisMap.y);
         }
 
-        if (y1Values.length > 0) {        
+        if (y1Values.length > 0) {
             chartDef.plotConfig.y.max = computeMax(y1Values);
         }
     }

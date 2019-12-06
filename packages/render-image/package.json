@@ -1,19 +1,21 @@
 {
   "name": "@plotex/render-image",
-  "version": "0.0.6",
+  "version": "0.0.10",
   "description": "A plug in for plot: The simplest plotting API for JavaScript and TypeScript.",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
+    "setup": "npm install --save=false plot",
     "c": "npm run clean",
-    "clean": "rm -rf build/*",
+    "clean": "rm -rf build/* && rm -rf template/",
     "b": "npm run build",
     "build": "tsc",
+    "build:template": "cd template-src && webpack",
     "cb": "npm run clean-build",
     "clean-build": "npm run clean && npm run build",
     "build:watch": "tsc --watch",
     "clean-build:watch": "rm -rf build/* && tsc --watch",
-    "prepublishOnly": "npm test && npm run clean-build",
+    "prepublishOnly": "npm test && npm run clean && npm run build:template && npm run build",
     "t": "npm run test",
     "test": "jest",
     "tw": "npm run test:watch",
@@ -38,13 +40,25 @@
     "url": "https://github.com/data-forge-notebook/plot/issues"
   },
   "homepage": "https://github.com/data-forge-notebook/plot#readme",
+  "dependencies": {
+    "capture-template": "^1.1.13",
+    "opn": "^6.0.0"
+  },
+  "peerDependencies": {
+    "plot": "^0.0.7"
+  },
   "devDependencies": {
     "@types/jest": "24.0.6",
     "@types/node": "10.11.4",
     "jest": "24.1.0",
     "ts-jest": "23.10.5",
     "ts-node": "7.0.1",
-    "typescript": "3.1.1"
+    "typescript": "3.1.1",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0",
+    "@plotex/lib-apex": "0.0.7",
+    "copy-webpack-plugin": "^5.0.2",
+    "ts-loader": "^5.3.3"
   },
   "gitHead": "b71e50385c17dfa91884ec8fb0cf09f31459ff8b"
 }
