@@ -1,6 +1,6 @@
 {
     "name": "plot",
-    "version": "0.0.10",
+    "version": "1.0.0",
     "description": "The simplest plotting API for JavaScript and TypeScript.",
     "main": "build/index.js",
     "types": "build/index.d.ts",
@@ -40,8 +40,8 @@
     },
     "homepage": "https://github.com/data-forge-notebook/plot#readme",
     "dependencies": {
-        "@plotex/chart-def": "^0.0.6",
-        "@plotex/serialization": "^0.0.6",
+        "@plotex/chart-def": "^1.0.0",
+        "@plotex/serialization": "^1.0.0",
         "typy": "3.0.1"
     },
     "devDependencies": {
@@ -54,5 +54,5 @@
         "typedoc": "0.15.0",
         "typescript": "3.1.1"
     },
-    "gitHead": "b71e50385c17dfa91884ec8fb0cf09f31459ff8b"
+    "gitHead": "c35a9286040f065c1d72b294313bdd974fc62e56"
 }
