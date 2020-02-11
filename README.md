@@ -45,9 +45,9 @@ const plot = require("plot");
 require("@plotex/render-dom");
 
 const data = [ /* your data */ ];
-const plt = plot();
 const parentEl = /* parent DOM to contain the chart */ ;
-plt.renderDOM(parentEl);
+plot(data)
+    .renderDOM(parentEl);
 ```
 
 ### Node.js
@@ -59,8 +59,8 @@ const plot = require("plot");
 require("@plotex/render-image");
 
 const data = [ /* your data */ ];
-const plt = plot();
-plt.renderImage("my-chart.png");
+plot(data)
+    .renderImage("my-chart.png");
 ```
 
 ### Data-Forge Notebook
@@ -82,27 +82,31 @@ See more examples in [the exported example visualization notebook](https://githu
 const data = [ /* your data */ ];
 const chartConfig = { chartType: "bar" };
 const axisConfig = { x: "Date", y: "Close" };
-const plt = plot(data, chartConfig, axisConfig);
+plot(data, chartConfig, axisConfig)
+    .renderDOM(parentEl);
 ```
 
-## Any kind of data
+## Multiple types of data
 
 ### Plot an array of numbers
 
 ```javascript
-const plt = plot([10, 15, 30]);
+plot([10, 15, 30])
+    .renderDOM(parentEl);
 ```
 
 ### Plot an array of JavaScirpt object
 
 ```javascript
-const plt = plot([ { A: 10, B: 52 }, { A: 15, B: 37 }, A: 30, B: 45 }]);
+plot([ { A: 10, B: 52 }, { A: 15, B: 37 }, A: 30, B: 45 }])
+    .renderDOM(parentEl);
 ```
 
 ### Plot by column
 
 ```javascript
-const plt = plot({ A: [10, 15, 30], B: [52, 37, 45] });
+plot({ A: [10, 15, 30], B: [52, 37, 45] })
+    .renderDOM(parentEl);
 ```
 
 ## Resources

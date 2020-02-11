@@ -5,6 +5,7 @@
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
+    "setup": "npm install --save=false plot",
     "c": "npm run clean",
     "clean": "rm -rf build/*",
     "b": "npm run build",
@@ -13,7 +14,7 @@
     "clean-build": "npm run clean && npm run build",
     "build:watch": "tsc --watch",
     "clean-build:watch": "rm -rf build/* && tsc --watch",
-    "prepublishOnly": "npm test && npm run clean-build",
+    "#prepublishOnly": "npm test && npm run clean-build",
     "t": "npm run test",
     "test": "jest",
     "tw": "npm run test:watch",
@@ -38,6 +39,9 @@
     "url": "https://github.com/data-forge-notebook/plot/issues"
   },
   "homepage": "https://github.com/data-forge-notebook/plot#readme",
+  "peerDependencies": {
+    "plot": "^1.0.0"
+  },
   "devDependencies": {
     "@types/jest": "24.0.6",
     "@types/node": "10.11.4",
@@ -46,5 +50,8 @@
     "ts-node": "7.0.1",
     "typescript": "3.1.1"
   },
-  "gitHead": "c35a9286040f065c1d72b294313bdd974fc62e56"
+  "gitHead": "c35a9286040f065c1d72b294313bdd974fc62e56",
+  "dependencies": {
+    "@plotex/lib-apex": "^1.0.0"
+  }
 }
