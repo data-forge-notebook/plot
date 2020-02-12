@@ -8,12 +8,11 @@ Use plot to quickly and conveniently render charts for your data. It is an abstr
 
 [Click here for the API docs](https://data-forge-notebook.github.io/plot/)
 
-[For TypeScript Node.js example see this repo](https://github.com/data-forge-notebook/plot-examples).
+[For various examples see this repo](https://github.com/data-forge-notebook/plot-examples).
 
 Plot can be used from Node.js, from the browser and is specially designed to integrate with [Data-Forge Notebook](https://www.data-forge-notebook.com/).
 
 I'm after contributors to help flesh this library out! Can you help? 
-
 
 Please give feedback!
 
@@ -38,7 +37,7 @@ Some instructions for using plot. These instructions are for JavaScript, but thi
 
 ### Browser
 
-    npm install --save plot @plot/render-dom
+    npm install --save plot @plotex/render-dom
 
 ```javascript
 const plot = require("plot");
@@ -46,21 +45,19 @@ require("@plotex/render-dom");
 
 const data = [ /* your data */ ];
 const parentEl = /* parent DOM to contain the chart */ ;
-plot(data)
-    .renderDOM(parentEl);
+const chart = plot(data).renderDOM(parentEl);
 ```
 
 ### Node.js
 
-    npm install --save plot @plot/render-image
+    npm install --save plot @plotex/render-image
 
 ```javascript
 const plot = require("plot");
 require("@plotex/render-image");
 
 const data = [ /* your data */ ];
-plot(data)
-    .renderImage("my-chart.png");
+plot(data).renderImage("my-chart.png");
 ```
 
 ### Data-Forge Notebook
@@ -74,7 +71,7 @@ const data = [ /* your data */ ];
 display.plot(data);
 ```
 
-See more examples in [the exported example visualization notebook](https://github.com/data-forge-notebook/wiki/wiki/visualizing-data).
+See more Data-Forge Notebook examples in [the exported example visualization notebook](https://github.com/data-forge-notebook/wiki/wiki/visualizing-data).
 
 ## Pass in configuration options
 
