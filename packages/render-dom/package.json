@@ -14,7 +14,7 @@
     "clean-build": "npm run clean && npm run build",
     "build:watch": "tsc --watch",
     "clean-build:watch": "rm -rf build/* && tsc --watch",
-    "#prepublishOnly": "npm test && npm run clean-build",
+    "#prepublishOnly": "npm run setup &&  npm test && npm run clean-build",
     "t": "npm run test",
     "test": "jest",
     "tw": "npm run test:watch",
