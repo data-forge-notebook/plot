@@ -40,7 +40,7 @@ Some instructions for using plot. These instructions are for JavaScript, but thi
     npm install --save plot @plotex/render-dom
 
 ```javascript
-const plot = require("plot");
+const { plot } = require("plot");
 require("@plotex/render-dom");
 
 const data = [ /* your data */ ];
@@ -53,7 +53,7 @@ const chart = plot(data).renderDOM(parentEl);
     npm install --save plot @plotex/render-image
 
 ```javascript
-const plot = require("plot");
+const { plot } = require("plot");
 require("@plotex/render-image");
 
 const data = [ /* your data */ ];
