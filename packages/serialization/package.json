@@ -1,6 +1,6 @@
 {
   "name": "@plotex/serialization",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A plug in for plot: The simplest plotting API for JavaScript and TypeScript.",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -46,5 +46,5 @@
     "ts-node": "7.0.1",
     "typescript": "3.1.1"
   },
-  "gitHead": "5088acd14db3a1cc067261958b02e4858261887b"
+  "gitHead": "6652c8bdb555b9cad583e951569c58501e720bb7"
 }

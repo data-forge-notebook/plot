@@ -1,6 +1,6 @@
 {
   "name": "@plotex/render-image",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A plug in for plot: The simplest plotting API for JavaScript and TypeScript.",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -48,7 +48,7 @@
     "plot": "^1.0.0"
   },
   "devDependencies": {
-    "@plotex/lib-apex": "^1.0.1",
+    "@plotex/lib-apex": "^1.0.2",
     "@types/jest": "24.0.6",
     "@types/node": "10.11.4",
     "copy-webpack-plugin": "^5.0.2",
@@ -60,5 +60,5 @@
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0"
   },
-  "gitHead": "5088acd14db3a1cc067261958b02e4858261887b"
+  "gitHead": "6652c8bdb555b9cad583e951569c58501e720bb7"
 }
