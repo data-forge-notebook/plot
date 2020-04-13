@@ -1,6 +1,6 @@
 {
     "name": "plot",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "The simplest plotting API for JavaScript and TypeScript.",
     "main": "build/index.js",
     "types": "build/index.d.ts",
@@ -18,7 +18,8 @@
         "t": "npm run test",
         "test": "jest",
         "tw": "npm run test:watch",
-        "test:watch": "jest --watch"
+        "test:watch": "jest --watch",
+        "postinstall": "node postinstall.js || echo \"ignore\""
     },
     "repository": {
         "type": "git",
