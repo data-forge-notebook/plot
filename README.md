@@ -18,6 +18,8 @@ Please give feedback!
 
 Email the author on ashley@codecapers.com.au.
 
+Scroll to the end to see how you can **support the developer.**
+
 <a target="_blank" href="http://bit.ly/2t2cJu2"><img align="right" src="images/support2.png"></a>
 
 ## Aims
