@@ -119,7 +119,7 @@ There's more work to be done!
 
 Can you contribute, test or give feedback?
 
-Email the author on ashley@codecapers.com.au.
+Email the developer on ashley@codecapers.com.au.
 
 ## Support the developer 
 
