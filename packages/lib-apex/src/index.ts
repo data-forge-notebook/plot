@@ -70,6 +70,11 @@ export interface IMountOptions {
      * Debug log the chart definition after formatting.
      */
     showChartDef?: boolean;
+
+    /**
+     * Enable/disable the download button.
+     */
+    showDownload?: boolean;
 }
 
 //
@@ -108,6 +113,13 @@ export async function mountChart(chartDef: IChartDef, domElement: HTMLElement, c
         apexChartDef.tooltip!.enabled = true;
         apexChartDef.chart!.zoom!.enabled = true;
         apexChartDef.chart!.toolbar!.show = true;
+    }
+
+    if (chartOptions && chartOptions.showDownload !== undefined) {
+        if (!apexChartDef.chart!.toolbar!.tools) {
+            apexChartDef.chart!.toolbar!.tools = {};
+        }
+        apexChartDef.chart!.toolbar!.tools!.download = chartOptions.showDownload;
     }
 
     if (chartOptions && chartOptions.showChartDef) {
