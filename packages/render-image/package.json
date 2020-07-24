@@ -45,7 +45,7 @@
     "opn": "^6.0.0"
   },
   "peerDependencies": {
-    "plot": "^1.0.0"
+    "plot": "^1.0.6"
   },
   "devDependencies": {
     "@plotex/lib-apex": "^1.0.2",
