@@ -70,3 +70,4 @@ examples/output/
 examples/c3/output/
 *.bak
 examples/flot/output/
+*.orig

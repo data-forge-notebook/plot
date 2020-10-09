@@ -67,6 +67,12 @@ export interface IMountOptions {
     makeStatic?: boolean;
 
     /**
+     * Set to false to disble animations in charts.
+     * Defaults to true.
+     */
+    enableAnimations?: boolean;
+
+    /**
      * Debug log the chart definition after formatting.
      */
     showChartDef?: boolean;
@@ -113,6 +119,10 @@ export async function mountChart(chartDef: IChartDef, domElement: HTMLElement, c
         apexChartDef.tooltip!.enabled = true;
         apexChartDef.chart!.zoom!.enabled = true;
         apexChartDef.chart!.toolbar!.show = true;
+    }
+    
+    if (chartOptions && chartOptions.enableAnimations === false) {
+        apexChartDef.chart!.animations!.enabled = false;
     }
 
     if (chartOptions && chartOptions.showDownload !== undefined) {

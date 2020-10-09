@@ -1,6 +1,6 @@
 {
   "name": "@plotex/render-image",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "A plug in for plot: The simplest plotting API for JavaScript and TypeScript.",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -41,11 +41,11 @@
   },
   "homepage": "https://github.com/data-forge-notebook/plot#readme",
   "dependencies": {
-    "capture-template": "^1.1.13",
+    "capture-template": "^1.1.18",
     "opn": "^6.0.0"
   },
   "peerDependencies": {
-    "plot": "^1.0.0"
+    "plot": "^1.0.6"
   },
   "devDependencies": {
     "@plotex/lib-apex": "^1.0.2",
