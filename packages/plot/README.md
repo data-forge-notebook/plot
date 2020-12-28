@@ -2,8 +2,6 @@
 
 The simplest and most forgiving plotting API for JavaScript and TypeScript.
 
-<a target="_blank" href="https://www.data-forge-notebook.com/"><img align="right" src="images/support1.png"></a>
-
 Use plot to quickly and conveniently render charts for your data. It is an abstraction layer over JavaScript visualization libraries. Currently supporting [Apex Charts](https://apexcharts.com/), but intending to support more in the future.
 
 [Click here for the API docs](https://data-forge-notebook.github.io/plot/)
