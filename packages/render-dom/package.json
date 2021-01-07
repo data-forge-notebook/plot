@@ -50,7 +50,6 @@
     "ts-node": "7.0.1",
     "typescript": "3.1.1"
   },
-  "gitHead": "6652c8bdb555b9cad583e951569c58501e720bb7",
   "dependencies": {
     "@plotex/lib-apex": "^1.0.2"
   }
