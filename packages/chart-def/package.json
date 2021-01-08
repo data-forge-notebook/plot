@@ -1,6 +1,6 @@
 {
   "name": "@plotex/chart-def",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A plug in for plot: The simplest plotting API for JavaScript and TypeScript.",
   "main": "build/index.js",
   "types": "build/index.d.ts",

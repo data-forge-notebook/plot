@@ -1,6 +1,6 @@
 {
   "name": "@plotex/serialization",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A plug in for plot: The simplest plotting API for JavaScript and TypeScript.",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -11,6 +11,7 @@
     "build": "tsc",
     "cb": "npm run clean-build",
     "clean-build": "npm run clean && npm run build",
+    "bw": "npm run build:watch",
     "build:watch": "tsc --watch",
     "clean-build:watch": "rm -rf build/* && tsc --watch",
     "prepublishOnly": "npm test && npm run clean-build",

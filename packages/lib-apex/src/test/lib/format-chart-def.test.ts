@@ -44,7 +44,7 @@ describe("format chart def", () => {
         },
     };
 
-    const fourColumnTestData = {
+    const fourColumnTestData: ISerializedData = {
         series: {
             a: {
                 type: "number",
@@ -612,7 +612,7 @@ describe("format chart def", () => {
 
     it("using a datetime index for the x axis sets the apex datatype to datetime", () => {
 
-        const data: ISerializedData = {
+        const data = {
             series: {
                 A: {
                     type: "date",
@@ -639,7 +639,7 @@ describe("format chart def", () => {
 
     it("using a strings index for the x axis sets the apex datatype to category", () => {
 
-        const data: ISerializedData = {
+        const data = {
             series: {
                 A: {
                     type: "string",
@@ -653,7 +653,7 @@ describe("format chart def", () => {
 
     it("using a datetime column for the x axis sets the apex datatype to datetime", () => {
 
-        const data: ISerializedData = {
+        const data = {
             series: {
                 A: {
                     type: "date",
@@ -670,7 +670,7 @@ describe("format chart def", () => {
 
     it("using a numeric column for the x axis sets the apex datatype to numeric", () => {
 
-        const data: ISerializedData = {
+        const data = {
             series: {
                 A: {
                     type: "number",
@@ -684,7 +684,7 @@ describe("format chart def", () => {
 
     it("using a strings column for the x axis sets the apex datatype to category", () => {
 
-        const data: ISerializedData = {
+        const data = {
             series: {
                 A: {
                     type: "string",
@@ -948,9 +948,121 @@ describe("format chart def", () => {
             },
         };
         const apexChartDef = formatChartDef(makeChartDef(chartDef));
-        expect(apexChartDef.dataLabels!.enabled).toBe(true); //TODO: Also want an explicit way to enable disable data labels.
+        expect(apexChartDef.dataLabels!.enabled).toBe(true);
         const style = apexChartDef.dataLabels!.style!;
         expect(style.fontSize).toBe("22px");
         expect(style.fontFamily).toBe("The best font");
+    });
+
+    it("can place annotation on x axis", () => {
+        const chartDef = {
+            data: {
+                series: {
+                    a: {
+                        type: "number",
+                        values: [ 10, 20, 30 ],
+                        annotations: [
+                            {
+                                value: 10,
+                                value2: 20,
+                                text: "An annotation"
+                            }
+                        ]
+                    },
+                },
+            },
+            plotConfig: {
+            },
+            axisMap: {
+                x: {
+                    series: "a",
+                },
+            },
+        };
+        
+        const apexChartDef = formatChartDef(makeChartDef(chartDef));
+        expect(apexChartDef.annotations!.xaxis!.length).toBe(1);
+
+        const apexAnnotation = apexChartDef.annotations!.xaxis![0];
+        expect(apexAnnotation.label!.text).toBe("An annotation");
+        expect(apexAnnotation.x).toBe(10);
+        expect(apexAnnotation.x2).toBe(20);
+        expect((apexAnnotation as any).yAxisIndex).toBe(undefined);
+    });
+
+    it("can place annotation on y axis", () => {
+        const chartDef = {
+            data: {
+                series: {
+                    a: {
+                        type: "number",
+                        values: [ 10, 20, 30 ],
+                        annotations: [
+                            {
+                                value: 10,
+                                value2: 20,
+                                text: "An annotation"
+                            }
+                        ]
+                    },
+                },
+            },
+            plotConfig: {
+            },
+            axisMap: {
+                y: [
+                    {
+                        series: "a",
+                    },
+                ],
+            },
+        };
+        
+        const apexChartDef = formatChartDef(makeChartDef(chartDef));
+        expect(apexChartDef.annotations!.yaxis!.length).toBe(1);
+
+        const apexAnnotation = apexChartDef.annotations!.yaxis![0];
+        expect(apexAnnotation.label!.text).toBe("An annotation");
+        expect(apexAnnotation.y).toBe(10);
+        expect(apexAnnotation.y2).toBe(20);
+        expect(apexAnnotation.yAxisIndex).toBe(0);
+    });
+
+    it("can place annotation on y2 axis", () => {
+        const chartDef = {
+            data: {
+                series: {
+                    a: {
+                        type: "number",
+                        values: [ 10, 20, 30 ],
+                        annotations: [
+                            {
+                                value: 10,
+                                value2: 20,
+                                text: "An annotation"
+                            }
+                        ]
+                    },
+                },
+            },
+            plotConfig: {
+            },
+            axisMap: {
+                y2: [
+                    {
+                        series: "a",
+                    },
+                ],
+            },
+        };
+        
+        const apexChartDef = formatChartDef(makeChartDef(chartDef));
+        expect(apexChartDef.annotations!.yaxis!.length).toBe(1);
+
+        const apexAnnotation = apexChartDef.annotations!.yaxis![0];
+        expect(apexAnnotation.label!.text).toBe("An annotation");
+        expect(apexAnnotation.y).toBe(10);
+        expect(apexAnnotation.y2).toBe(20);
+        expect(apexAnnotation.yAxisIndex).toBe(1);
     });
 });

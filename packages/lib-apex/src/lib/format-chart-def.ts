@@ -1,6 +1,6 @@
 import { IChartDef, IYAxisConfig, IAxisSeriesConfig, IYAxisSeriesConfig } from "@plotex/chart-def";
 import { ApexOptions } from "apexcharts";
-import { ISerializedData } from "@plotex/serialization";
+import { IAnnotation, ISerializedData } from "@plotex/serialization";
 import * as dayjs from "dayjs";
 import * as numeral from "numeral";
 
@@ -121,6 +121,67 @@ function determineXAxisType(inputChartDef: IChartDef): string {
     }
 }
 
+//
+// Extracts a single annotation.
+//
+function extractAnnotation(annotations: ApexAnnotations, annotationsField: string, yAxisIndex: number | undefined, value1Field: string, value2Field: string, annotation: IAnnotation) {
+    const apexAnnotation: any = {
+        label: {
+            text: annotation.text,
+        },
+    };
+
+    apexAnnotation[value1Field] = annotation.value;
+    apexAnnotation[value2Field] = annotation.value2;
+
+    if (yAxisIndex !== undefined) {
+        apexAnnotation.yAxisIndex = yAxisIndex;
+    }
+
+    (annotations as any)[annotationsField]!.push(apexAnnotation);
+}
+
+//
+// Extracts annotations from a series.
+//
+function extractAnnotationsFromSeries(annotations: ApexAnnotations, annotationsField: string, yAxisIndex: number | undefined, value1Field: string, value2Field: string, inputChartDef: IChartDef, axisSeriesConfig?: IAxisSeriesConfig) {
+    if (axisSeriesConfig) {
+        const series = inputChartDef.data.series[axisSeriesConfig.series];
+        if (series) {
+            if (series.annotations) {
+                for (const annotation of series.annotations) {
+                    extractAnnotation(annotations, annotationsField, yAxisIndex, value1Field, value2Field, annotation);
+                }
+            }
+        }
+    }
+}
+
+//
+// Extracts anotations from a series array.
+//
+function extractAnnotationsFromSeriesArray(annotations: ApexAnnotations, annotationsField: string, yAxisIndex: number | undefined, value1Field: string, value2Field: string, inputChartDef: IChartDef, seriesConfigs: IAxisSeriesConfig[]) {
+    for (const axisSeriesConfig of seriesConfigs) {
+        extractAnnotationsFromSeries(annotations, annotationsField, yAxisIndex, value1Field, value2Field, inputChartDef, axisSeriesConfig);
+    }
+}
+
+//
+// Extracts annotations from the chart def.
+//
+function extractAnnotations(inputChartDef: IChartDef): ApexAnnotations {
+    const annotations: ApexAnnotations = {
+        yaxis: [],
+        xaxis: [],
+    };
+
+    extractAnnotationsFromSeries(annotations, "xaxis", undefined, "x", "x2", inputChartDef, inputChartDef.axisMap.x);
+    extractAnnotationsFromSeriesArray(annotations, "yaxis", 0, "y", "y2", inputChartDef, inputChartDef.axisMap.y);
+    extractAnnotationsFromSeriesArray(annotations, "yaxis", 1, "y", "y2", inputChartDef, inputChartDef.axisMap.y2);
+
+    return annotations;
+}
+
 /**
  * Convert a data-forge-plot chart definition to an ApexCharts chart definition.
  */
@@ -194,6 +255,8 @@ export function formatChartDef(inputChartDef: IChartDef): ApexOptions {
         enabled: false,
         style: {},
     };
+    
+    const annotations = extractAnnotations(inputChartDef);
 
     if (inputChartDef && inputChartDef.plotConfig && inputChartDef.plotConfig.dataLabels) {
         dataLabels.enabled = true;
@@ -238,8 +301,9 @@ export function formatChartDef(inputChartDef: IChartDef): ApexOptions {
         },
         series: yAxisSeries,
         yaxis: yAxisConfig,
-        xaxis,
-        dataLabels,
-        legend,
+        xaxis: xaxis,
+        dataLabels: dataLabels,
+        legend: legend,
+        annotations: annotations,
     };
 }

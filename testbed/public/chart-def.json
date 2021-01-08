@@ -2,6 +2,23 @@
     "chartDef": {
         "data": {
             "series": {
+                "x": {
+                    "type": "string",
+                    "values": [
+                        "2013-01-01",
+                        "2013-01-02",
+                        "2013-01-03",
+                        "2013-01-04",
+                        "2013-01-05",
+                        "2013-01-06"
+                    ],
+                    "annotations": [
+                        {
+                            "value": "2013-01-04",
+                            "text": "Ya!"
+                        }
+                    ]
+                },
                 "data1": {
                     "type": "number",
                     "values": [
@@ -14,29 +31,21 @@
                     ],
                     "annotations": [
                         {
-                            "value": 200
-                        },
-                        {
-                            "value": 390,
-                            "value2": 410
+                            "value": 100,
+                            "value2": 150,
+                            "text": "Foo!"
                         }
                     ]
                 },
                 "data2": {
                     "type": "number",
                     "values": [
-                        50,
-                        20,
-                        10,
-                        40,
-                        15,
-                        25
-                    ],
-                    "annotations": [
-                        {
-                            "value": 30,
-                            "text": "Hello!"
-                        }
+                        130,
+                        340,
+                        200,
+                        500,
+                        250,
+                        350
                     ]
                 }
             }
@@ -49,8 +58,8 @@
             "width": 800,
             "height": 600,
             "y": {
-                "min": 10,
-                "max": 400
+                "min": 30,
+                "max": 500
             },
             "y2": {}
         },
@@ -63,7 +72,10 @@
                     "series": "data2"
                 }
             ],
-            "y2": []
+            "y2": [],
+            "x": {
+                "series": "x"
+            }
         }
-    }    
+    }
 }                                                           
