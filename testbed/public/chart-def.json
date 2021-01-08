@@ -11,6 +11,15 @@
                         400,
                         150,
                         250
+                    ],
+                    "annotations": [
+                        {
+                            "value": 200
+                        },
+                        {
+                            "value": 390,
+                            "value2": 410
+                        }
                     ]
                 },
                 "data2": {
@@ -22,6 +31,12 @@
                         40,
                         15,
                         25
+                    ],
+                    "annotations": [
+                        {
+                            "value": 30,
+                            "text": "Hello!"
+                        }
                     ]
                 }
             }
