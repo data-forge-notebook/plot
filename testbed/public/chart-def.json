@@ -1,0 +1,54 @@
+{                                                           
+    "chartDef": {
+        "data": {
+            "series": {
+                "data1": {
+                    "type": "number",
+                    "values": [
+                        30,
+                        200,
+                        100,
+                        400,
+                        150,
+                        250
+                    ]
+                },
+                "data2": {
+                    "type": "number",
+                    "values": [
+                        50,
+                        20,
+                        10,
+                        40,
+                        15,
+                        25
+                    ]
+                }
+            }
+        },
+        "plotConfig": {
+            "legend": {
+                "show": true
+            },
+            "chartType": "line",
+            "width": 800,
+            "height": 600,
+            "y": {
+                "min": 10,
+                "max": 400
+            },
+            "y2": {}
+        },
+        "axisMap": {
+            "y": [
+                {
+                    "series": "data1"
+                },
+                {
+                    "series": "data2"
+                }
+            ],
+            "y2": []
+        }
+    }    
+}                                                           
