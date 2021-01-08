@@ -11,6 +11,7 @@
     "build": "tsc",
     "cb": "npm run clean-build",
     "clean-build": "npm run clean && npm run build",
+    "bw": "npm run build:watch",
     "build:watch": "tsc --watch",
     "clean-build:watch": "rm -rf build/* && tsc --watch",
     "prepublishOnly": "npm test && npm run clean-build",
