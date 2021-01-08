@@ -51,7 +51,7 @@
   "dependencies": {
     "@plotex/chart-def": "^1.0.2",
     "@plotex/serialization": "^1.0.2",
-    "apexcharts": "^3.10.1",
+    "apexcharts": "^3.23.1",
     "dayjs": "^1.8.13",
     "numeral": "^2.0.6"
   }
