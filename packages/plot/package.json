@@ -41,8 +41,8 @@
     },
     "homepage": "https://github.com/data-forge-notebook/plot#readme",
     "dependencies": {
-        "@plotex/chart-def": "^1.0.3",
-        "@plotex/serialization": "^1.0.3",
+        "@plotex/chart-def": "^1.0.8",
+        "@plotex/serialization": "^1.0.8",
         "typy": "3.0.1"
     },
     "devDependencies": {

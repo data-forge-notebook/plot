@@ -1,6 +1,6 @@
 {
   "name": "@plotex/lib-apex",
-  "version": "1.0.5",
+  "version": "1.0.8",
   "description": "A plug in for plot: The simplest plotting API for JavaScript and TypeScript.",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -49,8 +49,8 @@
     "typescript": "3.1.1"
   },
   "dependencies": {
-    "@plotex/chart-def": "^1.0.2",
-    "@plotex/serialization": "^1.0.2",
+    "@plotex/chart-def": "^1.0.8",
+    "@plotex/serialization": "^1.0.8",
     "apexcharts": "^3.23.1",
     "dayjs": "^1.8.13",
     "numeral": "^2.0.6"

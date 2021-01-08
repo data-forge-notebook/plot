@@ -10,7 +10,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@plotex/lib-apex": "^1.0.5"
+    "@plotex/lib-apex": "^1.0.8"
   },
   "devDependencies": {
     "ts-loader": "^5.3.3",

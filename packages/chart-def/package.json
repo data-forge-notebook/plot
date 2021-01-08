@@ -1,6 +1,6 @@
 {
   "name": "@plotex/chart-def",
-  "version": "1.0.3",
+  "version": "1.0.8",
   "description": "A plug in for plot: The simplest plotting API for JavaScript and TypeScript.",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -48,6 +48,6 @@
     "typescript": "3.1.1"
   },
   "dependencies": {
-    "@plotex/serialization": "^1.0.2"
+    "@plotex/serialization": "^1.0.8"
   }
 }
