@@ -1,9 +1,9 @@
 import { IPlotAPI, PlotAPI } from "./plot-api";
 import { IPlotConfig, IAxisMap } from "./chart-def";
-import { isArray } from "util";
-import { isNumber, determineType, isObject } from "./utils";
+import { isNumber, determineType, isObject, isArray } from "./utils";
 import { ISerializedData, IDataSeries } from "@plotex/serialization";
-export * from "./chart-def";
+export * from "@plotex/chart-def";
+export { IAxisConfig, IXAxisConfig, IYAxisConfig, IPlotConfig, IAxisSeriesConfig, IYAxisSeriesConfig, IAxisMap } from "./chart-def";
 export { IPlotAPI } from "./plot-api";
 
 const seriesPlotDefaults: IPlotConfig = {
