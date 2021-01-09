@@ -162,8 +162,8 @@ function serializeInput(input: any[] | any): [ISerializedData, IPlotConfig] {
  * <pre>
  * 
  * const data = [10, 30, 15, 45]; // Array of numbers.
- * const plot = plot(data);
- * plot.renderImage("./myplot.png"); // Need @plotex/render-image installed for this.
+ * plot(data)
+ *      .renderImage("./myplot.png"); // Need @plotex/render-image installed for this.
  * </pre>
  * 
  * @example
@@ -175,9 +175,10 @@ function serializeInput(input: any[] | any): [ISerializedData, IPlotConfig] {
  *  { A: 15, B: 60 }, 
  *  { A: 45, B: 65 }
  * ]; 
- * const plot = plot(data);
- * plot.renderImage("./myplot.png"); // Need @plotex/render-image installed for this.
+ * plot(data)
+ *      .renderImage("./myplot.png"); // Need @plotex/render-image installed for this.
  * </pre>
+ * 
  * @example
  * <pre>
  * 
@@ -186,8 +187,8 @@ function serializeInput(input: any[] | any): [ISerializedData, IPlotConfig] {
  *      A: [10, 30, 15, 45],
  *      B: [50, 45, 60, 65]
  * };
- * const plot = plot(data);
- * plot.renderImage("./myplot.png"); // Need @plotex/render-image installed for this.
+ * plot(data)
+ *      .renderImage("./myplot.png"); // Need @plotex/render-image installed for this.
  * </pre>
  */
 export function plot(input: any[] | any, plotDef?: IPlotConfig, axisMap?: IAxisMap): IPlotAPI {
