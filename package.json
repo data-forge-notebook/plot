@@ -2,7 +2,7 @@
     "description": "The simplest plotting API for JavaScript and TypeScript.",
     "scripts": {
         "update-readme": "cp README.md packages/plot",
-        "api-docs": "typedoc --options typedoc.json --out docs/api ./src/index.ts ./src/plot-api.ts ./src/chart-def.ts"
+        "api-docs": "typedoc"
     },
     "repository": {
         "type": "git",
@@ -30,7 +30,7 @@
         "jest": "24.1.0",
         "ts-jest": "23.10.5",
         "ts-node": "7.0.1",
-        "typedoc": "0.15.0",
-        "typescript": "3.1.1"
+        "typedoc": "0.20.13",
+        "typescript": "3.9"
     }
 }

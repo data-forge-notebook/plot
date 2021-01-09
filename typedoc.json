@@ -1,24 +1,18 @@
 {
     "name": "plot",
-    "readme": "none",
-    "mode": "file",
-    "exclude": [
-        "**/node_modules/**/*",
-        "**/src/test/**/*"
+    "out": "docs/api",
+    "entryPoints": [
+        "./packages/plot/src/index.ts", 
+        "./packages/plot/src/plot-api.ts", 
+        "./packages/chart-def/src/index.ts",
+        "./packages/lib-apex/src/index.ts",
+        "./packages/render-dom/src/index.ts",
+        "./packages/render-image/src/index.ts",
+        "./packages/serialization/src/index.ts"
     ],
+    "readme": "none",
     "theme": "default",
-    "ignoreCompilerErrors": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "target": "ES5",
-    "moduleResolution": "node",
-    "preserveConstEnums": true,
-    "stripInternal": true,
-    "suppressExcessPropertyErrors": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "module": "commonjs",
     "excludeExternals": true,
     "excludePrivate": true,
-    "excludeProtected": true,
-    "excludeNotExported": true
+    "excludeProtected": true
   }
