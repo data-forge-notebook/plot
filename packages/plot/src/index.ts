@@ -5,7 +5,6 @@ import { isNumber, determineType, isObject } from "./utils";
 import { ISerializedData, IDataSeries } from "@plotex/serialization";
 export * from "./chart-def";
 export { IPlotAPI } from "./plot-api";
-export { ChartType, AxisType, HorizontalLabelPosition, VerticalLabelPosition } from "@plotex/chart-def";
 
 const seriesPlotDefaults: IPlotConfig = {
     legend: {

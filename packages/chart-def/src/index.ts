@@ -2,7 +2,7 @@
 import { ISerializedData } from "@plotex/serialization";
 
 /**
- * Defines the type of chart to output.
+ * Sets the type of chart to output.
  */
 export enum ChartType {
     Line = "line",
@@ -20,7 +20,12 @@ export enum ChartType {
 }
 
 /**
- * Defines the type of an axis.
+ * Sets the type of chart to output.
+ */
+export type ChartTypeString = "line" | "bar" | "scatter" | "area" | "histogram" | "pie" | "donut" | "radialBar" | "bubble" | "heatmap" | "candlestick" | "radar";
+
+/**
+ * Sets the type of an axis.
  */
 export enum AxisType {
     Numerical = "numerical",
@@ -29,7 +34,12 @@ export enum AxisType {
 }
 
 /**
- * Defines the position of a horizontal label.
+ * Sets the type of an axis.
+ */
+export type AxisTypeString = "numerical" | "timeseries" | "category";
+
+/**
+ * Sets the position of a horizontal label.
  */
 export enum HorizontalLabelPosition {
     InnerRight = "inner-right", // Default
@@ -41,7 +51,12 @@ export enum HorizontalLabelPosition {
 }
 
 /**
- * Defines the position of a vertical label.
+ * Sets the position of a horizontal label.
+ */
+export type HorizontalLabelPositionString = "inner-right" | "inner-center" | "inner-left" | "outer-right" | "outer-center" | "outer-left";
+
+/**
+ * Sets the position of a vertical label.
  */
 export enum VerticalLabelPosition {
     InnerTop = "inner-top", // Default
@@ -51,6 +66,11 @@ export enum VerticalLabelPosition {
     OuterMiddle = "outer-middle",
     OuterBottom = "outer-bottom",
 }
+
+/**
+ * Sets the position of a vertical label.
+ */
+export type VerticalLabelPositionString = "inner-top" | "inner-middle" | "inner-bottom" | "outer-top" | "outer-middle" | "outer-bottom";
 
 /**
  * Configures the font for a label.
@@ -153,7 +173,7 @@ export interface IAxisLabelConfig {
     /**
      * Position of the label.
      */
-    position?: HorizontalLabelPosition | VerticalLabelPosition;
+    position?: HorizontalLabelPosition | HorizontalLabelPositionString | VerticalLabelPosition | VerticalLabelPositionString;
 
     /**
      * Configures the font for the label.
@@ -200,7 +220,7 @@ export interface IXAxisConfig extends IAxisConfig {
     /**
      * Sets the type of the axis' data.
      */
-    axisType?: AxisType;
+    axisType?: AxisType | AxisTypeString;
 }
 
 /**
@@ -388,7 +408,7 @@ export interface IPlotConfig {
     /**
      * The type of chart to render.
      */
-    chartType?: ChartType;
+    chartType?: ChartType | ChartTypeString;
 
     /**
      * Width of the plot.

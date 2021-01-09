@@ -1,7 +1,7 @@
 import { ISerializedData } from "@plotex/serialization";
 import { IPlotConfig, IAxisMap } from "./chart-def";
 import { isObject } from "./utils";
-import { ChartType, IChartDef, AxisType, HorizontalLabelPosition, VerticalLabelPosition, IAxisConfig, IYAxisSeriesConfig, IAxisSeriesConfig, IXAxisConfig, IYAxisConfig } from "@plotex/chart-def";
+import { ChartType, ChartTypeString, IChartDef, AxisType, AxisTypeString, HorizontalLabelPosition, HorizontalLabelPositionString, VerticalLabelPosition, VerticalLabelPositionString, IAxisConfig, IYAxisSeriesConfig, IAxisSeriesConfig, IXAxisConfig, IYAxisConfig } from "@plotex/chart-def";
 import { expandChartDef } from "./expand-chart-def";
 import { applyDefaults } from "./apply-defaults";
 
@@ -15,7 +15,7 @@ export interface IPlotAPI {
      *
      * @param chartType Specifies the chart type.
      */
-    chartType(chartType: ChartType): IPlotAPI;
+    chartType(chartType: ChartType | ChartTypeString): IPlotAPI;
 
     /**
      * Set the width of the chart.
@@ -107,12 +107,12 @@ export interface IXAxisConfigAPI extends IAxisConfigAPI<IXAxisConfigAPI> {
     /**
      * Set the type of the axis.
      */
-    type(axisType: AxisType): IXAxisSeriesConfigAPI;
+    type(axisType: AxisType | AxisTypeString): IXAxisSeriesConfigAPI;
 
     /**
      * Set the position for the label.
      */
-    labelPosition(position: HorizontalLabelPosition): IXAxisConfigAPI;
+    labelPosition(position: HorizontalLabelPosition | HorizontalLabelPositionString): IXAxisConfigAPI;
 }
 
 /**
@@ -128,7 +128,7 @@ export interface IYAxisConfigAPI extends IAxisConfigAPI<IYAxisConfigAPI> {
     /**
      * Set the position for the label.
      */
-    labelPosition(position: VerticalLabelPosition): IYAxisConfigAPI;
+    labelPosition(position: VerticalLabelPosition | VerticalLabelPositionString): IYAxisConfigAPI;
 
     /**
      * Sets the minimum value to render on the axis.
@@ -168,7 +168,7 @@ export abstract class AbstractPlotAPI implements IPlotAPI {
      *
      * @param chartType Specifies the chart type.
      */
-    chartType(chartType: ChartType): IPlotAPI {
+    chartType(chartType: ChartType | ChartTypeString): IPlotAPI {
         this.chartDef.plotConfig.chartType = chartType; // TODO: could call toLower, would have to also toLower the config.
         return this;
     }
@@ -455,7 +455,7 @@ class XAxisConfigAPI extends AxisConfigAPI<IXAxisConfigAPI, IXAxisConfig> implem
     /**
      * Set the type of the axis.
      */
-    type(axisType: AxisType): IXAxisSeriesConfigAPI {
+    type(axisType: AxisType | AxisTypeString): IXAxisSeriesConfigAPI {
         this.axisConfig.axisType = axisType;
         return this as any as IXAxisSeriesConfigAPI;
     }
@@ -463,7 +463,7 @@ class XAxisConfigAPI extends AxisConfigAPI<IXAxisConfigAPI, IXAxisConfig> implem
     /**
      * Set the position for the label.
      */
-    labelPosition(position: HorizontalLabelPosition): IXAxisConfigAPI {
+    labelPosition(position: HorizontalLabelPosition | HorizontalLabelPositionString): IXAxisConfigAPI {
 
         if (!this.axisConfig.label) {
             this.axisConfig.label = {};
@@ -507,7 +507,7 @@ class YAxisConfigAPI extends AxisConfigAPI<IYAxisConfigAPI, IYAxisConfig> implem
     /**
      * Set the position for the label.
      */
-    labelPosition(position: VerticalLabelPosition): IYAxisConfigAPI {
+    labelPosition(position: VerticalLabelPosition | VerticalLabelPositionString): IYAxisConfigAPI {
         if (!this.axisConfig.label) {
             this.axisConfig.label = {};
         }

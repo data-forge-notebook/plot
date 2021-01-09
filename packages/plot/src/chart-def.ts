@@ -1,5 +1,5 @@
 
-import { AxisType, ChartType, IAxisLabelConfig, ILegendConfig, IDataLabels, IAxisTicksConfiguration } from "@plotex/chart-def";
+import { AxisType, AxisTypeString, ChartType, ChartTypeString, IAxisLabelConfig, ILegendConfig, IDataLabels, IAxisTicksConfiguration } from "@plotex/chart-def";
 
 /**
  * Configures an axis of the chart.
@@ -25,7 +25,7 @@ export interface IXAxisConfig extends IAxisConfig {
     /**
      * Sets the type of the axis' data.
      */
-    axisType?: AxisType;
+    axisType?: AxisType | AxisTypeString;
 }
 
 /**
@@ -53,7 +53,7 @@ export interface IPlotConfig {
      * The type of chart to render.
      * Default to "line".
      */
-    chartType?: ChartType;
+    chartType?: ChartType | ChartTypeString;
 
     /**
      * Sets the width of the plot.

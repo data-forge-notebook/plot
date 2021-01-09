@@ -1,5 +1,5 @@
 import "jest";
-import { IChartDef, AxisType, ChartType, ILegendConfig, IYAxisSeriesConfig } from "@plotex/chart-def";
+import { IChartDef } from "@plotex/chart-def";
 import { formatChartDef } from "../../lib/format-chart-def";
 import { ISerializedData } from "@plotex/serialization";
 
@@ -103,7 +103,7 @@ describe("format chart def", () => {
 
     it("can set chart type", () => {
 
-        const apexChartDef = formatChartDef(makeChartDef({ chartType: ChartType.Bar }));
+        const apexChartDef = formatChartDef(makeChartDef({ chartType: "bar" }));
         expect(apexChartDef.chart!.type).toBe("bar");
     });
 
