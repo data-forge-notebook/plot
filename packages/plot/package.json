@@ -46,13 +46,12 @@
         "typy": "3.0.1"
     },
     "devDependencies": {
-        "@types/jest": "24.0.6",
-        "@types/node": "10.11.4",
-        "jest": "24.1.0",
-        "lerna": "^3.18.4",
-        "ts-jest": "23.10.5",
-        "ts-node": "7.0.1",
-        "typedoc": "0.15.0",
-        "typescript": "3.1.1"
+        "@types/jest": "^26.0.20",
+        "@types/node": "^14.14.20",
+        "@types/numeral": "0.0.29",
+        "jest": "^26.6.3",
+        "ts-jest": "^26.4.4",
+        "ts-node": "^9.1.1",
+        "typescript": "^4.1.3"
     }
 }
