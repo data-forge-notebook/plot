@@ -1,5 +1,5 @@
 
-import { AxisType, AxisTypeString, ChartType, ChartTypeString, IAxisLabelConfig, ILegendConfig, IDataLabels, IAxisTicksConfiguration } from "@plotex/chart-def";
+import { AxisType, AxisTypeString, ChartType, ChartTypeString, IAxisLabelConfig, ILegendConfig, IDataLabels, IAxisTicksConfiguration, IAnnotationStyles } from "@plotex/chart-def";
 
 /**
  * Configures an axis of the chart.
@@ -91,6 +91,11 @@ export interface IPlotConfig {
      * Configure data labels for the whole chart.
      */
     dataLabels?: IDataLabels;
+
+    /**
+     * Named styles that can be applied to annotations.
+     */
+    annotations?: IAnnotationStyles;
 }
 
 /**

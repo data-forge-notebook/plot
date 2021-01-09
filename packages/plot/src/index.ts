@@ -1,7 +1,8 @@
 import { IPlotAPI, PlotAPI } from "./plot-api";
 import { IPlotConfig, IAxisMap } from "./chart-def";
 import { isNumber, determineType, isObject, isArray } from "./utils";
-import { ISerializedData, IDataSeries } from "@plotex/serialization";
+import { ISerializedData, IDataSeries, IAnnotation } from "@plotex/serialization";
+export * from "@plotex/serialization";
 export * from "@plotex/chart-def";
 export { IAxisConfig, IXAxisConfig, IYAxisConfig, IPlotConfig, IAxisSeriesConfig, IYAxisSeriesConfig, IAxisMap } from "./chart-def";
 export { IPlotAPI } from "./plot-api";
@@ -18,10 +19,49 @@ const dataFramePlotDefaults: IPlotConfig = {
     },
 };
 
+/**
+ * A simple array of primitive values or an array of objects (with fields that have primitive values).
+ */
+export type ValueArray = any[];
+
+/**
+ * Specifies input to the plot function for a single data series.
+ */
+export interface ISeriesSpec {
+    /**
+     * Array of values for the series.
+     */
+    values: ValueArray;
+
+    /**
+     * Annotations to the applied to the series.
+     */
+    annotations?: IAnnotation[];
+}
+
+/**
+ * Specifies input to the plot function for a single data series.
+ * Can be an array of values or an ISeriesSpec object.
+ */
+export type SeriesSpec = ValueArray | ISeriesSpec;
+
+/**
+ * Specifies input to the plot function.
+ */
+export interface IInputSpec {
+
+    [seriesName: string]: SeriesSpec;
+}
+
+/**
+ * Inputs data to the plot function.
+ */
+export type PlotInput = ValueArray | IInputSpec;
+
 //
 // Serialize an array of values.
 //
-function serializeValueArray(input: any[]): ISerializedData {
+function serializeValueArray(input: ValueArray): ISerializedData {
     const serializedData: ISerializedData = {
         series: {
             y: {
@@ -71,27 +111,47 @@ interface IColumn {
     series: IDataSeries;
 }
 
+
 //
 // Serialize column-based input data.
 //
-function serializeValueObject(input: any): ISerializedData {
+function serializeValueObject(input: IInputSpec): ISerializedData {
     const columnNames = Object.keys(input);
     const columns = columnNames
         .filter(name => {
             const values = input[name];
-            return isArray(values) && values.length > 0; // Only want arrays with > 0 elements.
+            if (isArray(values)) {
+                return values.length > 0; // Only want arrays with > 0 elements.
+            }
+            else {
+                return true;
+            }
         })
         .map(name => {
-            const values = input[name];
-            const type = determineType(values[0]);
-            const column: IColumn = {
-                name,
-                series: {
-                    type,
-                    values,
-                },
-            };
-            return column;
+            const seriesSpec = input[name];
+            if (isArray(seriesSpec)) {
+                const type = determineType(seriesSpec[0]);
+                const column: IColumn = {
+                    name,
+                    series: {
+                        type,
+                        values: seriesSpec,
+                    },
+                };
+                return column;
+            }
+            else {
+                const type = determineType(seriesSpec.values[0]);
+                const column: IColumn = {
+                    name,
+                    series: {
+                        type,
+                        values: seriesSpec.values,
+                        annotations: seriesSpec.annotations,
+                    },
+                };
+                return column;
+            }
         });
     const serializedData: ISerializedData = {
         series: arrayToObject(columns, column => column.name, column => column.series),
@@ -102,7 +162,7 @@ function serializeValueObject(input: any): ISerializedData {
 //
 // Serialize an array of objects.
 //
-function serializeObjectArray(input: any[]): ISerializedData {
+function serializeObjectArray(input: ValueArray): ISerializedData {
     if (input.length <=  0) {
         return { series: {} }; // No data.
     }
@@ -134,18 +194,18 @@ function serializeObjectArray(input: any[]): ISerializedData {
 //
 // Serialize input data to the standard format according to its type.
 //
-function serializeInput(input: any[] | any): [ISerializedData, IPlotConfig] {
+function serializeInput(input: PlotInput): [ISerializedData, IPlotConfig] {
     const isInputArray = isArray(input);
     const isInputObject = !isInputArray && isObject(input);
-    const isValueArray = isInputArray && input.length > 0 && isNumber(input[0]);
+    const isValueArray = isInputArray && input.length > 0 && !isObject((input as ValueArray)[0]);
     if (isValueArray) {
-        return [serializeValueArray(input), seriesPlotDefaults];
+        return [serializeValueArray(input as ValueArray), seriesPlotDefaults];
     }
     else if (isInputObject) {
-        return [serializeValueObject(input), dataFramePlotDefaults];
+        return [serializeValueObject(input as IInputSpec), dataFramePlotDefaults];
     }
     else {
-        return [serializeObjectArray(input), dataFramePlotDefaults];
+        return [serializeObjectArray(input as ValueArray), dataFramePlotDefaults];
     }
 }
 
@@ -191,7 +251,7 @@ function serializeInput(input: any[] | any): [ISerializedData, IPlotConfig] {
  *      .renderImage("./myplot.png"); // Need @plotex/render-image installed for this.
  * </pre>
  */
-export function plot(input: any[] | any, plotDef?: IPlotConfig, axisMap?: IAxisMap): IPlotAPI {
+export function plot(input: PlotInput, plotDef?: IPlotConfig, axisMap?: IAxisMap): IPlotAPI {
     const [serializedData, plotDefaults] = serializeInput(input);
     return new PlotAPI(serializedData, plotDef || {}, axisMap || {}, plotDefaults);
 }
