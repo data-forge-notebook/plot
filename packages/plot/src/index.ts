@@ -212,9 +212,9 @@ function serializeInput(input: PlotInput): [ISerializedData, IPlotConfig] {
 /**
  * Create a plot from regular JavaScript data.
  * 
- * @param input The data to plot. Can be an array of numbers or an array objects where the fields in the objects specify the data series.
- * @param [plotDef] Optional configuration to control the plot. 
- * @param [axisMap] Optional configuration that maps data series to axis'.
+ * @param input - The data to plot. Can be an array of numbers or an array objects where the fields in the objects specify the data series.
+ * @param plotDef - Optional configuration to control the plot. 
+ * @param axisMap - Optional configuration that maps data series to axis'.
  * 
  * @returns A plot API object that is used to further configure the plot, serialize it or render it to an image.
  * 
