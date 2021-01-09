@@ -89,12 +89,12 @@ export interface IFontConfig {
     /**
      * Font weight for the label.
      */
-    weight?: "string" | number;
+    weight?: string | number;
 
     /**
      * Color of the font.
      */
-    color?: "string";
+    color?: string;
 }
 
 /**
@@ -293,7 +293,7 @@ export interface IAnnotationLabelStyle {
     /**
      * Background color for the annotation label.
      */
-    backgroundColor?: "string";
+    backgroundColor?: string;
 
     /**
      * Border Color of the label.
