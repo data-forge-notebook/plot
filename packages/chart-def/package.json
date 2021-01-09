@@ -14,11 +14,7 @@
     "bw": "tsc --watch",
     "build:watch": "tsc --watch",
     "clean-build:watch": "rm -rf build/* && tsc --watch",
-    "prepublishOnly": "npm test && npm run clean-build",
-    "t": "npm run test",
-    "test": "jest",
-    "tw": "npm run test:watch",
-    "test:watch": "jest --watch"
+    "prepublishOnly": "npm run clean-build"
   },
   "repository": {
     "type": "git",
@@ -40,12 +36,7 @@
   },
   "homepage": "https://github.com/data-forge-notebook/plot#readme",
   "devDependencies": {
-    "@types/jest": "24.0.6",
-    "@types/node": "10.11.4",
-    "jest": "24.1.0",
-    "ts-jest": "23.10.5",
-    "ts-node": "7.0.1",
-    "typescript": "3.1.1"
+    "typescript": "^4.1.3"
   },
   "dependencies": {
     "@plotex/serialization": "^1.0.8"
