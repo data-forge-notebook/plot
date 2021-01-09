@@ -124,12 +124,118 @@ function determineXAxisType(inputChartDef: IChartDef): string {
 //
 // Extracts a single annotation.
 //
-function extractAnnotation(annotations: ApexAnnotations, annotationsField: string, yAxisIndex: number | undefined, value1Field: string, value2Field: string, annotation: IAnnotation) {
+function extractAnnotation(annotations: ApexAnnotations, annotationsField: string, yAxisIndex: number | undefined, value1Field: string, value2Field: string, inputChartDef: IChartDef, annotation: IAnnotation) {
+
+    if (!annotation) {
+        return;
+    }
+
+    const styleName = annotation.style || "default";
+    const annotationStyle = inputChartDef.plotConfig.annotations && inputChartDef.plotConfig.annotations[styleName] || {};
+
     const apexAnnotation: any = {
         label: {
-            text: annotation.text,
+            style: {                
+            },
         },
     };
+
+    if (annotationStyle.strokeDashArray !== undefined) {
+        apexAnnotation.strokeDashArray = annotationStyle.strokeDashArray;
+    }
+
+    if (annotationStyle.lineColor !== undefined) {
+        apexAnnotation.borderColor = annotationStyle.lineColor;
+    }
+
+    if (annotationStyle.fillColor !== undefined) {
+        apexAnnotation.fillColor = annotationStyle.fillColor;
+    }
+
+    if (annotationStyle.opacity !== undefined) {
+        apexAnnotation.opacity = annotationStyle.opacity;
+    }
+
+    if (annotationStyle.offsetX !== undefined) {
+        apexAnnotation.offsetX = annotationStyle.offsetX;
+    }
+
+    if (annotationStyle.offsetY !== undefined) {
+        apexAnnotation.offsetY = annotationStyle.offsetY;
+    }
+
+    if (annotationStyle.lineLength !== undefined) {
+        apexAnnotation.width = annotationStyle.lineLength;
+    }
+
+    if (annotationStyle.label !== undefined) {
+        if (annotationStyle.label.borderColor !== undefined) {
+            apexAnnotation.label.borderColor = annotationStyle.label.borderColor;
+        }
+
+        if (annotationStyle.label.borderWidth !== undefined) {
+            apexAnnotation.label.borderWidth = annotationStyle.label.borderWidth;
+        }
+
+        if (annotationStyle.label.borderRadius !== undefined) {
+            apexAnnotation.label.borderRadius = annotationStyle.label.borderRadius;
+        }
+
+        if (annotationStyle.label.text !== undefined) {
+            apexAnnotation.label.text = annotationStyle.label.text;
+        }
+
+        if (annotationStyle.label.textAnchor !== undefined) {
+            apexAnnotation.label.textAnchor = annotationStyle.label.textAnchor;
+        }
+
+        if (annotationStyle.label.position !== undefined) {
+            apexAnnotation.label.position = annotationStyle.label.position;
+        }
+
+        if (annotationStyle.label.orientation !== undefined) {
+            apexAnnotation.label.orientation = annotationStyle.label.orientation;
+        }
+
+        if (annotationStyle.label.offsetX !== undefined) {
+            apexAnnotation.label.offsetX = annotationStyle.label.offsetX;
+        }
+
+        if (annotationStyle.label.offsetY !== undefined) {
+            apexAnnotation.label.offsetY = annotationStyle.label.offsetY;
+        }
+
+        if (annotationStyle.label.backgroundColor !== undefined) {
+            apexAnnotation.label.style.background = annotationStyle.label.backgroundColor;
+        }
+
+        if (annotationStyle.label.font) {
+            if (annotationStyle.label.font.color !== undefined) {
+                apexAnnotation.label.style.color = annotationStyle.label.font.color;
+            }
+    
+            if (annotationStyle.label.font.size !== undefined) {
+                apexAnnotation.label.style.fontSize = annotationStyle.label.font.size;
+            }
+
+            if (annotationStyle.label.font.weight !== undefined) {
+                apexAnnotation.label.style.fontWeight = annotationStyle.label.font.weight;
+            }
+
+            if (annotationStyle.label.font.family !== undefined) {
+                apexAnnotation.label.style.fontFamily = annotationStyle.label.font.family;
+            }
+
+            if (annotationStyle.label.padding) {
+                apexAnnotation.label.style.padding = annotationStyle.label.padding;
+            }
+        }
+    }
+
+
+    if (annotation.text) {
+        apexAnnotation.label.text = annotation.text;
+    }
 
     apexAnnotation[value1Field] = annotation.value;
     apexAnnotation[value2Field] = annotation.value2;
@@ -150,7 +256,7 @@ function extractAnnotationsFromSeries(annotations: ApexAnnotations, annotationsF
         if (series) {
             if (series.annotations) {
                 for (const annotation of series.annotations) {
-                    extractAnnotation(annotations, annotationsField, yAxisIndex, value1Field, value2Field, annotation);
+                    extractAnnotation(annotations, annotationsField, yAxisIndex, value1Field, value2Field, inputChartDef, annotation);
                 }
             }
         }
@@ -227,7 +333,7 @@ export function formatChartDef(inputChartDef: IChartDef): ApexOptions {
                 }
     
                 if (inputChartDef.plotConfig.x.label.font.family) {
-                    (xaxis.title!.style! as any).fontFamily = inputChartDef.plotConfig.x.label.font.family; //TODO: Typecast to any due to missing TS types in ApexCharts.
+                    xaxis.title!.style!.fontFamily = inputChartDef.plotConfig.x.label.font.family;
                 }
             }
         }

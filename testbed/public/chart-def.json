@@ -15,7 +15,8 @@
                     "annotations": [
                         {
                             "value": "2013-01-04",
-                            "text": "Ya!"
+                            "text": "Ya!",
+                            "style": "blue"
                         }
                     ]
                 },
@@ -33,7 +34,8 @@
                         {
                             "value": 100,
                             "value2": 150,
-                            "text": "Foo!"
+                            "text": "Foo!",
+                            "style": "red"
                         }
                     ]
                 },
@@ -61,7 +63,49 @@
                 "min": 30,
                 "max": 500
             },
-            "y2": {}
+            "y2": {},
+            "annotations": {
+                "red": {
+                    "lineColor": "#f00",
+                    "strokeDashArray": 0,
+                    "lineWidth": "600px",
+                    "fillColor": "yellow",
+                    "opacity": 0.8,
+                    "label": {
+                        "textAnchor": "start",
+                        "offsetX": 15,
+                        "offsetY": -8,
+                        "position": "left",
+                        "padding": {
+                            "left": 5,
+                            "right": 5,
+                            "top": 15,
+                            "bottom": 15
+                        },
+                        "font": {
+                            "size": "20px"
+                        }
+                    }
+                },
+                "blue": {
+                    "lineColor": "#00f",
+                    "strokeDashArray": 0,
+                    "lineWidth": "200px",
+                    "label": {
+                        "backgroundColor": "blue",
+                        "borderColor": "green",
+                        "borderWidth": 5,
+                        "borderRadius": 0,
+                        "textAnchor": "end",
+                        "offsetY": -8,
+                        "position": "bottom",
+                        "orientation": "horizontal",
+                        "font": {
+                            "color": "white"
+                        }
+                    }
+                }
+            }
         },
         "axisMap": {
             "y": [

@@ -57,14 +57,24 @@ export enum VerticalLabelPosition {
  */
 export interface IFontConfig {
     /**
-     * Font size for the series label.
+     * Font size for the label.
      */
     size?: string;
 
     /**
-     * Font family for the series label.
+     * Font family for the label.
      */
     family?: string;
+
+    /**
+     * Font weight for the label.
+     */
+    weight?: "string" | number;
+
+    /**
+     * Color of the font.
+     */
+    color?: "string";
 }
 
 /**
@@ -226,6 +236,151 @@ export interface ILegendConfig {
 }
 
 /**
+ * Sets padding.
+ */
+export interface IPadding {
+    /**
+     * Left padding.
+     */
+    left?: number;
+
+    /**
+     * Right padding.
+     */
+    right?: number;
+
+    /**
+     * Top padding.
+     */
+    top?: number;
+
+    /**
+     * Bottom padding.
+     */
+    bottom?: number;
+}
+
+/**
+ * Sets the style for the annotation's label.
+ */
+export interface IAnnotationLabelStyle {
+
+    /**
+     * Default text for the annotation.
+     */
+    text?: string;
+
+    /**
+     * Background color for the annotation label.
+     */
+    backgroundColor?: "string";
+
+    /**
+     * Border Color of the label.
+     */
+    borderColor?: string;
+
+    /**
+     * Border width of the label.
+     */
+    borderWidth?: number;
+
+    /**
+     * Border-radius of the label.
+     */
+    borderRadius?: number;
+
+    /**
+     * The alignment of text relative to label’s drawing position
+     */
+    textAnchor?: "start" | "middle" | "end";
+
+    /**
+     * Position of the lablel.
+     */
+    position?: "left" | "right" | "top" | "bottom";
+
+    /**
+     * Orientation of the label.
+     * Only affects annotations on the X axis.
+     */
+    orientation?: "vertical" | "horizontal";
+
+    /**
+     * Sets the left offset for annotation label.
+     */
+    offsetX?: number;
+
+    /**
+     * Sets the top offset for annotation label.
+     */
+    offsetY?: number;
+
+    /**
+     * Font for the annotation label.
+     */
+    font?: IFontConfig;
+
+    /**
+     * Padding for the annotation label.
+     */
+    padding?: IPadding;
+}
+
+/**
+ * A style that can be applied to an annotation.
+ */
+export interface IAnnotationStyle {
+    /**
+     * Creates dashes in borders of the SVG path. A higher number creates more space between dashes in the border.
+     */
+    strokeDashArray?: number;
+
+    /**
+     * Color of the annotation line.
+     */
+    lineColor?: string;
+
+    /**
+     * Fill Color of the region when the second value is supplied for an annotation.
+     */
+    fillColor?: string;
+
+    /**
+     * Opacity of the filled region.
+     */
+    opacity?: number;
+
+    /**
+     * Sets the left offset for annotation line.
+     */
+    offsetX?: number;
+
+    /**
+     * Sets the top offset for annotation line.
+     */
+    offsetY?: number;
+
+    /**
+     * Sets the length for aN annotation line on the Y axis.
+     * Doesn't apply to the X axis.
+     */
+    lineLength?: string | number;
+
+    /**
+     * Sets the style for the annotation's label.
+     */
+    label?: IAnnotationLabelStyle;
+}
+
+/**
+ * Named styles that can be applied to annotations.
+ */
+export interface IAnnotationStyles {
+    [styleName: string]: IAnnotationStyle;
+}
+
+/**
  * Defines the chart.
  */
 export interface IPlotConfig {
@@ -271,6 +426,11 @@ export interface IPlotConfig {
      * Configure data labels for the whole chart.
      */
     dataLabels?: IDataLabels;
+
+    /**
+     * Named styles that can be applied to annotations.
+     */
+    annotations?: IAnnotationStyles;
 }
 
 /**

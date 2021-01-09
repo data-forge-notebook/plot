@@ -80,6 +80,7 @@ describe("format chart def", () => {
                 y2: inputChartDef && inputChartDef.plotConfig && inputChartDef.plotConfig.y2,
                 legend: inputChartDef && inputChartDef.plotConfig  && inputChartDef.plotConfig.legend,
                 dataLabels: inputChartDef && inputChartDef.plotConfig && inputChartDef.plotConfig.dataLabels,
+                annotations: inputChartDef && inputChartDef.plotConfig && inputChartDef.plotConfig.annotations,
             },
             data: inputChartDef && inputChartDef.data || {
                 columnOrder: [],
@@ -1065,4 +1066,140 @@ describe("format chart def", () => {
         expect(apexAnnotation.y2).toBe(20);
         expect(apexAnnotation.yAxisIndex).toBe(1);
     });
+
+    it("can style annotation", () => {
+        const chartDef = {
+            data: {
+                series: {
+                    a: {
+                        type: "number",
+                        values: [ 10, 20, 30 ],
+                        annotations: [
+                            {
+                                value: 10,
+                                style: "someStyle"
+                            }
+                        ]
+                    },
+                },
+            },
+            plotConfig: {
+                annotations: {
+                    someStyle: {
+                        strokeDashArray: 2,
+                        lineColor: "#f00",
+                        fillColor: "yellow",
+                        opacity: 0.8,
+                        offsetX: 1,
+                        offsetY: 2,
+                        lineLength: "600px",
+                        label: {
+                            text: "A great annotation",
+                            backgroundColor: "blue",
+                            borderColor: "green",
+                            borderWidth: 5,
+                            borderRadius: 0,
+                            textAnchor: "end",
+                            position: "bottom",
+                            orientation: "horizontal",
+                            offsetX: 3,
+                            offsetY: 4,
+                            font: {
+                                color: "white",
+                                size: "5px",
+                                family: "Comic Sans",
+                                weight: 300,
+                            },
+                            padding: {
+                                left: 1,
+                                right: 2,
+                                top: 3,
+                                bottom: 4,
+                            },
+                        },
+                    },
+                },
+            },
+            axisMap: {
+                y: [
+                    {
+                        series: "a",
+                    },
+                ],
+            },
+        };
+        
+        const apexChartDef = formatChartDef(makeChartDef(chartDef));
+
+        expect(apexChartDef.annotations!.yaxis!.length).toBe(1);
+
+        const apexAnnotation = apexChartDef.annotations!.yaxis![0];
+        expect(apexAnnotation.strokeDashArray).toBe(2);
+        expect(apexAnnotation.borderColor).toBe("#f00");
+        expect(apexAnnotation.fillColor).toBe("yellow");
+        expect(apexAnnotation.opacity).toBe(0.8);
+        expect(apexAnnotation.offsetX).toBe(1);
+        expect(apexAnnotation.offsetY).toBe(2);
+        expect(apexAnnotation.width).toBe("600px");
+        expect(apexAnnotation.label!.borderColor).toBe("green");
+        expect(apexAnnotation.label!.borderWidth).toBe(5);
+        expect(apexAnnotation.label!.borderRadius).toBe(0);
+        expect(apexAnnotation.label!.text).toBe("A great annotation");
+        expect(apexAnnotation.label!.textAnchor).toBe("end");
+        expect(apexAnnotation.label!.position).toBe("bottom");
+        expect(apexAnnotation.label!.offsetX).toBe(3);
+        expect(apexAnnotation.label!.offsetY).toBe(4);
+        expect(apexAnnotation.label!.style!.background).toBe("blue");
+        expect(apexAnnotation.label!.style!.color).toBe("white");
+        expect(apexAnnotation.label!.style!.fontSize).toBe("5px");
+        expect(apexAnnotation.label!.style!.fontWeight).toBe(300);
+        expect(apexAnnotation.label!.style!.fontFamily).toBe("Comic Sans");
+
+        expect(apexAnnotation.label!.style!.padding).toEqual({
+            left: 1,
+            right: 2,
+            top: 3,
+            bottom: 4,
+        });
+    });
+
+    it("can set default annotation style", () => {
+        const chartDef = {
+            data: {
+                series: {
+                    a: {
+                        type: "number",
+                        values: [ 10, 20, 30 ],
+                        annotations: [
+                            {
+                                value: 10,
+                            }
+                        ]
+                    },
+                },
+            },
+            plotConfig: {
+                annotations: {
+                    default: {
+                        strokeDashArray: 12,
+                    }
+                },
+            },
+            axisMap: {
+                y: [
+                    {
+                        series: "a",
+                    },
+                ],
+            },
+        };
+        
+        const apexChartDef = formatChartDef(makeChartDef(chartDef));
+
+        expect(apexChartDef.annotations!.yaxis!.length).toBe(1);
+
+        const apexAnnotation = apexChartDef.annotations!.yaxis![0];
+        expect(apexAnnotation.strokeDashArray).toBe(12);
+    });    
+
 });
