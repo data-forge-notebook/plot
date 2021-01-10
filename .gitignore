@@ -59,15 +59,9 @@ typings/
 
 build/
 todo.txt
-src/test/test-series.png
-src/test/test-dataframe.png
-src/test/test-dataframe-2.png
-src/test/test-dataframe-3.png
-src/test/test-dataframe-4.png
-src/test/test-dataframe-5.png
-src/test/test-series2.png
-examples/output/
-examples/c3/output/
 *.bak
-examples/flot/output/
 *.orig
+input/
+dist/
+tsconfig.tsbuildinfo
+temp/
