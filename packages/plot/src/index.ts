@@ -46,10 +46,22 @@ export interface ISeriesSpec {
 export type SeriesSpec = ValueArray | ISeriesSpec;
 
 /**
- * Specifies input to the plot function.
+ * Specifies input to the {@link plot} function.
+ * 
+ * Add your named data series as fields in this object.
+ * 
+ * @example
+ * <pre>
+ * 
+ * {
+ *     A: [10, 30, 15, 45],
+ *     B: [50, 45, 60, 65]
+ * }
  */
 export interface IInputSpec {
-
+    /**
+     * Specifies a named series of data to be input to the {@link plot} function.
+     */
     [seriesName: string]: SeriesSpec;
 }
 
