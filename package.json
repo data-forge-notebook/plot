@@ -4,7 +4,7 @@
     "scripts": {
         "update-readme": "cp README.md packages/plot",
         "api-docs": "typedoc ./packages/serialization/src/index.ts ./packages/chart-def/src/index.ts ./packages/plot/src/plot-api.ts ./packages/plot/src/index.ts ./packages/lib-apex/src/index.ts ./packages/render-dom/src/index.ts ./packages/render-image/src/index.ts",
-        "docs": "tsc && api-extractor run --local && rm -rf input && mv temp input && rm -rf markdown && api-documenter markdown"
+        "docs": "npm run docs --prefix ./packages/serialization && npm run docs --prefix ./packages/chart-def && npm run docs --prefix ./packages/lib-apex && npm run docs --prefix ./packages/render-dom && npm run docs --prefix ./packages/render-image && npm run docs --prefix ./packages/plot && api-documenter markdown"
     },
     "repository": {
         "type": "git",
@@ -28,7 +28,6 @@
     "dependencies": {},
     "devDependencies": {
         "@microsoft/api-documenter": "^7.12.3",
-        "@microsoft/api-extractor": "^7.12.1",
         "@plotex/chart-def": "^1.0.11",
         "@plotex/serialization": "^1.0.11",
         "@types/node": "^14.14.20",

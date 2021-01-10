@@ -14,7 +14,8 @@
     "bw": "tsc --watch",
     "build:watch": "tsc --watch",
     "clean-build:watch": "rm -rf build/* && tsc --watch",
-    "prepublishOnly": "npm run clean-build"
+    "prepublishOnly": "npm run clean-build",
+    "docs": "tsc && api-extractor run --local"
   },
   "repository": {
     "type": "git",
@@ -36,6 +37,8 @@
   },
   "homepage": "https://github.com/data-forge-notebook/plot#readme",
   "devDependencies": {
+    "@microsoft/api-documenter": "^7.12.3",
+    "@microsoft/api-extractor": "^7.12.1",
     "typescript": "^4.1.3"
   },
   "dependencies": {

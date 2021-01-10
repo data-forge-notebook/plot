@@ -19,7 +19,8 @@
     "t": "npm run test",
     "test": "jest",
     "tw": "npm run test:watch",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "docs": "tsc && api-extractor run --local"
   },
   "repository": {
     "type": "git",
@@ -48,6 +49,7 @@
     "plot": "^1.0.11"
   },
   "devDependencies": {
+    "@microsoft/api-extractor": "^7.12.1",
     "@plotex/lib-apex": "^1.0.11",
     "@types/jest": "^26.0.20",
     "@types/node": "^14.14.20",

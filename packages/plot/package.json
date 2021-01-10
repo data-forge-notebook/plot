@@ -19,7 +19,8 @@
         "test": "jest",
         "tw": "npm run test:watch",
         "test:watch": "jest --watch",
-        "postinstall": "node postinstall.js || echo \"ignore\""
+        "postinstall": "node postinstall.js || echo \"ignore\"",
+        "docs": "tsc && api-extractor run --local"
     },
     "repository": {
         "type": "git",
@@ -46,6 +47,7 @@
         "typy": "3.0.1"
     },
     "devDependencies": {
+        "@microsoft/api-extractor": "^7.12.1",
         "@types/jest": "^26.0.20",
         "@types/node": "^14.14.20",
         "@types/numeral": "0.0.29",

@@ -18,7 +18,8 @@
     "t": "npm run test",
     "test": "jest",
     "tw": "npm run test:watch",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "docs": "tsc && api-extractor run --local"
   },
   "repository": {
     "type": "git",
@@ -40,6 +41,7 @@
   },
   "homepage": "https://github.com/data-forge-notebook/plot#readme",
   "devDependencies": {
+    "@microsoft/api-extractor": "^7.12.1",
     "@types/jest": "^26.0.20",
     "@types/node": "^14.14.20",
     "@types/numeral": "0.0.29",
