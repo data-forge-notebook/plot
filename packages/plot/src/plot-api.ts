@@ -13,7 +13,7 @@ export interface IPlotAPI {
     /**
      * Set the type of the chart to be plotted.
      *
-     * @param chartType Specifies the chart type.
+     * @param chartType - Specifies the chart type.
      */
     chartType(chartType: ChartType | ChartTypeString): IPlotAPI;
 
@@ -132,13 +132,13 @@ export interface IYAxisConfigAPI extends IAxisConfigAPI<IYAxisConfigAPI> {
 
     /**
      * Sets the minimum value to render on the axis.
-     * @param value The minimum value to render.
+     * @param value - The minimum value to render.
      */
     min(value: number): IYAxisConfigAPI;
 
     /**
      * Sets the maximum value to render on the axis.
-     * @param value The maximum value to render.
+     * @param value - The maximum value to render.
      */
     max(value: number): IYAxisConfigAPI;
 }
@@ -166,7 +166,7 @@ export abstract class AbstractPlotAPI implements IPlotAPI {
     /**
      * Set the type of the chart to be plotted.
      *
-     * @param chartType Specifies the chart type.
+     * @param chartType - Specifies the chart type.
      */
     chartType(chartType: ChartType | ChartTypeString): IPlotAPI {
         this.chartDef.plotConfig.chartType = chartType; // TODO: could call toLower, would have to also toLower the config.
@@ -285,7 +285,7 @@ export class PlotAPI extends AbstractPlotAPI {
     /**
      * Deserialize an instance of PlotAPI from a previously serialize chart def.
      * 
-     * @param chartDef The chart definition to deserialize from.
+     * @param chartDef - The chart definition to deserialize from.
      */
     static deserialize(chartDef: IChartDef): IPlotAPI {
         return new PlotAPI(chartDef.data, chartDef.plotConfig, chartDef.axisMap);
@@ -523,7 +523,7 @@ class YAxisConfigAPI extends AxisConfigAPI<IYAxisConfigAPI, IYAxisConfig> implem
 
     /**
      * Sets the minimum value to render on the axis.
-     * @param value The minimum value to render.
+     * @param value - The minimum value to render.
      */
     min(value: number): IYAxisConfigAPI {
         // todo:
@@ -532,7 +532,7 @@ class YAxisConfigAPI extends AxisConfigAPI<IYAxisConfigAPI, IYAxisConfig> implem
 
     /**
      * Sets the maximum value to render on the axis.
-     * @param value The maximum value to render.
+     * @param value - The maximum value to render.
      */
     max(value: number): IYAxisConfigAPI {
         // todo:

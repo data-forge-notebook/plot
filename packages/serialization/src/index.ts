@@ -20,7 +20,7 @@ export interface IAnnotation {
 
     /**
      * Sets the style of the annotation.
-     * This allows style to be set for a chart as part of the "plot config" ({@link IPlotConfig}).
+     * This allows style to be set for a chart as part of the "plot config" ({@link plot#IPlotConfig}).
      */
     style?: string;
 }
