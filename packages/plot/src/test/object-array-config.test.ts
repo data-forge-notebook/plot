@@ -86,11 +86,11 @@ describe("object array configuration", () => {
         });
     });
 
-    it("legend is enabled by default for empty array", ()  => {
+    it("legend is disabled by default for empty array", ()  => {
 
         const plotAPI = plot([]);
         const serialized = plotAPI.serialize();
-        expect(serialized.plotConfig.legend!.show).toEqual(true);
+        expect(serialized.plotConfig.legend!.show).toEqual(false);
     });
 
     it("legend is enabled by default for array of objects", ()  => {

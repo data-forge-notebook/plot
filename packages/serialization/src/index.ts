@@ -14,7 +14,7 @@ export interface IAnnotation {
     value2?: any;
 
     /**
-     * Text for the annotation, this can also be set through the style.
+     * Text for the annotation, this can also be set through the style ({@link chart-def#IAnnotationLabelStyle}).
      */
     text?: string;
 

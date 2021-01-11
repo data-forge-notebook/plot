@@ -1,6 +1,6 @@
 import { IPlotAPI, PlotAPI } from "./plot-api";
 import { IPlotConfig, IAxisMap } from "./chart-def";
-import { isNumber, determineType, isObject, isArray } from "./utils";
+import { determineType, isObject, isArray } from "./utils";
 import { ISerializedData, IDataSeries, IAnnotation } from "@plotex/serialization";
 export * from "@plotex/serialization";
 export * from "@plotex/chart-def";
@@ -25,7 +25,7 @@ const dataFramePlotDefaults: IPlotConfig = {
 export type ValueArray = any[];
 
 /**
- * Specifies input to the plot function for a single data series.
+ * A single data series with optional annotations.
  */
 export interface ISeriesSpec {
     /**
@@ -40,13 +40,14 @@ export interface ISeriesSpec {
 }
 
 /**
- * Specifies input to the plot function for a single data series.
- * Can be an array of values or an ISeriesSpec object.
+ * A single data series.
+ * 
+ * Can be an array of values or an {@link ISeriesSpec} object.
  */
 export type SeriesSpec = ValueArray | ISeriesSpec;
 
 /**
- * Specifies input to the {@link plot} function.
+ * A collection of named data series.
  * 
  * Add your named data series as fields in this object.
  * 
@@ -57,18 +58,53 @@ export type SeriesSpec = ValueArray | ISeriesSpec;
  *     A: [10, 30, 15, 45],
  *     B: [50, 45, 60, 65]
  * }
- */
-export interface IInputSpec {
+ * </pre>
+ * */
+export interface IMultiSeriesSpec {
     /**
-     * Specifies a named series of data to be input to the {@link plot} function.
+     * A named series of data to be input to the {@link plot} function.
      */
     [seriesName: string]: SeriesSpec;
 }
 
 /**
+ * Annotations to render on the chart for each named data series.
+ * 
+ * @example
+ * <pre>
+ * 
+ * {
+ *     A: [ ... annotations for series A ... ],
+ *     B: [ ... annotations for series B ... ]
+ * }
+ * </pre>
+ */
+export interface IAnnotationSpec {
+    /**
+     * Annotations to render for a particular named data series.
+     */
+    [seriesName: string]: IAnnotation[];
+}
+
+/**
+ * Specifes data to be rendered on the chart in values/annotations form.
+ */
+export interface IDataSpec {
+    /**
+     * Values or data series to render in the chart.
+     */
+    values:  ValueArray | IMultiSeriesSpec;
+
+    /**
+     * Annotations to be rendered on the chart.
+     */
+    annotations?: IAnnotation[] | IAnnotationSpec;
+}
+
+/**
  * Inputs data to the plot function.
  */
-export type PlotInput = ValueArray | IInputSpec;
+export type PlotInput = ValueArray | IMultiSeriesSpec | IDataSpec;
 
 //
 // Serialize an array of values.
@@ -123,12 +159,10 @@ interface IColumn {
     series: IDataSeries;
 }
 
-
 //
 // Serialize column-based input data.
 //
-function serializeValueObject(input: IInputSpec): ISerializedData {
-    const columnNames = Object.keys(input);
+function serializeValueObject(columnNames: string[], input: IMultiSeriesSpec): ISerializedData {
     const columns = columnNames
         .filter(name => {
             const values = input[name];
@@ -172,6 +206,56 @@ function serializeValueObject(input: IInputSpec): ISerializedData {
 }
 
 //
+// Serialize a data array.
+//
+function serializeArray(data: ValueArray): ISerializedData {
+    if (data.length > 0 && isObject(data[0])) {
+        return serializeObjectArray(data);
+    }
+    else {
+        return serializeValueArray(data);
+    }
+}
+
+//
+// Serialize a data spec.
+//
+function serializeDataSpec(input: IDataSpec): ISerializedData {
+    let serializedData = isArray(input.values) ? serializeArray(input.values) : serializeValueObject(Object.keys(input.values), input.values);
+    if (input.annotations) {
+        if (isArray(input.annotations)) {
+            for (const seriesName of Object.keys(serializedData.series)) {
+                const series = serializedData.series[seriesName];
+                if (series) {
+                    if (!series.annotations) {
+                        series.annotations = [];
+                    }
+    
+                    for (const annotation of input.annotations) {
+                        series.annotations.push(annotation);
+                    }
+                }
+            }
+        }
+        else {
+            for (const annotatedSeriesName of Object.keys(input.annotations)) {
+                const series = serializedData.series[annotatedSeriesName];
+                if (series) {
+                    if (!series.annotations) {
+                        series.annotations = [];
+                    }
+    
+                    for (const annotation of input.annotations[annotatedSeriesName]) {
+                        series.annotations.push(annotation);
+                    }
+                }
+            }
+        }
+    }
+    return serializedData;
+}
+
+//
 // Serialize an array of objects.
 //
 function serializeObjectArray(input: ValueArray): ISerializedData {
@@ -209,12 +293,21 @@ function serializeObjectArray(input: ValueArray): ISerializedData {
 function serializeInput(input: PlotInput): [ISerializedData, IPlotConfig] {
     const isInputArray = isArray(input);
     const isInputObject = !isInputArray && isObject(input);
-    const isValueArray = isInputArray && input.length > 0 && !isObject((input as ValueArray)[0]);
+    const isValueArray = isInputArray && !isObject((input as ValueArray)[0]);
     if (isValueArray) {
         return [serializeValueArray(input as ValueArray), seriesPlotDefaults];
     }
     else if (isInputObject) {
-        return [serializeValueObject(input as IInputSpec), dataFramePlotDefaults];
+        const columnNames = Object.keys(input);
+        if (columnNames.length === 1 && columnNames[0] === "values") {
+            return [serializeDataSpec(input as IDataSeries), dataFramePlotDefaults];
+        }
+        else if (columnNames.length === 2 && columnNames[0] === "values" && columnNames[1] === "annotations") {
+            return [serializeDataSpec(input as IDataSeries), dataFramePlotDefaults];
+        }
+        else {
+            return [serializeValueObject(columnNames, input as IMultiSeriesSpec), dataFramePlotDefaults];
+        }   
     }
     else {
         return [serializeObjectArray(input as ValueArray), dataFramePlotDefaults];
