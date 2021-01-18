@@ -74,7 +74,9 @@ async function main() {
         await writeFile(docPath, header.concat(output).join("\n"));
     }
 
-    await writeFile(join(docPath, "ids.json"), JSON.stringify(ids, null, 4));
+    const idsFileName= join(dir, "ids.json");
+    console.log("Writing " + idsFileName);
+    await writeFile(idsFileName, JSON.stringify(ids, null, 4));
 }
 
 main()
