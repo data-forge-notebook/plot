@@ -21,6 +21,11 @@ import { VerticalLabelPosition } from '@plotex/chart-def';
 import { VerticalLabelPositionString } from '@plotex/chart-def';
 
 // @public
+export interface IAnnotationSpec {
+    [seriesName: string]: IAnnotation[];
+}
+
+// @public
 export interface IAxisConfig {
     label?: string | IAxisLabelConfig;
     ticks?: IAxisTicksConfiguration;
@@ -42,7 +47,13 @@ export interface IAxisSeriesConfig {
 }
 
 // @public
-export interface IInputSpec {
+export interface IDataSpec {
+    annotations?: IAnnotation[] | IAnnotationSpec;
+    values: ValueArray | IMultiSeriesSpec;
+}
+
+// @public
+export interface IMultiSeriesSpec {
     [seriesName: string]: SeriesSpec;
 }
 
@@ -98,7 +109,7 @@ export interface IYAxisSeriesConfig extends IAxisSeriesConfig {
 export function plot(input: PlotInput, plotDef?: IPlotConfig, axisMap?: IAxisMap): IPlotAPI;
 
 // @public
-export type PlotInput = ValueArray | IInputSpec;
+export type PlotInput = ValueArray | IMultiSeriesSpec | IDataSpec;
 
 // @public
 export type SeriesSpec = ValueArray | ISeriesSpec;

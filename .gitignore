@@ -65,3 +65,4 @@ input/
 dist/
 tsconfig.tsbuildinfo
 temp/
+docs-src/docs/
