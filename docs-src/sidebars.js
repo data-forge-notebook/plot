@@ -1,6 +1,7 @@
+//TODO: Can have nested sections in the sidebar!
 module.exports = {
   someSidebar: {
-    Docusaurus: require("./docs/ids.json"),
-    Features: ['index'],
+    Index: ['index'],
+    API: require("./docs/ids.json"),
   },
 };

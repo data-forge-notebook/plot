@@ -41,14 +41,17 @@ async function main() {
                     title = titleLine[1];
                 }
             }
-            const homeLink = line.match(/\[Home\]\(.\/index\.md\) &gt; (.*)/);
-            if (homeLink) {
-                // Skip the breadcrumb for the toplevel index file.
-                if (id !== "index") {
-                    output.push(homeLink[1]);
-                }
-                skip = true;
-            }
+
+            //TODO: do I need this?
+            // const homeLink = line.match(/\[Home\]\(.\/index\.md\) &gt; (.*)/);
+            // if (homeLink) {
+            //     // Skip the breadcrumb for the toplevel index file.
+            //     if (id !== "index") {
+            //         output.push(homeLink[1]);
+            //     }
+            //     skip = true;
+            // }
+
             // See issue #4. api-documenter expects \| to escape table
             // column delimiters, but docusaurus uses a markdown processor
             // that doesn't support this. Replace with an escape sequence
@@ -72,6 +75,7 @@ async function main() {
             `id: ${id}`,
             `title: ${title}`,
             `hide_title: true`,
+            `slug: ${id === "index" ? "/" : `/${id}`}`,
             "---"
         ];
 
