@@ -4,7 +4,8 @@
     "scripts": {
         "update-readme": "cp README.md packages/plot",
         "api-docs": "typedoc ./packages/serialization/src/index.ts ./packages/chart-def/src/index.ts ./packages/plot/src/plot-api.ts ./packages/plot/src/index.ts ./packages/lib-apex/src/index.ts ./packages/render-dom/src/index.ts ./packages/render-image/src/index.ts",
-        "docs": "npm run docs --prefix ./packages/serialization && npm run docs --prefix ./packages/chart-def && npm run docs --prefix ./packages/lib-apex && npm run docs --prefix ./packages/render-dom && npm run docs --prefix ./packages/render-image && npm run docs --prefix ./packages/plot && api-documenter markdown"
+        "docs": "npm run docs --prefix ./packages/serialization && npm run docs --prefix ./packages/chart-def && npm run docs --prefix ./packages/lib-apex && npm run docs --prefix ./packages/render-dom && npm run docs --prefix ./packages/render-image && npm run docs --prefix ./packages/plot && api-documenter markdown && npm run process-docs && rm -rf docs && mv markdown docs/docs",
+        "process-docs": "node process-docs.js"
     },
     "repository": {
         "type": "git",
