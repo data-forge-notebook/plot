@@ -52,13 +52,11 @@ export type SeriesSpec = ValueArray | ISeriesSpec;
  * Add your named data series as fields in this object.
  * 
  * @example
- * <pre>
  * 
  * {
  *     A: [10, 30, 15, 45],
  *     B: [50, 45, 60, 65]
  * }
- * </pre>
  * */
 export interface IMultiSeriesSpec {
     /**
@@ -71,13 +69,11 @@ export interface IMultiSeriesSpec {
  * Annotations to render on the chart for each named data series.
  * 
  * @example
- * <pre>
  * 
  * {
  *     A: [ ... annotations for series A ... ],
  *     B: [ ... annotations for series B ... ]
  * }
- * </pre>
  */
 export interface IAnnotationSpec {
     /**
@@ -324,15 +320,12 @@ function serializeInput(input: PlotInput): [ISerializedData, IPlotConfig] {
  * @returns A plot API object that is used to further configure the plot, serialize it or render it to an image.
  * 
  * @example
- * <pre>
  * 
  * const data = [10, 30, 15, 45]; // Array of numbers.
  * plot(data)
- *      .renderImage("./myplot.png"); // Need \@plotex/render-image installed for this.
- * </pre>
+ *      .renderImage("./myplot.png"); // Need &commat;plotex/render-image installed for this.
  * 
  * @example
- * <pre>
  * 
  * const data = [ // Array of JS objects to specify multiple data series.
  *  { A: 10, B: 50 }, 
@@ -341,20 +334,16 @@ function serializeInput(input: PlotInput): [ISerializedData, IPlotConfig] {
  *  { A: 45, B: 65 }
  * ]; 
  * plot(data)
- *      .renderImage("./myplot.png"); // Need \@plotex/render-image installed for this.
- * </pre>
+ *      .renderImage("./myplot.png"); // Need &commat;plotex/render-image installed for this.
  * 
  * @example
- * <pre>
- * 
  * 
  * const data = {
  *      A: [10, 30, 15, 45],
  *      B: [50, 45, 60, 65]
  * };
  * plot(data)
- *      .renderImage("./myplot.png"); // Need \@plotex/render-image installed for this.
- * </pre>
+ *      .renderImage("./myplot.png"); // Need &commat;plotex/render-image installed for this.
  */
 export function plot(input: PlotInput, plotDef?: IPlotConfig, axisMap?: IAxisMap): IPlotAPI {
     const [serializedData, plotDefaults] = serializeInput(input);
