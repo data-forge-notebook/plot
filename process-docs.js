@@ -12,7 +12,9 @@ async function main() {
     
     const dir = "./markdown";
     const docFiles = await readdir(dir);
-    const ids = [];
+    const idTree = {
+        children: {},
+    };
 
     for (const docFile of docFiles) {
         console.log(docFile); //fio:
@@ -22,7 +24,23 @@ async function main() {
             continue;
         }
 
-        ids.push(id);
+        if (id !== "index") {
+            const idParts = id.split(".");
+            let idsNode = idTree;
+            for (let i = 0; i < idParts.length; ++i) {
+                const idPart = idParts[i];
+    
+                if (!idsNode.children[idPart]) {
+                    idsNode.children[idPart] = {
+                        partId: idPart,
+                        fullId: id,
+                        children: {},
+                    };
+                }
+                
+                idsNode = idsNode.children[idPart];
+            }
+        }
 
         const docPath = join(dir, docFile);
         const input = createReadStream(docPath);
@@ -83,9 +101,31 @@ async function main() {
         await writeFile(docPath, header.concat(output).join("\n"));
     }
 
+    function processIdTree(idNode, top) {
+        return Object.keys(idNode.children)
+            .map(key => {
+                const child = idNode.children[key];
+                const docNode = {};
+                const numChildren = Object.keys(child.children).length;
+                if (numChildren > 0) {
+                    docNode.type =  "category";
+                    docNode.label = child.partId;
+                    docNode.items = processIdTree(child, false);
+                    docNode.collapsed = true;
+                }
+                else {
+                    docNode.type =  "doc";
+                    docNode.id = child.fullId;
+                };
+                
+                return docNode;
+                
+            });
+    }
+
     const idsFileName= join(dir, "ids.json");
     console.log("Writing " + idsFileName);
-    await writeFile(idsFileName, JSON.stringify(ids, null, 4));
+    await writeFile(idsFileName, JSON.stringify(processIdTree(idTree, true), null, 4));
 }
 
 main()
