@@ -36,7 +36,6 @@ async function main() {
                     idsNode.children[idPart] = {
                         label: idPart,
                         partId: idPart,
-                        fullId: id,
                         isDoc: false,
                         children: {},
                     };
@@ -46,6 +45,7 @@ async function main() {
 
                 if (i === idParts.length-1) {
                     idsNode.isDoc = true;
+                    idsNode.fullId = id;
                 }
             }
         }
@@ -131,10 +131,8 @@ async function main() {
         }
     }
 
-    const idsFileName= join(dir, "ids.json");
-    console.log("Writing " + idsFileName);
-    await writeFile(idsFileName, JSON.stringify(Array.from(processIdTree(idTree)), null, 4));
-    // await writeFile(idsFileName, JSON.stringify(idTree, null, 4));
+    await writeFile(join(dir, "ids.json"), JSON.stringify(Array.from(processIdTree(idTree)), null, 4));
+    // await writeFile(join(dir, "id-tree.json"), JSON.stringify(idTree, null, 4));
 }
 
 main()
