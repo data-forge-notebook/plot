@@ -7,12 +7,14 @@
 const { readdir, createReadStream, writeFile } = require("fs-extra");
 const { createInterface } = require("readline");
 const { join, parse } = require("path");
+const { updateIntersectionTypeNode } = require("typescript");
 
 async function main() {
     
     const dir = "./markdown";
     const docFiles = await readdir(dir);
     const idTree = {
+        label: "API",
         children: {},
     };
 
@@ -29,16 +31,22 @@ async function main() {
             let idsNode = idTree;
             for (let i = 0; i < idParts.length; ++i) {
                 const idPart = idParts[i];
-    
+
                 if (!idsNode.children[idPart]) {
                     idsNode.children[idPart] = {
+                        label: idPart,
                         partId: idPart,
                         fullId: id,
+                        isDoc: false,
                         children: {},
                     };
                 }
-                
+
                 idsNode = idsNode.children[idPart];
+
+                if (i === idParts.length-1) {
+                    idsNode.isDoc = true;
+                }
             }
         }
 
@@ -101,31 +109,32 @@ async function main() {
         await writeFile(docPath, header.concat(output).join("\n"));
     }
 
-    function processIdTree(idNode, top) {
-        return Object.keys(idNode.children)
-            .map(key => {
-                const child = idNode.children[key];
-                const docNode = {};
-                const numChildren = Object.keys(child.children).length;
-                if (numChildren > 0) {
-                    docNode.type =  "category";
-                    docNode.label = child.partId;
-                    docNode.items = processIdTree(child, false);
-                    docNode.collapsed = true;
-                }
-                else {
-                    docNode.type =  "doc";
-                    docNode.id = child.fullId;
+    function* processIdTree(idNode) {
+        for (const key of Object.keys(idNode.children)) {
+            const child = idNode.children[key];
+
+            if (child.isDoc) {
+                yield {
+                    type: "doc",
+                    id: child.fullId,
                 };
-                
-                return docNode;
-                
-            });
+            }
+
+            const numChildren = Object.keys(child.children).length;
+            if (numChildren > 0) {
+                yield {
+                    type: "category",
+                    label: child.label,
+                    items: Array.from(processIdTree(child)),
+                }
+            }
+        }
     }
 
     const idsFileName= join(dir, "ids.json");
     console.log("Writing " + idsFileName);
-    await writeFile(idsFileName, JSON.stringify(processIdTree(idTree, true), null, 4));
+    await writeFile(idsFileName, JSON.stringify(Array.from(processIdTree(idTree)), null, 4));
+    // await writeFile(idsFileName, JSON.stringify(idTree, null, 4));
 }
 
 main()
