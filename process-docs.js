@@ -4,13 +4,38 @@
 // Thanks to Fasst.js.
 //
 
-const { readdir, createReadStream, writeFile } = require("fs-extra");
+const { readdir, createReadStream, writeFile, readFile } = require("fs-extra");
 const { createInterface } = require("readline");
 const { join, parse } = require("path");
-const { updateIntersectionTypeNode } = require("typescript");
 
 async function main() {
-    
+
+    const inputDir = "./input";
+    const jsonFiles = await readdir(inputDir);
+    const typeLabels = {};
+
+    function processMember(member) {
+        if (member.name) {
+            const name = member.name.trim();
+            if (name.length > 0) {
+                typeLabels[member.name.toLowerCase()] = member.name;
+            }
+        }
+
+        if (member.members) {
+            for (const child of member.members) {
+                processMember(child);
+            }
+        }
+    }
+
+    for (const jsonFile of jsonFiles) {
+        const apiData = JSON.parse(await readFile(join("./input", jsonFile)));
+        for (const member of apiData.members) {
+            processMember(member);
+        }
+    }
+
     const dir = "./markdown";
     const docFiles = await readdir(dir);
     const idTree = {
@@ -34,7 +59,7 @@ async function main() {
 
                 if (!idsNode.children[idPart]) {
                     idsNode.children[idPart] = {
-                        label: idPart,
+                        label: typeLabels[idPart] || idPart,
                         partId: idPart,
                         isDoc: false,
                         children: {},
