@@ -4,21 +4,27 @@
 // Thanks to Fasst.js.
 //
 
-const { readdir, createReadStream, writeFile, readFile } = require("fs-extra");
+const { readdir, createReadStream, writeFile, readFile, remove, ensureDir } = require("fs-extra");
 const { createInterface } = require("readline");
 const { join, parse } = require("path");
 
 async function main() {
 
-    const inputDir = "./input";
-    const jsonFiles = await readdir(inputDir);
+    const jsonInputDir = "./input";
+    const docsInputDir = "./markdown";
+    const docsOutputDir = "./docs-src/docs";
+
+    await remove(docsOutputDir);
+    await ensureDir(docsOutputDir);
+
+    const jsonFiles = await readdir(jsonInputDir);
     const typeLabels = {};
 
     function processMember(member) {
         if (member.name) {
             const name = member.name.trim();
             if (name.length > 0) {
-                typeLabels[member.name.toLowerCase()] = member.name;
+                typeLabels[name.toLowerCase()] = name;
             }
         }
 
@@ -31,21 +37,16 @@ async function main() {
 
     for (const jsonFile of jsonFiles) {
         const apiData = JSON.parse(await readFile(join("./input", jsonFile)));
-        for (const member of apiData.members) {
-            processMember(member);
-        }
+        processMember(apiData);
     }
 
-    const dir = "./markdown";
-    const docFiles = await readdir(dir);
+    const docFiles = await readdir(docsInputDir);
     const idTree = {
         label: "API",
         children: {},
     };
 
     for (const docFile of docFiles) {
-        console.log(docFile); //fio:
-
         const { name: id, ext } = parse(docFile);
         if (ext !== ".md") {
             continue;
@@ -75,8 +76,8 @@ async function main() {
             }
         }
 
-        const docPath = join(dir, docFile);
-        const input = createReadStream(docPath);
+        const docInputPath = join(docsInputDir, docFile);
+        const input = createReadStream(docInputPath);
         const output = [];
         const lines = createInterface({
             input,
@@ -121,17 +122,22 @@ async function main() {
         await new Promise(resolve => lines.once("close", resolve));
         input.close();
 
+        const titleParts = title.split(".");
+        const nestedTitleParts = titleParts[titleParts.length-1].split(" ");
+        const extractedTitle = nestedTitleParts[0];
+
         const header = [
             "---",
             `id: ${id}`,
-            `title: ${title}`,
             `hide_title: true`,
+            `title: ${id ==="index" ? "API Reference" : extractedTitle}`,
             `slug: ${id === "index" ? "/" : `/${id}`}`,
             "---"
         ];
 
-        console.log("Writing " + docPath); //fio:
-        await writeFile(docPath, header.concat(output).join("\n"));
+        const docOutputPath = join(docsOutputDir, docFile);
+        console.log(`>> ${docOutputPath}`);
+        await writeFile(docOutputPath, header.concat(output).join("\n"));
     }
 
     function* processIdTree(idNode) {
@@ -156,7 +162,9 @@ async function main() {
         }
     }
 
-    await writeFile(join(dir, "ids.json"), JSON.stringify(Array.from(processIdTree(idTree)), null, 4));
+    const idsOutputFile = join(docsOutputDir, "ids.json");
+    console.log(`>> ${idsOutputFile}`);
+    await writeFile(idsOutputFile, JSON.stringify(Array.from(processIdTree(idTree)), null, 4));
     // await writeFile(join(dir, "id-tree.json"), JSON.stringify(idTree, null, 4));
 }
 
