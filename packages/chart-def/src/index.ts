@@ -1,3 +1,8 @@
+/**
+ * This package contains core types that define the chart definition.
+ *
+ * @packageDocumentation
+ */
 
 import { ISerializedData } from "@plotex/serialization";
 

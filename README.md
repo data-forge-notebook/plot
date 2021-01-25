@@ -1,10 +1,10 @@
-# plot
+# Plot
 
 The simplest and most forgiving plotting API for JavaScript and TypeScript.
 
 Use plot to quickly and conveniently render charts for your data. It is an abstraction layer over JavaScript visualization libraries. Currently supporting [Apex Charts](https://apexcharts.com/), but intending to support more in the future.
 
-[Click here for the API docs](https://data-forge-notebook.github.io/plot/)
+[Click here for the API docs](https://data-forge-notebook.github.io/plot/docs)
 
 [For various examples see this repo](https://github.com/data-forge-notebook/plot-examples).
 
@@ -16,7 +16,7 @@ Please give feedback!
 
 Email the author on ashley@codecapers.com.au.
 
-<a target="_blank" href="http://www.codecapers.com.au/#support-my-work">Click here to **support the developer.**</a>
+<a target="_blank" href="http://www.codecapers.com.au/#support-my-work">Click here to <b>support the developer.</b></a>
 
 ## Aims
 
@@ -106,7 +106,7 @@ plot({ A: [10, 15, 30], B: [52, 37, 45] })
 
 ## Resources
 
-- [API docs](https://data-forge-notebook.github.io/plot/)
+- [API docs](https://data-forge-notebook.github.io/plot/docs/)
 - [For TypeScript Node.js example see this repo](https://github.com/data-forge-notebook/plot-examples).
 
 ## Future

@@ -1,4 +1,10 @@
-import { IChartDef } from "@plotex/chart-def";
+/**
+ * Adapter library that extends Plot to use the ApexCharts library.
+ *
+ * @packageDocumentation
+ */
+
+ import { IChartDef } from "@plotex/chart-def";
 import { formatChartDef } from "./lib/format-chart-def";
 export { formatChartDef } from "./lib/format-chart-def";
 let ApexCharts = require("apexcharts");

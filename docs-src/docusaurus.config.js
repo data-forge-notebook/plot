@@ -1,6 +1,6 @@
 module.exports = {
   title: 'Plot',
-  tagline: 'The simplest and most forgiving plotting API for JavaScript and TypeScript',
+  tagline: 'The simplest and forgiving plotting API for JavaScript and TypeScript',
   url: 'https://data-forge-notebook.github.io/plot/',
   baseUrl: '/plot/',
   onBrokenLinks: 'throw',
@@ -17,6 +17,12 @@ module.exports = {
       },
       items: [
         {
+          to: 'docs/readme/',
+          activeBasePath: 'readme',
+          label: 'Getting started',
+          position: 'left',
+        },
+        {
           to: 'docs/',
           activeBasePath: 'docs',
           label: 'API Docs',
@@ -24,9 +30,14 @@ module.exports = {
         },
         // {to: 'blog', label: 'Blog', position: 'left'},
         {
+            href: 'https://www.npmjs.com/package/plot',
+            label: 'NPM',
+            position: 'left',
+          },
+          {
           href: 'https://github.com/data-forge-notebook/plot',
           label: 'GitHub',
-          position: 'right',
+          position: 'left',
         },
       ],
     },
@@ -73,7 +84,7 @@ module.exports = {
     //       ],
     //     },
     //   ],
-      copyright: `Copyright © ${new Date().getFullYear()} Ashley Davis, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Ashley Davis. With thanks to Docusaurus.`,
     },
   },
   presets: [

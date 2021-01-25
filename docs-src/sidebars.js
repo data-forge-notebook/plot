@@ -1,6 +1,9 @@
-//TODO: Can have nested sections in the sidebar!
 module.exports = {
   someSidebar: [
+      {
+          type: "doc",
+          id: "readme",
+      },
       {
           type: "doc",
           id: "index",

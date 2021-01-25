@@ -1,3 +1,10 @@
+/**
+ * Plugin for Plot to render a chart into the DOM.
+ * For use in the browser.
+ *
+ * @packageDocumentation
+ */
+
 import { IPlotAPI, AbstractPlotAPI } from "plot/build/plot-api";
 import { mountChart, IChart } from "@plotex/lib-apex";
 

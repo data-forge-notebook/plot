@@ -1,4 +1,11 @@
-import { IPlotAPI, AbstractPlotAPI } from "plot/build/plot-api";
+/**
+ * Plugin for Plot to render a chart to an image file.
+ * For use in Node.js.
+ *
+ * @packageDocumentation
+ */
+
+ import { IPlotAPI, AbstractPlotAPI } from "plot/build/plot-api";
 import { captureImage, ICaptureOptions } from "capture-template";
 import * as path from "path";
 const opn = require("opn");

@@ -130,7 +130,7 @@ async function main() {
             "---",
             `id: ${id}`,
             `hide_title: true`,
-            `title: ${id ==="index" ? "API Reference" : extractedTitle}`,
+            `title: ${id ==="index" ? "Package index" : extractedTitle}`,
             `slug: ${id === "index" ? "/" : `/${id}`}`,
             "---"
         ];
@@ -139,6 +139,20 @@ async function main() {
         console.log(`>> ${docOutputPath}`);
         await writeFile(docOutputPath, header.concat(output).join("\n"));
     }
+
+    const gettingStarted = [
+        "---",
+        `id: readme`,
+        `hide_title: true`,
+        `title: Readme`,
+        `slug: readme`,
+        "---",
+        await readFile("./README.md"),
+    ];
+
+    const readmeOutputPath = join(docsOutputDir, "README.md");
+    console.log(`>> ${readmeOutputPath}`);
+    await writeFile(readmeOutputPath, gettingStarted.join("\n"));
 
     function* processIdTree(idNode) {
         for (const key of Object.keys(idNode.children)) {

@@ -1,4 +1,10 @@
 /**
+ * This package contains core types for serializing data.
+ *
+ * @packageDocumentation
+ */
+
+ /**
  * An annotation applied to the series.
  */
 export interface IAnnotation {

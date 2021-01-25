@@ -8,32 +8,35 @@ import styles from './styles.module.css';
 
 const features = [
   {
-    title: 'Easy to Use',
+    title: 'Simple API',
     imageUrl: 'img/undraw_docusaurus_mountain.svg',
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Plot has a simple API and is easy to learn.
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
+    title: 'Built on ApexCharts',
     imageUrl: 'img/undraw_docusaurus_tree.svg',
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        <p>
+            Plot is built on the incredible <a href="https://apexcharts.com/">ApexCharts</a>.
+        </p>
+        
+        <p>
+            Plot is plugin-based and will support other visualization libraries in the future.
+        </p>
       </>
     ),
   },
   {
-    title: 'Powered by React',
+    title: 'Cross platform',
     imageUrl: 'img/undraw_docusaurus_react.svg',
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        Plot works in the browser (thanks to <a href="docs/render-dom.renderdom">renderDOM</a>) and in Node.js (thanks to <a href="docs/render-image.renderimage">renderImage</a>).
       </>
     ),
   },
@@ -59,8 +62,8 @@ function Home() {
   const {siteConfig = {}} = context;
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />">
+      title={siteConfig.title}
+      description={siteConfig.tagline} >
       <header className={clsx('hero hero--primary', styles.heroBanner)}>
         <div className="container">
           <h1 className="hero__title">{siteConfig.title}</h1>
@@ -71,7 +74,7 @@ function Home() {
                 'button button--outline button--secondary button--lg',
                 styles.getStarted,
               )}
-              to={useBaseUrl('docs/')}>
+              to={useBaseUrl('docs/readme/')}>
               Get Started
             </Link>
           </div>
