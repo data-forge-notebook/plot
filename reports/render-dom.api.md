@@ -11,6 +11,4 @@ import { IPlotAPI } from 'plot/build/plot-api';
 export function renderDOM(this: IPlotAPI, parentEl: HTMLElement): Promise<IChart>;
 
 
-// (No @packageDocumentation comment for this package)
-
 ```

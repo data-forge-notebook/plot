@@ -226,6 +226,4 @@ export enum VerticalLabelPosition {
 export type VerticalLabelPositionString = "inner-top" | "inner-middle" | "inner-bottom" | "outer-top" | "outer-middle" | "outer-bottom";
 
 
-// (No @packageDocumentation comment for this package)
-
 ```

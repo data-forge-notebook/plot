@@ -30,6 +30,4 @@ export interface IMountOptions {
 export function mountChart(chartDef: IChartDef, domElement: HTMLElement, chartOptions?: IMountOptions): Promise<IChart>;
 
 
-// (No @packageDocumentation comment for this package)
-
 ```

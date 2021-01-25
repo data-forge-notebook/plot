@@ -18,6 +18,4 @@ export interface IRenderOptions {
 export function renderImage(this: IPlotAPI, imageFilePath: string, renderOptions?: IRenderOptions): Promise<void>;
 
 
-// (No @packageDocumentation comment for this package)
-
 ```

@@ -31,6 +31,4 @@ export interface ISerializedData {
 }
 
 
-// (No @packageDocumentation comment for this package)
-
 ```

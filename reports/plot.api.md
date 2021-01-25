@@ -121,6 +121,4 @@ export type ValueArray = any[];
 export * from "@plotex/chart-def";
 export * from "@plotex/serialization";
 
-// (No @packageDocumentation comment for this package)
-
 ```
