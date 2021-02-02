@@ -12,7 +12,9 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@plotex/lib-apex": "^1.0.8"
+    "@plotex/lib-apex": "^1.0.8",
+    "@plotex/render-dom": "^1.0.11",
+    "plot": "^1.0.12"
   },
   "devDependencies": {
     "ts-loader": "^5.3.3",
