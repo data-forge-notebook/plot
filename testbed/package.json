@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "A testbed for working on this library and seeing live charts.",
   "scripts": {
+    "s": "npm run start",
     "start": "webpack-dev-server --open",
+    "b": "npm run build",
     "build": "webpack --mode=production"
   },
   "keywords": [],
