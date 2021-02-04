@@ -105,6 +105,14 @@
                         }
                     }
                 }
+            },
+            "series": {
+                "data1": {
+                    "chartType": "area"
+                },
+                "data2": {
+                    "chartType": "bar"
+                }
             }
         },
         "axisMap": {

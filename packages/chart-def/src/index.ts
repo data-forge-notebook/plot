@@ -406,14 +406,41 @@ export interface IAnnotationStyles {
 }
 
 /**
+ * Configuration for a data series.
+ */
+export interface ISeriesConfig {
+    /**
+     * The type of chart to render for a particular named data series.
+     * Defaults to global chart type or, if no global chart defaults to a line chart.
+     */
+    chartType?: ChartType | ChartTypeString;
+}
+
+/**
+ * Lookup table for configuration of named data series.
+ */
+export interface ISeriesConfigMap {
+    /**
+     * Configuration for a named data series.
+     */
+    [seriesName: string]: ISeriesConfig;
+}
+
+/**
  * Defines the chart.
  */
 export interface IPlotConfig {
 
     /**
      * The type of chart to render.
+     * This is the global type of the chart, you can also set the chart type individually for each data series, @see ISeriesConfig.
      */
     chartType?: ChartType | ChartTypeString;
+
+    /**
+     * Lookup table for configuration of named data series.
+     */
+    series?: ISeriesConfigMap;
 
     /**
      * Width of the plot.
@@ -500,3 +527,4 @@ export interface IChartDef {
      */
     axisMap: IAxisMap;
 }
+

@@ -12,8 +12,8 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@plotex/lib-apex": "^1.0.8",
-    "@plotex/render-dom": "^1.0.11",
+    "@plotex/lib-apex": "^1.0.12",
+    "@plotex/render-dom": "^1.0.12",
     "plot": "^1.0.12"
   },
   "devDependencies": {

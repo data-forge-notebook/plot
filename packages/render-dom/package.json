@@ -1,6 +1,6 @@
 {
   "name": "@plotex/render-dom",
-  "version": "1.0.11",
+  "version": "1.0.15",
   "description": "A plug in for plot: The simplest plotting API for JavaScript and TypeScript.",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -9,12 +9,10 @@
     "c": "npm run clean",
     "clean": "rm -rf build/*",
     "b": "npm run build",
-    "build": "tsc",
-    "cb": "npm run clean-build",
-    "clean-build": "npm run clean && npm run build",
-    "build:watch": "tsc --watch",
-    "clean-build:watch": "rm -rf build/* && tsc --watch",
-    "prepublishOnly": "npm run setup && npm run clean-build",
+    "build": "tsc --incremental",
+    "bw": "npm run build:watch",
+    "build:watch": "tsc --incremental --watch",
+    "prepublishOnly": "npm run setup && npm run clean && tsc",
     "docs": "tsc && api-extractor run --local"
   },
   "repository": {
@@ -37,13 +35,13 @@
   },
   "homepage": "https://github.com/data-forge-notebook/plot#readme",
   "peerDependencies": {
-    "plot": "^1.0.11"
+    "plot": "^1.0.15"
   },
   "devDependencies": {
     "@microsoft/api-extractor": "^7.12.1",
     "typescript": "^4.1.3"
   },
   "dependencies": {
-    "@plotex/lib-apex": "^1.0.11"
+    "@plotex/lib-apex": "^1.0.15"
   }
 }

@@ -1,6 +1,6 @@
 {
     "name": "plot",
-    "version": "1.0.12",
+    "version": "1.0.15",
     "description": "The simplest plotting API for JavaScript and TypeScript.",
     "main": "build/index.js",
     "types": "build/index.d.ts",
@@ -8,12 +8,10 @@
         "c": "npm run clean",
         "clean": "rm -rf build/*",
         "b": "npm run build",
-        "build": "tsc",
-        "cb": "npm run clean-build",
-        "clean-build": "npm run clean && npm run build",
-        "build:watch": "tsc --watch",
-        "clean-build:watch": "rm -rf build/* && tsc --watch",
-        "prepublishOnly": "npm test && npm run clean-build",
+        "build": "tsc --incremental",
+        "bw": "npm run build:watch",
+        "build:watch": "tsc --incremental --watch",
+        "prepublishOnly": "npm test && npm run clean && tsc",
         "p": "npm run publish",
         "t": "npm run test",
         "test": "jest",
@@ -42,7 +40,7 @@
     },
     "homepage": "https://github.com/data-forge-notebook/plot#readme",
     "dependencies": {
-        "@plotex/chart-def": "^1.0.11",
+        "@plotex/chart-def": "^1.0.15",
         "@plotex/serialization": "^1.0.11",
         "typy": "3.0.1"
     },

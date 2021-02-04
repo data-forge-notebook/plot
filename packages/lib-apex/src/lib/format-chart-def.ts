@@ -5,27 +5,36 @@ import * as dayjs from "dayjs";
 import * as numeral from "numeral";
 
 //
+// Defines a data point for an ApexCharts data series.
+//
+interface IDataPoint {
+    x: number;
+    y: number;
+}
+
+//
 // Build a series for Apex charts.
 //
-function buildApexSeries(columnName: string, data: ISerializedData, xAxisValues: any[] | undefined) {
-    if (!columnName || !data || !data.series || !data.series[columnName] || !data.series[columnName].values) {
+function buildApexSeries(seriesName: string, data: ISerializedData, xAxisValues: any[] | undefined): IDataPoint[] {
+    if (!seriesName || !data || !data.series || !data.series[seriesName] || !data.series[seriesName].values) {
         return [];
     }
-    return data.series[columnName].values
+    return data.series[seriesName].values
         .map((yValue, index) => ({ x: xAxisValues && xAxisValues[index] || index, y: yValue }));
 }
 
 //
 // Extract series from the chart definition's data.
 //
-function extractSeries(data: ISerializedData, axises: IYAxisSeriesConfig[], xAxis?: IAxisSeriesConfig): ApexAxisChartSeries {
-    return axises.map(seriesConfig => {
-        const columnName = seriesConfig.series;
-        const xAxisColumnName = seriesConfig && seriesConfig.x && seriesConfig.x.series || xAxis && xAxis.series;
-        const xAxisValues = xAxisColumnName && data && data.series && data.series[xAxisColumnName] && data.series[xAxisColumnName].values || [];
+function extractSeries(chartDef: IChartDef, axises: IYAxisSeriesConfig[], xAxis?: IAxisSeriesConfig): ApexAxisChartSeries {
+    return axises.map(axisConfig => {
+        const xAxisColumnName = axisConfig.x?.series || xAxis && xAxis.series;
+        const xAxisValues = xAxisColumnName && chartDef.data.series[xAxisColumnName].values || [];
+        const seriesConfig = chartDef.plotConfig.series && chartDef.plotConfig.series[axisConfig.series];
         return {
-            name: columnName, 
-            data: buildApexSeries(columnName, data, xAxisValues),
+            name: axisConfig.series, 
+            type: seriesConfig?.chartType,
+            data: buildApexSeries(axisConfig.series, chartDef.data, xAxisValues),
         };
     });
 }
@@ -124,7 +133,7 @@ function determineXAxisType(inputChartDef: IChartDef): string {
 //
 // Extracts a single annotation.
 //
-function extractAnnotation(annotations: ApexAnnotations, annotationsField: string, yAxisIndex: number | undefined, value1Field: string, value2Field: string, inputChartDef: IChartDef, annotation: IAnnotation) {
+function extractAnnotation(annotations: ApexAnnotations, annotationsField: string, yAxisIndex: number | undefined, value1Field: string, value2Field: string, inputChartDef: IChartDef, annotation: IAnnotation): void {
 
     if (!annotation) {
         return;
@@ -250,7 +259,7 @@ function extractAnnotation(annotations: ApexAnnotations, annotationsField: strin
 //
 // Extracts annotations from a series.
 //
-function extractAnnotationsFromSeries(annotations: ApexAnnotations, annotationsField: string, yAxisIndex: number | undefined, value1Field: string, value2Field: string, inputChartDef: IChartDef, axisSeriesConfig?: IAxisSeriesConfig) {
+function extractAnnotationsFromSeries(annotations: ApexAnnotations, annotationsField: string, yAxisIndex: number | undefined, value1Field: string, value2Field: string, inputChartDef: IChartDef, axisSeriesConfig?: IAxisSeriesConfig): void {
     if (axisSeriesConfig) {
         const series = inputChartDef.data.series[axisSeriesConfig.series];
         if (series) {
@@ -266,7 +275,7 @@ function extractAnnotationsFromSeries(annotations: ApexAnnotations, annotationsF
 //
 // Extracts anotations from a series array.
 //
-function extractAnnotationsFromSeriesArray(annotations: ApexAnnotations, annotationsField: string, yAxisIndex: number | undefined, value1Field: string, value2Field: string, inputChartDef: IChartDef, seriesConfigs: IAxisSeriesConfig[]) {
+function extractAnnotationsFromSeriesArray(annotations: ApexAnnotations, annotationsField: string, yAxisIndex: number | undefined, value1Field: string, value2Field: string, inputChartDef: IChartDef, seriesConfigs: IAxisSeriesConfig[]): void {
     for (const axisSeriesConfig of seriesConfigs) {
         extractAnnotationsFromSeries(annotations, annotationsField, yAxisIndex, value1Field, value2Field, inputChartDef, axisSeriesConfig);
     }
@@ -351,8 +360,8 @@ export function formatChartDef(inputChartDef: IChartDef): ApexOptions {
         }
     }
 
-    const yAxisSeries = extractSeries(inputChartDef.data, inputChartDef.axisMap.y, inputChartDef.axisMap.x)
-        .concat(extractSeries(inputChartDef.data, inputChartDef.axisMap.y2, inputChartDef.axisMap.x));
+    const yAxisSeries = extractSeries(inputChartDef, inputChartDef.axisMap.y, inputChartDef.axisMap.x)
+        .concat(extractSeries(inputChartDef, inputChartDef.axisMap.y2, inputChartDef.axisMap.x));
 
     const yAxisConfig = extractYAxisConfiguration(inputChartDef.axisMap.y, inputChartDef.plotConfig.y || {}, false, inputChartDef.data)
         .concat(extractYAxisConfiguration(inputChartDef.axisMap.y2, inputChartDef.plotConfig.y2 || {}, true, inputChartDef.data));

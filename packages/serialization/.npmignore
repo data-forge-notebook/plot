@@ -13,3 +13,6 @@ jest.config.js
 tslint.json
 typedoc.json
 packages/
+temp/
+tsconfig.tsbuildinfo
+api-extractor.json

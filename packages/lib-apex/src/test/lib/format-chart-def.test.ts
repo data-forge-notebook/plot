@@ -72,15 +72,16 @@ describe("format chart def", () => {
     function makeChartDef(inputChartDef?: any): IChartDef {
         const chartDef: any = {
             plotConfig: {
-                chartType: inputChartDef && inputChartDef.chartType || "line",
-                width: inputChartDef && inputChartDef.width,
-                height: inputChartDef && inputChartDef.height,
-                x: inputChartDef && inputChartDef.plotConfig && inputChartDef.plotConfig.x,
-                y: inputChartDef && inputChartDef.plotConfig && inputChartDef.plotConfig.y,
-                y2: inputChartDef && inputChartDef.plotConfig && inputChartDef.plotConfig.y2,
-                legend: inputChartDef && inputChartDef.plotConfig  && inputChartDef.plotConfig.legend,
-                dataLabels: inputChartDef && inputChartDef.plotConfig && inputChartDef.plotConfig.dataLabels,
-                annotations: inputChartDef && inputChartDef.plotConfig && inputChartDef.plotConfig.annotations,
+                chartType: inputChartDef?.chartType ?? "line",
+                width: inputChartDef?.width,
+                height: inputChartDef?.height,
+                x: inputChartDef?.plotConfig?.x,
+                y: inputChartDef?.plotConfig?.y,
+                y2: inputChartDef?.plotConfig?.y2,
+                legend: inputChartDef?.plotConfig?.legend,
+                dataLabels: inputChartDef?.plotConfig?.dataLabels,
+                annotations: inputChartDef?.plotConfig?.annotations,
+                series: inputChartDef?.plotConfig?.series,
             },
             data: inputChartDef && inputChartDef.data || {
                 columnOrder: [],
@@ -88,9 +89,9 @@ describe("format chart def", () => {
                 index: {},
             },
             axisMap: {
-                x: inputChartDef && inputChartDef.axisMap && inputChartDef.axisMap.x,
-                y: inputChartDef && inputChartDef.axisMap && inputChartDef.axisMap.y || [],
-                y2: inputChartDef && inputChartDef.axisMap && inputChartDef.axisMap.y2 || [],
+                x: inputChartDef?.axisMap?.x,
+                y: inputChartDef?.axisMap?.y || [],
+                y2: inputChartDef?.axisMap?.y2 || [],
             },            
         };
         return chartDef;
@@ -1202,4 +1203,39 @@ describe("format chart def", () => {
         expect(apexAnnotation.strokeDashArray).toBe(12);
     });    
 
+    it("can set chart type for data series", () => {
+        const chartDef = {
+            data: {
+                series: {
+                    a: {
+                        type: "number",
+                        values: [ 10, 20, 30 ],
+                        annotations: [
+                            {
+                                value: 10,
+                            }
+                        ]
+                    },
+                },
+            },
+            plotConfig: {
+                series: {
+                    a: {
+                        chartType: "bar",
+                    },
+                },
+            },
+            axisMap: {
+                y: [
+                    {
+                        series: "a",
+                    },
+                ],
+            },
+        };
+        
+        const apexChartDef = formatChartDef(makeChartDef(chartDef));
+        const apexSeries = (apexChartDef.series as ApexAxisChartSeries)[0];
+        expect(apexSeries.type).toBe("bar");
+    });
 });

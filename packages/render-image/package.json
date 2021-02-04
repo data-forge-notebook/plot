@@ -1,6 +1,6 @@
 {
   "name": "@plotex/render-image",
-  "version": "1.0.11",
+  "version": "1.0.15",
   "description": "A plug in for plot: The simplest plotting API for JavaScript and TypeScript.",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -9,13 +9,10 @@
     "c": "npm run clean",
     "clean": "rm -rf build/* && rm -rf template/",
     "b": "npm run build",
-    "build": "tsc",
+    "build": "tsc --incremental",
     "build:template": "cd template-src && webpack",
-    "cb": "npm run clean-build",
-    "clean-build": "npm run clean && npm run build",
-    "build:watch": "tsc --watch",
-    "clean-build:watch": "rm -rf build/* && tsc --watch",
-    "prepublishOnly": "npm run setup &&  npm test && npm run clean && npm run build:template && npm run build",
+    "build:watch": "tsc --incremental --watch",
+    "prepublishOnly": "npm run setup &&  npm test && npm run clean && npm run build:template && tsc",
     "t": "npm run test",
     "test": "jest",
     "tw": "npm run test:watch",
@@ -46,11 +43,11 @@
     "opn": "^6.0.0"
   },
   "peerDependencies": {
-    "plot": "^1.0.11"
+    "plot": "^1.0.15"
   },
   "devDependencies": {
     "@microsoft/api-extractor": "^7.12.1",
-    "@plotex/lib-apex": "^1.0.11",
+    "@plotex/lib-apex": "^1.0.15",
     "@types/jest": "^26.0.20",
     "@types/node": "^14.14.20",
     "copy-webpack-plugin": "^5.0.2",

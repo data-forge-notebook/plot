@@ -1,10 +1,10 @@
 
-import { AxisType, AxisTypeString, ChartType, ChartTypeString, IAxisLabelConfig, ILegendConfig, IDataLabels, IAxisTicksConfiguration, IAnnotationStyles } from "@plotex/chart-def";
+import { AxisType, AxisTypeString, ChartType, ChartTypeString, IAxisLabelConfig, ILegendConfig, IDataLabels, IAxisTicksConfiguration, IAnnotationStyles, ISeriesConfigMap } from "@plotex/chart-def";
 
 /**
  * Configures an axis of the chart.
  */
-export interface IAxisConfig {
+export interface IAxisConfig { //TODO: Why are these types separate to the chart def? Can they be merged?
 
     /**
      * Sets the label for the axis.
@@ -54,6 +54,11 @@ export interface IPlotConfig {
      * Default to "line".
      */
     chartType?: ChartType | ChartTypeString;
+
+    /**
+     * Configuration for each data series.
+     */
+    series?: ISeriesConfigMap;
 
     /**
      * Sets the width of the plot.

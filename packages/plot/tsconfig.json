@@ -58,10 +58,5 @@
         "node_modules",
         "build",
         "packages"
-  ],
-  "references": [
-      {
-          "path": "../chart-def/tsconfig.json"
-      }
   ]
 }
