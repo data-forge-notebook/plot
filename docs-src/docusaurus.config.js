@@ -1,6 +1,6 @@
 module.exports = {
   title: 'Plot',
-  tagline: 'The simplest and forgiving plotting API for JavaScript and TypeScript',
+  tagline: 'The simplest and most forgiving plotting API for JavaScript and TypeScript',
   url: 'https://data-forge-notebook.github.io/plot/',
   baseUrl: '/plot/',
   onBrokenLinks: 'throw',
