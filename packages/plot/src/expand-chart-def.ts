@@ -1,5 +1,5 @@
-import { IChartDef, IPlotConfig as IExpandedPlotConfig, IAxisMap as IExpandedAxisMap, IAxisConfig as IExpandedAxisConfig, IYAxisConfig as IExpandedYAxisConfig, IXAxisConfig as IExpandedXAxisConfig, IAxisSeriesConfig as IExpandedAxisSeriesConfig, IYAxisSeriesConfig as IExpandedYAxisSeriesConfig, ISeriesLabelConfig } from "@plotex/chart-def";
-import { IAxisMap, IPlotConfig, IAxisConfig, IYAxisConfig, IAxisSeriesConfig, IYAxisSeriesConfig } from "./chart-def";
+import { IChartDef, IPlotConfig as IExpandedPlotConfig, IAxisMap as IExpandedAxisMap, IAxisConfig as IExpandedAxisConfig, IYAxisConfig as IExpandedYAxisConfig, IXAxisConfig as IExpandedXAxisConfig, IAxisSeriesConfig as IExpandedAxisSeriesConfig, IYAxisSeriesConfig as IExpandedYAxisSeriesConfig, IAxisSeriesConfig } from "@plotex/chart-def";
+import { IAxisMap, IPlotConfig, IAxisConfig, IYAxisConfig, IYAxisSeriesConfig } from "./chart-def";
 import { ISerializedData } from "@plotex/serialization";
 import { isString } from "./utils";
 import { isObject, isArray } from "util";

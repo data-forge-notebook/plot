@@ -26,7 +26,7 @@ import { determineType, isObject, isArray } from "./utils";
 import { ISerializedData, IDataSeries, IAnnotation } from "@plotex/serialization";
 export * from "@plotex/serialization";
 export * from "@plotex/chart-def";
-export { IAxisConfig, IXAxisConfig, IYAxisConfig, IPlotConfig, IAxisSeriesConfig, IYAxisSeriesConfig, IAxisMap } from "./chart-def";
+export { IAxisConfig, IXAxisConfig, IYAxisConfig, IPlotConfig, IYAxisSeriesConfig, IAxisMap } from "./chart-def";
 export { IPlotAPI } from "./plot-api";
 
 const seriesPlotDefaults: IPlotConfig = {

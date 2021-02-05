@@ -1,10 +1,10 @@
 
-import { AxisType, AxisTypeString, ChartType, ChartTypeString, IAxisLabelConfig, ILegendConfig, IDataLabels, IAxisTicksConfiguration, IAnnotationStyles, ISeriesConfigMap } from "@plotex/chart-def";
+import { AxisType, AxisTypeString, ChartType, ChartTypeString, IAxisLabelConfig, ILegendConfig, IDataLabels, IAxisTicksConfiguration, IAnnotationStyles, ISeriesConfigMap, IAxisSeriesConfig } from "@plotex/chart-def";
 
 /**
  * Configures an axis of the chart.
  */
-export interface IAxisConfig { //TODO: Why are these types separate to the chart def? Can they be merged?
+export interface IAxisConfig {
 
     /**
      * Sets the label for the axis.
@@ -101,32 +101,6 @@ export interface IPlotConfig {
      * Named styles that can be applied to annotations.
      */
     annotations?: IAnnotationStyles;
-}
-
-/**
- * Relates a single axis to data series.
- */
-export interface IAxisSeriesConfig {
-
-    /**
-     * The name of the series to render on the axis.
-     */
-    series: string;
-
-    /**
-     * The label for the series on this axis.
-     */
-    label?: string;
-
-    /**
-     * The format for rendering values of the series.
-     */
-    format?: string;
-
-    /**
-     * The color to render to assign to the series.
-     */
-    color?: string;
 }
 
 /**
