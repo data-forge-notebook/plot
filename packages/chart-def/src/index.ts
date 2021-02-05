@@ -418,6 +418,19 @@ export interface ISeriesConfig {
 
 /**
  * Lookup table for configuration of named data series.
+ * Add an enty for each series you want to configure.
+ * 
+ * @example
+ * 
+ * ```javascript
+ * {
+ *      seriesConfig: {
+ *          aDataSeries: {
+ *              chartType: "bar"
+ *          }
+ *      }
+ * }
+ * ```
  */
 export interface ISeriesConfigMap {
     /**
@@ -439,6 +452,19 @@ export interface IPlotConfig {
 
     /**
      * Lookup table for configuration of named data series.
+     * Add an enty for each series you want to configure.
+     * 
+     * @example
+     * 
+     * ```javascript
+     * {
+     *      seriesConfig: {
+     *          aDataSeries: {
+     *              chartType: "bar"
+     *          }
+     *      }
+     * }
+     * ```
      */
     series?: ISeriesConfigMap;
 
