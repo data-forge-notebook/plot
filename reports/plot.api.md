@@ -17,6 +17,7 @@ import { IAxisTicksConfiguration } from '@plotex/chart-def';
 import { IChartDef } from '@plotex/chart-def';
 import { IDataLabels } from '@plotex/chart-def';
 import { ILegendConfig } from '@plotex/chart-def';
+import { ISeriesConfigMap } from '@plotex/chart-def';
 import { VerticalLabelPosition } from '@plotex/chart-def';
 import { VerticalLabelPositionString } from '@plotex/chart-def';
 
@@ -77,6 +78,7 @@ export interface IPlotConfig {
     dataLabels?: IDataLabels;
     height?: number | string;
     legend?: ILegendConfig;
+    series?: ISeriesConfigMap;
     width?: number | string;
     x?: IXAxisConfig;
     y?: IYAxisConfig;

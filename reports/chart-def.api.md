@@ -178,10 +178,21 @@ export interface IPlotConfig {
     dataLabels?: IDataLabels;
     height?: number | string;
     legend?: ILegendConfig;
+    series?: ISeriesConfigMap;
     width?: number | string;
     x?: IXAxisConfig;
     y?: IYAxisConfig;
     y2?: IYAxisConfig;
+}
+
+// @public
+export interface ISeriesConfig {
+    chartType?: ChartType | ChartTypeString;
+}
+
+// @public
+export interface ISeriesConfigMap {
+    [seriesName: string]: ISeriesConfig;
 }
 
 // @public
