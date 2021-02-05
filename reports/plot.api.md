@@ -13,6 +13,7 @@ import { HorizontalLabelPositionString } from '@plotex/chart-def';
 import { IAnnotation } from '@plotex/serialization';
 import { IAnnotationStyles } from '@plotex/chart-def';
 import { IAxisLabelConfig } from '@plotex/chart-def';
+import { IAxisSeriesConfig } from '@plotex/chart-def';
 import { IAxisTicksConfiguration } from '@plotex/chart-def';
 import { IChartDef } from '@plotex/chart-def';
 import { IDataLabels } from '@plotex/chart-def';
@@ -37,14 +38,6 @@ export interface IAxisMap {
     x?: string | IAxisSeriesConfig;
     y?: string | string[] | IYAxisSeriesConfig | IYAxisSeriesConfig[];
     y2?: string | string[] | IYAxisSeriesConfig | IYAxisSeriesConfig[];
-}
-
-// @public
-export interface IAxisSeriesConfig {
-    color?: string;
-    format?: string;
-    label?: string;
-    series: string;
 }
 
 // @public
