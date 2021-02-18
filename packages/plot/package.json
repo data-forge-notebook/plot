@@ -1,6 +1,6 @@
 {
     "name": "plot",
-    "version": "1.0.16",
+    "version": "1.0.17",
     "description": "The simplest plotting API for JavaScript and TypeScript.",
     "main": "build/index.js",
     "types": "build/index.d.ts",

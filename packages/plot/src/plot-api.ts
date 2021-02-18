@@ -273,7 +273,7 @@ export abstract class AbstractPlotAPI implements IPlotAPI {
      * Used to external detect the type of this object.
      */
     getTypeCode(): string {
-        return "plot";
+        return "plotex";
     }
 }
 
