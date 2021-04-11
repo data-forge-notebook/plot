@@ -1,5 +1,5 @@
 
-import { AxisType, AxisTypeString, ChartType, ChartTypeString, IAxisLabelConfig, ILegendConfig, IDataLabels, IAxisTicksConfiguration, IAnnotationStyles, ISeriesConfigMap, IAxisSeriesConfig } from "@plotex/chart-def";
+import { AxisType, AxisTypeString, ChartType, ChartTypeString, IAxisLabelConfig, ILegendConfig, IDataLabels, IAxisTicksConfiguration, IAnnotationStyles, ISeriesConfigMap, IAxisSeriesConfig, IChartTitle } from "@plotex/chart-def";
 
 /**
  * Configures an axis of the chart.
@@ -59,6 +59,11 @@ export interface IPlotConfig {
      * Configuration for each data series.
      */
     series?: ISeriesConfigMap;
+
+    /**
+     * Sets the title for the chart.
+     */
+     title?: IChartTitle;
 
     /**
      * Sets the width of the plot.

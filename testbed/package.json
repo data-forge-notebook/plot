@@ -12,9 +12,10 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@plotex/lib-apex": "^1.0.12",
-    "@plotex/render-dom": "^1.0.12",
-    "plot": "^1.0.12"
+    "@plotex/lib-apex": "^1.0.21",
+    "@plotex/render-dom": "^1.0.21",
+    "apexcharts": "^3.26.0",
+    "plot": "^1.0.21"
   },
   "devDependencies": {
     "ts-loader": "^5.3.3",

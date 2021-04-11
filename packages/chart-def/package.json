@@ -1,6 +1,6 @@
 {
   "name": "@plotex/chart-def",
-  "version": "1.0.15",
+  "version": "1.0.21",
   "description": "A plug in for plot: The simplest plotting API for JavaScript and TypeScript.",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -9,8 +9,8 @@
     "clean": "rm -rf build/*",
     "b": "npm run build",
     "build": "tsc --incremental",
-    "bw": "tsc --incremental--watch",
-    "build:watch": "tsc --incremental--watch",
+    "bw": "tsc --incremental --watch",
+    "build:watch": "tsc --incremental --watch",
     "prepublishOnly": "npm run clean && tsc",
     "docs": "tsc && api-extractor run --local"
   },

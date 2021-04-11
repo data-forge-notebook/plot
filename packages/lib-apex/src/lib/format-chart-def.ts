@@ -405,7 +405,56 @@ export function formatChartDef(inputChartDef: IChartDef): ApexOptions {
         }
     }
 
-    return {
+    let apexTitle: ApexTitleSubtitle | undefined;
+
+    if (inputChartDef?.plotConfig?.title) {
+        const inputTitle = inputChartDef.plotConfig.title;
+        apexTitle = {
+            text: inputTitle.text,
+        };
+
+        if (inputTitle.align) {
+            apexTitle.align = inputTitle.align;
+        }
+
+        if (inputTitle.margin) {
+            apexTitle.margin = inputTitle.margin;
+        }
+
+        if (inputTitle.offsetX) {
+            apexTitle.offsetX = inputTitle.offsetX;
+        }
+
+        if (inputTitle.offsetY) {
+            apexTitle.offsetY = inputTitle.offsetY;
+        }
+
+        if (inputTitle.floating) {
+            apexTitle.floating = inputTitle.floating;
+        }
+
+        if (inputTitle.font) {
+            apexTitle.style = {};
+
+            if (inputTitle.font.size) {
+                apexTitle.style.fontSize = inputTitle.font.size;
+            }
+
+            if (inputTitle.font.weight) {
+                apexTitle.style.fontWeight = inputTitle.font.weight;
+            }
+
+            if (inputTitle.font.family) {
+                apexTitle.style.fontFamily = inputTitle.font.family;
+            }
+
+            if (inputTitle.font.color) {
+                apexTitle.style.color = inputTitle.font.color;
+            }
+        }
+    }
+
+    const apexChartDef: ApexOptions = {
         chart: {
             type: inputChartDef.plotConfig.chartType,
             width: inputChartDef.plotConfig.width,
@@ -421,4 +470,10 @@ export function formatChartDef(inputChartDef: IChartDef): ApexOptions {
         legend: legend,
         annotations: annotations,
     };
+
+    if (apexTitle) {
+        apexChartDef.title = apexTitle;
+    }
+
+    return apexChartDef;
 }

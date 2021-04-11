@@ -72,6 +72,7 @@ describe("format chart def", () => {
     function makeChartDef(inputChartDef?: any): IChartDef {
         const chartDef: any = {
             plotConfig: {
+                title: inputChartDef?.plotConfig?.title,
                 chartType: inputChartDef?.chartType ?? "line",
                 width: inputChartDef?.width,
                 height: inputChartDef?.height,
@@ -1237,5 +1238,43 @@ describe("format chart def", () => {
         const apexChartDef = formatChartDef(makeChartDef(chartDef));
         const apexSeries = (apexChartDef.series as ApexAxisChartSeries)[0];
         expect(apexSeries.type).toBe("bar");
+    });
+
+    it('can set chart title', () => {
+        const chartDef = {
+            plotConfig: {
+                title: {
+                    text: "A title!",
+                    align: "center",
+                    margin: 5,
+                    offsetX: 2,
+                    offsetY: 3,
+                    floating: true,
+                    font: {
+                        size: 3,
+                        family: "Roboto",
+                        weight: 10,
+                        color: "red",
+                    },
+                },
+            },
+        };
+        
+        const apexChartDef = formatChartDef(makeChartDef(chartDef));
+        const title = apexChartDef.title;
+        expect(title).toEqual({
+            text: "A title!",
+            align: "center",
+            margin: 5,
+            offsetX: 2,
+            offsetY: 3,
+            floating: true,
+            style: {
+                fontSize: 3,
+                fontFamily: "Roboto",
+                fontWeight: 10,
+                color: "red",
+            },
+        });
     });
 });

@@ -1,0 +1,179 @@
+{
+    "title": {
+        "text": "The chart title!"
+    },
+    "chart": {
+        "type": "line",
+        "width": 800,
+        "height": 600,
+        "animations": {
+            "enabled": true
+        },
+        "zoom": {
+            "enabled": true
+        },
+        "toolbar": {
+            "show": true
+        }
+    },
+    "stroke": {
+        "width": 1
+    },
+    "series": [
+        {
+            "name": "data1",
+            "type": "area",
+            "data": [
+                {
+                    "x": "2013-01-01",
+                    "y": 30
+                },
+                {
+                    "x": "2013-01-02",
+                    "y": 200
+                },
+                {
+                    "x": "2013-01-03",
+                    "y": 100
+                },
+                {
+                    "x": "2013-01-04",
+                    "y": 400
+                },
+                {
+                    "x": "2013-01-05",
+                    "y": 150
+                },
+                {
+                    "x": "2013-01-06",
+                    "y": 250
+                }
+            ]
+        },
+        {
+            "name": "data2",
+            "type": "bar",
+            "data": [
+                {
+                    "x": "2013-01-01",
+                    "y": 130
+                },
+                {
+                    "x": "2013-01-02",
+                    "y": 340
+                },
+                {
+                    "x": "2013-01-03",
+                    "y": 200
+                },
+                {
+                    "x": "2013-01-04",
+                    "y": 500
+                },
+                {
+                    "x": "2013-01-05",
+                    "y": 250
+                },
+                {
+                    "x": "2013-01-06",
+                    "y": 350
+                }
+            ]
+        }
+    ],
+    "yaxis": [
+        {
+            "opposite": false,
+            "show": true,
+            "min": 30,
+            "max": 500,
+            "labels": {
+                "style": {}
+            },
+            "title": {
+                "style": {}
+            }
+        },
+        {
+            "opposite": false,
+            "show": false,
+            "min": 30,
+            "max": 500,
+            "labels": {
+                "style": {}
+            },
+            "title": {
+                "style": {}
+            }
+        }
+    ],
+    "xaxis": {
+        "type": "category",
+        "title": {
+            "style": {}
+        },
+        "labels": {
+            "style": {}
+        }
+    },
+    "dataLabels": {
+        "enabled": false,
+        "style": {}
+    },
+    "legend": {
+        "show": true
+    },
+    "annotations": {
+        "yaxis": [
+            {
+                "label": {
+                    "style": {
+                        "fontSize": "20px",
+                        "padding": {
+                            "left": 5,
+                            "right": 5,
+                            "top": 15,
+                            "bottom": 15
+                        }
+                    },
+                    "textAnchor": "start",
+                    "position": "left",
+                    "offsetX": 15,
+                    "offsetY": -8,
+                    "text": "Foo!"
+                },
+                "strokeDashArray": 0,
+                "borderColor": "#f00",
+                "fillColor": "yellow",
+                "opacity": 0.8,
+                "y": 100,
+                "y2": 150,
+                "yAxisIndex": 0
+            }
+        ],
+        "xaxis": [
+            {
+                "label": {
+                    "style": {
+                        "background": "blue",
+                        "color": "white"
+                    },
+                    "borderColor": "green",
+                    "borderWidth": 5,
+                    "borderRadius": 0,
+                    "textAnchor": "end",
+                    "position": "bottom",
+                    "orientation": "horizontal",
+                    "offsetY": -8,
+                    "text": "Ya!"
+                },
+                "strokeDashArray": 0,
+                "borderColor": "#00f",
+                "x": "2013-01-04"
+            }
+        ]
+    },
+    "tooltip": {
+        "enabled": true
+    }
+}

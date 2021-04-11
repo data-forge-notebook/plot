@@ -1,133 +1,134 @@
-{                                                           
-    "chartDef": {
-        "data": {
-            "series": {
-                "x": {
-                    "type": "string",
-                    "values": [
-                        "2013-01-01",
-                        "2013-01-02",
-                        "2013-01-03",
-                        "2013-01-04",
-                        "2013-01-05",
-                        "2013-01-06"
-                    ],
-                    "annotations": [
-                        {
-                            "value": "2013-01-04",
-                            "text": "Ya!",
-                            "style": "blue"
-                        }
-                    ]
-                },
-                "data1": {
-                    "type": "number",
-                    "values": [
-                        30,
-                        200,
-                        100,
-                        400,
-                        150,
-                        250
-                    ],
-                    "annotations": [
-                        {
-                            "value": 100,
-                            "value2": 150,
-                            "text": "Foo!",
-                            "style": "red"
-                        }
-                    ]
-                },
-                "data2": {
-                    "type": "number",
-                    "values": [
-                        130,
-                        340,
-                        200,
-                        500,
-                        250,
-                        350
-                    ]
-                }
-            }
-        },
-        "plotConfig": {
-            "legend": {
-                "show": true
-            },
-            "chartType": "line",
-            "width": 800,
-            "height": 600,
-            "y": {
-                "min": 30,
-                "max": 500
-            },
-            "y2": {},
-            "annotations": {
-                "red": {
-                    "lineColor": "#f00",
-                    "strokeDashArray": 0,
-                    "lineWidth": "600px",
-                    "fillColor": "yellow",
-                    "opacity": 0.8,
-                    "label": {
-                        "textAnchor": "start",
-                        "offsetX": 15,
-                        "offsetY": -8,
-                        "position": "left",
-                        "padding": {
-                            "left": 5,
-                            "right": 5,
-                            "top": 15,
-                            "bottom": 15
-                        },
-                        "font": {
-                            "size": "20px"
-                        }
-                    }
-                },
-                "blue": {
-                    "lineColor": "#00f",
-                    "strokeDashArray": 0,
-                    "lineWidth": "200px",
-                    "label": {
-                        "backgroundColor": "blue",
-                        "borderColor": "green",
-                        "borderWidth": 5,
-                        "borderRadius": 0,
-                        "textAnchor": "end",
-                        "offsetY": -8,
-                        "position": "bottom",
-                        "orientation": "horizontal",
-                        "font": {
-                            "color": "white"
-                        }
-                    }
-                }
-            },
-            "series": {
-                "data1": {
-                    "chartType": "area"
-                },
-                "data2": {
-                    "chartType": "bar"
-                }
-            }
-        },
-        "axisMap": {
-            "y": [
-                {
-                    "series": "data1"
-                },
-                {
-                    "series": "data2"
-                }
-            ],
-            "y2": [],
+{
+    "data": {
+        "series": {
             "x": {
-                "series": "x"
+                "type": "string",
+                "values": [
+                    "2013-01-01",
+                    "2013-01-02",
+                    "2013-01-03",
+                    "2013-01-04",
+                    "2013-01-05",
+                    "2013-01-06"
+                ],
+                "annotations": [
+                    {
+                        "value": "2013-01-04",
+                        "text": "Ya!",
+                        "style": "blue"
+                    }
+                ]
+            },
+            "data1": {
+                "type": "number",
+                "values": [
+                    30,
+                    200,
+                    100,
+                    400,
+                    150,
+                    250
+                ],
+                "annotations": [
+                    {
+                        "value": 100,
+                        "value2": 150,
+                        "text": "Foo!",
+                        "style": "red"
+                    }
+                ]
+            },
+            "data2": {
+                "type": "number",
+                "values": [
+                    130,
+                    340,
+                    200,
+                    500,
+                    250,
+                    350
+                ]
             }
+        }
+    },
+    "plotConfig": {
+        "title": {
+            "text": "The chart title!"
+        },
+        "legend": {
+            "show": true
+        },
+        "chartType": "line",
+        "width": 800,
+        "height": 600,
+        "y": {
+            "min": 30,
+            "max": 500
+        },
+        "y2": {},
+        "annotations": {
+            "red": {
+                "lineColor": "#f00",
+                "strokeDashArray": 0,
+                "lineWidth": "600px",
+                "fillColor": "yellow",
+                "opacity": 0.8,
+                "label": {
+                    "textAnchor": "start",
+                    "offsetX": 15,
+                    "offsetY": -8,
+                    "position": "left",
+                    "padding": {
+                        "left": 5,
+                        "right": 5,
+                        "top": 15,
+                        "bottom": 15
+                    },
+                    "font": {
+                        "size": "20px"
+                    }
+                }
+            },
+            "blue": {
+                "lineColor": "#00f",
+                "strokeDashArray": 0,
+                "lineWidth": "200px",
+                "label": {
+                    "backgroundColor": "blue",
+                    "borderColor": "green",
+                    "borderWidth": 5,
+                    "borderRadius": 0,
+                    "textAnchor": "end",
+                    "offsetY": -8,
+                    "position": "bottom",
+                    "orientation": "horizontal",
+                    "font": {
+                        "color": "white"
+                    }
+                }
+            }
+        },
+        "series": {
+            "data1": {
+                "chartType": "area"
+            },
+            "data2": {
+                "chartType": "bar"
+            }
+        }
+    },
+    "axisMap": {
+        "y": [
+            {
+                "series": "data1"
+            },
+            {
+                "series": "data2"
+            }
+        ],
+        "y2": [],
+        "x": {
+            "series": "x"
         }
     }
 }                                                           

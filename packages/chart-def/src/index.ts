@@ -440,6 +440,47 @@ export interface ISeriesConfigMap {
 }
 
 /**
+ * Sets the title for the chart.
+ */
+export interface IChartTitle {
+
+    /**
+     * Text for the title.
+     */
+    text: string;
+
+    /**
+     * Sets the alignment for the title.
+     */
+    align?: "left" | "right" | "center";
+
+    /**
+     * Vertical spacing around the title.
+     */
+    margin?: number;
+
+    /**
+     * Sets the left offset for title text.
+     */
+    offsetX?: number;
+
+    /**
+     * Sets the top offset for title text.
+     */
+     offsetY?: number;
+
+     /**
+      * Set to true to float the text on top of the chart.
+      */
+     floating?: boolean;
+
+     /**
+      * Configures the title's font.
+      */
+     font?: IFontConfig;
+}
+
+/**
  * Defines the chart.
  */
 export interface IPlotConfig {
@@ -467,6 +508,11 @@ export interface IPlotConfig {
      * ```
      */
     series?: ISeriesConfigMap;
+
+    /**
+     * Sets the title for the chart.
+     */
+    title?: IChartTitle;
 
     /**
      * Width of the plot.
