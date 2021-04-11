@@ -120,3 +120,11 @@ Email the developer on ashley@codecapers.com.au.
 ## Support the developer 
 
 <a target="_blank" href="http://www.codecapers.com.au/#support-my-work">Click here to **support the developer.**</a>
+
+## Development stuff
+
+### Rebuilding the docs
+
+```bash
+npm run docs
+```
