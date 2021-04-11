@@ -145,6 +145,17 @@ export interface IChartDef {
 }
 
 // @public
+export interface IChartTitle {
+    align?: "left" | "right" | "center";
+    floating?: boolean;
+    font?: IFontConfig;
+    margin?: number;
+    offsetX?: number;
+    offsetY?: number;
+    text: string;
+}
+
+// @public
 export interface IDataLabels {
     font?: IFontConfig;
 }
@@ -179,6 +190,7 @@ export interface IPlotConfig {
     height?: number | string;
     legend?: ILegendConfig;
     series?: ISeriesConfigMap;
+    title?: IChartTitle;
     width?: number | string;
     x?: IXAxisConfig;
     y?: IYAxisConfig;

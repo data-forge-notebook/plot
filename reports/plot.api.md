@@ -16,6 +16,7 @@ import { IAxisLabelConfig } from '@plotex/chart-def';
 import { IAxisSeriesConfig } from '@plotex/chart-def';
 import { IAxisTicksConfiguration } from '@plotex/chart-def';
 import { IChartDef } from '@plotex/chart-def';
+import { IChartTitle } from '@plotex/chart-def';
 import { IDataLabels } from '@plotex/chart-def';
 import { ILegendConfig } from '@plotex/chart-def';
 import { ISeriesConfigMap } from '@plotex/chart-def';
@@ -72,6 +73,7 @@ export interface IPlotConfig {
     height?: number | string;
     legend?: ILegendConfig;
     series?: ISeriesConfigMap;
+    title?: IChartTitle;
     width?: number | string;
     x?: IXAxisConfig;
     y?: IYAxisConfig;
