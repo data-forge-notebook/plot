@@ -14,9 +14,9 @@
         "prepublishOnly": "npm test && npm run clean && tsc",
         "p": "npm run publish",
         "t": "npm run test",
-        "test": "jest",
+        "test": "jest --runInBand",
         "tw": "npm run test:watch",
-        "test:watch": "jest --watch",
+        "test:watch": "jest --watch --runInBand",
         "postinstall": "node postinstall.js || echo \"ignore\"",
         "docs": "tsc && api-extractor run --local"
     },
