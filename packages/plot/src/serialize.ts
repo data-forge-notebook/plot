@@ -20,7 +20,7 @@ const dataFramePlotDefaults: IPlotConfig = {
 //
 // Serialize an array of values.
 //
-function serializeValueArray(input: ValueArray): ISerializedData {
+export function serializeValueArray(input: ValueArray): ISerializedData {
     const serializedData: ISerializedData = {
         series: {
             y: {
@@ -35,105 +35,62 @@ function serializeValueArray(input: ValueArray): ISerializedData {
 } 
 
 //
-// Construct a JavaScript object from arrays of fields and values.
+// Serialize named data series from an input spec.
 //
-function toObject(fields: string[], values: any[]): any {
-    if (fields.length !== values.length) {
-        throw new Error("toObject: keys and values arrays must be the same length.");
-    }
-    const output: any = {};
-    for (let i = 0; i < fields.length; ++i) {
-        output[fields[i]] =  values[i];
-    }
-    return output;
-}
-
 //
-// Create an object from array.
-//
-function arrayToObject(arr: any[], keySelector: (item: any) => any, valueSelector: (item: any) => any): any {
-    return toObject(arr.map(keySelector), arr.map(valueSelector));
-}
-
-//
-// Defines a column in a set of column-based data arrays.
-//
-interface IColumn {
-    //
-    // Name of the column.
-    //
-    name: string;
-
-    //
-    // The data series for the column.
-    //
-    series: IDataSeries;
-}
-
-//
-// Serialize column-based input data.
-//
-function serializeValueObject(columnNames: string[], input: IMultiSeriesSpec): ISerializedData {
-    const columns = columnNames
-        .filter(name => {
-            const values = input[name];
-            if (isArray(values)) {
-                return values.length > 0; // Only want arrays with > 0 elements.
-            }
-            else {
-                return true;
-            }
-        })
-        .map(name => {
-            const seriesSpec = input[name];
-            if (isArray(seriesSpec)) {
-                const type = determineType(seriesSpec[0]);
-                const column: IColumn = {
-                    name,
-                    series: {
-                        type,
-                        values: seriesSpec,
-                    },
-                };
-                return column;
-            }
-            else {
-                const type = determineType(seriesSpec.values[0]);
-                const column: IColumn = {
-                    name,
-                    series: {
-                        type,
-                        values: seriesSpec.values,
-                        annotations: seriesSpec.annotations,
-                    },
-                };
-                return column;
-            }
-        });
+export function serializeValueObject(seriesNames: string[], input: IMultiSeriesSpec): ISerializedData {
 
     const serializedData: ISerializedData = {
-        series: arrayToObject(columns, column => column.name, column => column.series),
+        series: {            
+        },
     };
+
+    for (const seriesName of seriesNames) {
+        const seriesSpec = input[seriesName];
+        if (isArray(seriesSpec)) {
+            if (seriesSpec.length === 0) { // Only want arrays with > 0 elements.
+                continue;
+            }
+
+            if (Array.isArray(seriesSpec[0])) {
+                // It's an array of arrays.
+                // Expand out to multiple series.
+                let i = 0;
+                for (const array of seriesSpec) {
+                    const generatedSeriesName = `${seriesName}.${i}`;
+                    serializedData.series[generatedSeriesName] = {
+                        type: determineType(array[0]),
+                        values: array,
+                    };
+                    i += 1;
+                }
+            }
+            else {
+                serializedData.series[seriesName] = {
+                    type: determineType(seriesSpec[0]),
+                    values: seriesSpec,
+                };
+            }
+        }
+        else {
+            serializedData.series[seriesName] = {
+                type: determineType(seriesSpec.values[0]),
+                values: seriesSpec.values,
+                annotations: seriesSpec.annotations,
+            };
+        }
+    }
+
     return serializedData;
 }
 
 //
-// Serialize a data array.
+// Serialize a data spec that has values and annotations.
 //
-function serializeArray(data: ValueArray): ISerializedData {
-    if (data.length > 0 && isObject(data[0])) {
-        return serializeObjectArray(data);
-    }
-    else {
-        return serializeValueArray(data);
-    }
-}
-
-//
-// Serialize a data spec.
-//
-function serializeDataSpec(input: IDataSpec): ISerializedData {
-    let serializedData = isArray(input.values) ? serializeArray(input.values) : serializeValueObject(Object.keys(input.values), input.values);
+export function serializeDataSpec(input: IDataSpec): ISerializedData {
+    let serializedData = isArray(input.values) 
+        ? serializeArray(input.values) 
+        : serializeValueObject(Object.keys(input.values), input.values);
     if (input.annotations) {
         if (isArray(input.annotations)) {
             for (const seriesName of Object.keys(serializedData.series)) {
@@ -170,34 +127,42 @@ function serializeDataSpec(input: IDataSpec): ISerializedData {
 //
 // Serialize an array of objects.
 //
-function serializeObjectArray(input: ValueArray): ISerializedData {
+export function serializeObjectArray(input: ValueArray): ISerializedData {
     if (input.length <=  0) {
         return { series: {} }; // No data.
     }
 
-    const columnNames = Object.keys(input[0]);
-    if (columnNames.length <= 0) {
+    const seriesNames = Object.keys(input[0]);
+    if (seriesNames.length <= 0) {
         return { series: {} }; // No data.
     }
 
-    const columns = columnNames
-        .map(name => {
-            const values = input.map(obj => obj[name]);
-            const type = determineType(values[0]);
-            const column: IColumn = {
-                name,
-                series: {
-                    type,
-                    values,
-                },
-            };
-            return column;
-        });
-
     const serializedData: ISerializedData = {
-        series: arrayToObject(columns, column => column.name, column => column.series),
+        series: {            
+        },
     };
-    return serializedData;
+
+    for (const seriesName of seriesNames) {
+        const values = input.map(obj => obj[seriesName]);
+        serializedData.series[seriesName] = {
+            type: determineType(values[0]),
+            values: values,
+        }
+    }
+
+        return serializedData;
+}
+
+//
+// Serialize a data array.
+//
+export function serializeArray(data: ValueArray): ISerializedData {
+    if (data.length > 0 && isObject(data[0])) {
+        return serializeObjectArray(data);
+    }
+    else {
+        return serializeValueArray(data);
+    }
 }
 
 //
