@@ -10,7 +10,7 @@ Use plot to quickly and conveniently render charts for your data. It is an abstr
 
 Plot can be used from Node.js, from the browser and is specially designed to integrate with [Data-Forge Notebook](https://www.data-forge-notebook.com/).
 
-[Click here to support my work](https://www.codecapers.com.au/about#support-my-work)
+[Click here to support the developer](https://www.codecapers.com.au/about#support-my-work)
 
 ## Aims
 
@@ -113,7 +113,7 @@ Email the developer on ashley@codecapers.com.au.
 
 ## Support the developer 
 
-<a target="_blank" href="http://www.codecapers.com.au/#support-my-work">Click here to **support the developer.**</a>
+<a target="_blank" href="https://www.codecapers.com.au/about#support-my-work">Click here to **support the developer.**</a>
 
 ## Development stuff
 
